@@ -1,0 +1,41 @@
+@reference "../../../styles/index.css";
+
+.common-multiselect-wrapper {
+  @apply flex flex-col w-full;
+}
+
+.common-multiselect-label {
+  @apply block text-[13px] font-medium text-[#444444] mb-1 select-none;
+}
+
+.multiselect {
+  @apply relative w-full text-xs font-normal text-[#333333] select-none;
+}
+
+.multiselect__select {
+  @apply absolute right-0 top-0 h-[30px] w-[30px] flex items-center justify-center text-[#222222] pointer-events-none z-10;
+}
+
+.multiselect__tags {
+  @apply flex items-center bg-white border border-[#CCCCCC] rounded-[3px] px-2.5 py-1 pr-8 cursor-text shadow-xs min-h-[30.2px] h-[30.2px];
+}
+
+.multiselect__placeholder {
+  @apply text-[13px] font-normal text-[#999999] leading-tight select-none;
+}
+
+.multiselect__input {
+  @apply w-full bg-transparent text-[13px] font-normal text-[#333333] placeholder:text-[#999999] focus:outline-none;
+}
+
+.multiselect__content-wrapper {
+  @apply absolute top-full left-0 right-0 w-full bg-white border border-[#CCCCCC] rounded-b-[3px] shadow-lg z-50 max-h-[300px] overflow-y-auto mt-[1px];
+}
+
+.multiselect__content {
+  @apply list-none p-0 m-0 flex flex-col;
+}
+
+.multiselect__option {
+  @apply px-3 py-1.5 text-[13px] font-normal text-[#333333] hover:bg-[#f3f3f3] block cursor-pointer transition-colors;
+}

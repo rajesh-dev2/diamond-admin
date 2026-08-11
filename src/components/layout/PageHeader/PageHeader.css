@@ -1,0 +1,19 @@
+@reference "../../../styles/index.css";
+
+@layer components {
+  .page-title-box {
+    @apply w-full bg-[#F7F7F7] px-2.5 flex items-center justify-between font-sans select-none shrink-0 min-h-[72px];
+  }
+
+  .page-title-heading {
+    @apply text-[22px] leading-[27px] font-medium text-[#1e1e1e] flex items-center gap-1.5 mb-0;
+  }
+
+  .page-title-right {
+    @apply flex items-center min-h-[40px];
+  }
+
+  .page-header-search-input {
+    @apply w-40 sm:w-52 min-h-[40px] px-2.5 bg-white text-xs text-[#333333] placeholder:text-[#999999] rounded border border-[#CCCCCC] focus:outline-none focus:border-[#999999] shadow-xs;
+  }
+}

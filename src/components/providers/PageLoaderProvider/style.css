@@ -1,0 +1,7 @@
+@import "tailwindcss";
+
+@layer components {
+  .loader-overlay-container {
+    @apply fixed inset-0 z-50 flex items-center justify-center bg-[#CCCCCC] transition-opacity duration-200 pointer-events-none;
+  }
+}

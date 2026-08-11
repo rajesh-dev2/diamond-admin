@@ -1,0 +1,13 @@
+@reference "../../../styles/index.css";
+
+.common-form-select-wrapper {
+  @apply flex flex-col w-full;
+}
+
+.common-form-select-label {
+  @apply block text-[13px] font-medium text-[#444444] mb-1 select-none;
+}
+
+.common-form-select-input {
+  @apply w-full h-[30.2px] bg-white border border-[#CCCCCC] rounded-[3px] px-2.5 text-[13px] text-[#333333] focus:outline-none transition-colors cursor-pointer disabled:bg-gray-100 disabled:cursor-not-allowed;
+}

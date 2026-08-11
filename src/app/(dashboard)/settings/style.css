@@ -1,0 +1,179 @@
+@reference "../../../styles/index.css";
+
+@layer components {
+  .ml-wrapper {
+    @apply flex flex-col w-full min-h-screen bg-[#f4f5f7] p-3.5;
+  }
+
+  .ml-title {
+    @apply text-[18px] font-medium text-[#1e1e1e] mb-3;
+  }
+
+  .ml-card {
+    @apply bg-white border border-[#dee2e6] rounded-[4px] p-4 shadow-2xs;
+  }
+
+  .ml-form {
+    @apply flex flex-col;
+  }
+
+  .ml-section-title {
+    @apply text-[15px] font-medium text-[#212529] mb-2;
+  }
+
+  .ml-form-row {
+    @apply grid grid-cols-4 gap-4 mb-3;
+  }
+
+  .ml-form-group {
+    @apply flex flex-col;
+  }
+
+  .ml-label {
+    @apply text-[13px] font-normal text-[#212529] mb-1;
+  }
+
+  .ml-input {
+    @apply w-full h-[36px] px-3 py-1.5 text-[13px] text-[#495057] bg-white border border-[#ced4da] rounded transition-colors focus:border-[#BE8220] focus:outline-none placeholder-[#999999];
+  }
+
+  .ml-privileges-section {
+    @apply mt-1;
+  }
+
+  .ml-privilege-box {
+    @apply bg-[#f4f5f7] border border-[#e9ecef] rounded-[4px] p-3;
+  }
+
+  .ml-privilege-all-row {
+    @apply mb-2 pb-1;
+  }
+
+  .ml-privilege-grid {
+    @apply grid grid-cols-8 gap-x-2 gap-y-2;
+  }
+
+  .ml-privilege-item {
+    @apply flex items-center;
+  }
+
+  .ml-checkbox-label {
+    @apply inline-flex items-center gap-1.5 text-[13px] font-normal text-[#212529] cursor-pointer select-none whitespace-nowrap;
+  }
+
+  .ml-checkbox {
+    @apply hidden;
+  }
+
+  .ml-checkbox-custom {
+    @apply inline-block w-[14px] h-[14px] min-w-[14px] border border-[#000000] rounded-[2px] bg-white relative transition-all;
+  }
+
+  .ml-checkbox:checked + .ml-checkbox-custom {
+    @apply bg-black border-black;
+  }
+
+  .ml-checkbox:checked + .ml-checkbox-custom::after {
+    content: '';
+    @apply absolute border-white border-solid;
+    left: 4px;
+    top: 1px;
+    width: 4px;
+    height: 7px;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }
+
+  .ml-action-bar {
+    @apply flex justify-end mt-3;
+  }
+
+  .ml-action-bar-inner {
+    @apply flex items-center gap-2;
+  }
+
+  .ml-txcode-input {
+    @apply w-[180px] h-[36px];
+  }
+
+  .ml-btn-submit {
+    @apply h-[36px] px-4 text-[13px] font-medium text-white bg-[#34c38f] border border-[#34c38f] rounded cursor-pointer transition-colors hover:bg-[#2ca67a];
+  }
+
+  .ml-btn-reset {
+    @apply h-[36px] px-4 text-[13px] font-medium text-[#212529] bg-[#f8f9fa] border border-[#ced4da] rounded cursor-pointer transition-colors hover:bg-[#e2e6ea];
+  }
+
+  /* ── Table Outer & Inner with Sticky Columns ── */
+  .outer {
+    @apply mt-4 relative w-full overflow-hidden;
+  }
+
+  .inner {
+    @apply w-full overflow-x-auto;
+  }
+
+  .inner::-webkit-scrollbar {
+    height: 10px;
+  }
+
+  .inner::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 5px;
+  }
+
+  .inner::-webkit-scrollbar-thumb {
+    background: #777777;
+    border-radius: 5px;
+  }
+
+  .inner::-webkit-scrollbar-thumb:hover {
+    background: #555555;
+  }
+
+  .table-bordered {
+    @apply w-full border-collapse text-[13px] whitespace-nowrap border border-[#dee2e6];
+
+    th, td {
+      @apply px-3 py-2 text-[13px] text-[#212529] border border-[#dee2e6] text-left whitespace-nowrap bg-white font-semibold;
+    }
+
+    tbody tr:nth-child(even) th,
+    tbody tr:nth-child(even) td {
+      @apply bg-[#f8f9fa];
+    }
+  }
+
+  .fixed-col-1 {
+    position: sticky !important;
+    left: 0 !important;
+    z-index: 10 !important;
+    min-width: 90px !important;
+    max-width: 90px !important;
+    background-color: #ffffff !important;
+  }
+
+  .fixed-col-2 {
+    position: sticky !important;
+    left: 90px !important;
+    z-index: 10 !important;
+    min-width: 120px !important;
+    max-width: 120px !important;
+    background-color: #ffffff !important;
+  }
+
+  .fixed-col-3 {
+    position: sticky !important;
+    left: 210px !important;
+    z-index: 10 !important;
+    min-width: 80px !important;
+    max-width: 80px !important;
+    background-color: #ffffff !important;
+    border-right: 2px solid #ced4da !important;
+    box-shadow: 4px 0 6px -2px rgba(0, 0, 0, 0.08) !important;
+  }
+
+  .fixed-col-4 {
+    min-width: 110px !important;
+  }
+}

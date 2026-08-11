@@ -1,0 +1,7 @@
+@import "tailwindcss";
+
+@layer components {
+  .sidebar-aside {
+    @apply absolute top-0 left-0 z-40 bg-[#f9f9f9] h-full;
+  }
+}

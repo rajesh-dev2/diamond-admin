@@ -1,0 +1,19 @@
+.live-virtual-market-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100vh;
+  background-color: #ffffff;
+}
+
+.live-virtual-market-content {
+  flex: 1;
+  padding: 24px;
+  background-color: #ffffff;
+}
+
+.live-virtual-market-info-text {
+  font-size: 12px;
+  color: #888888;
+  font-weight: 500;
+}

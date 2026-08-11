@@ -1,0 +1,35 @@
+@reference "../../styles/index.css";
+
+@layer components {
+  .modal-overlay {
+    @apply fixed inset-0 z-50 flex p-3;
+  }
+
+  .modal-backdrop {
+    @apply fixed inset-0 bg-black/65 backdrop-blur-xs;
+  }
+
+  .modal-container {
+    @apply relative z-10 w-full bg-white rounded shadow-2xl border border-gray-200 overflow-hidden flex flex-col max-h-[92vh];
+  }
+
+  .modal-header {
+    @apply flex items-center justify-between px-5 py-3 bg-white text-[#1e1e1e] border-b border-gray-100;
+  }
+
+  .modal-header-title {
+    @apply text-[17px] font-bold text-[#222222] tracking-wide;
+  }
+
+  .modal-close-btn {
+    @apply w-7 h-7 rounded-full bg-[#d99b26] hover:bg-[#be8220] text-white flex items-center justify-center transition-colors shadow-sm cursor-pointer border-none;
+  }
+
+  .modal-body {
+    @apply p-4 bg-[#f4f5f7] flex-1 overflow-y-auto;
+  }
+
+  .modal-footer {
+    @apply flex items-center justify-end gap-3 px-5 py-3 border-t border-gray-200 bg-gray-50;
+  }
+}

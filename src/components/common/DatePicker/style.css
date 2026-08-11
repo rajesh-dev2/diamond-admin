@@ -1,0 +1,239 @@
+@reference "../../../styles/index.css";
+
+.common-datepicker-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.common-datepicker-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: #444444;
+  margin-bottom: 4px;
+  user-select: none;
+}
+
+/* MX Datepicker Plugin Styles */
+.mx-datepicker {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.mx-input-wrapper {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.mx-input {
+  display: inline-block;
+  box-sizing: border-box;
+  width: 100%;
+  height: 32.2px;
+  padding: 4px 30px 4px 10px;
+  font-size: 13px;
+  line-height: 1.4;
+  color: #495057;
+  background-color: #e9ecef;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 3px;
+  transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+  cursor: pointer;
+}
+
+.mx-input:focus,
+.mx-input:hover {
+  border-color: #ced4da !important;
+  background-color: #e9ecef !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.mx-icon-calendar,
+.mx-icon-clear {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  font-size: 14px;
+  color: #888888;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+}
+
+.mx-icon-clear {
+  display: none;
+}
+
+.mx-input-wrapper:hover .mx-icon-clear {
+  display: inline-flex;
+}
+
+.mx-input-wrapper:hover .mx-icon-clear~.mx-icon-calendar {
+  display: none;
+}
+
+.mx-icon-clear:hover {
+  color: #333333;
+}
+
+.mx-icon-calendar {
+  pointer-events: none;
+}
+
+/* Popover Popup - Matched UI */
+.mx-datepicker-main,
+.mx-datepicker-main.mx-datepicker-popup {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 4px;
+  z-index: 1000;
+  background-color: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+  padding: 10px 14px 14px;
+  width: 250px;
+}
+
+.mx-calendar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 36px;
+  line-height: 36px;
+  text-align: center;
+  border-bottom: none;
+  margin-bottom: 6px;
+  padding: 0 2px;
+}
+
+.mx-btn-icon-double-left {
+  order: 1;
+}
+
+.mx-btn-icon-left {
+  order: 2;
+}
+
+.mx-calendar-header-label,
+.mx-calendar-header-label button,
+.mx-calendar-header-label .mx-btn {
+  order: 3;
+  flex: 1;
+  text-align: center;
+  font-weight: 600;
+  font-size: 14px;
+  color: #47698a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  border: none;
+  background: none;
+}
+
+.mx-calendar-header-label button:hover {
+  color: #1890ff !important;
+}
+
+.mx-btn-icon-right {
+  order: 4;
+}
+
+.mx-btn-icon-double-right {
+  order: 5;
+}
+
+.mx-btn {
+  box-sizing: border-box;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #94a3b8;
+  padding: 0 4px;
+  font-size: 12px;
+  line-height: 1;
+  outline: none;
+  font-family: inherit;
+  transition: color 0.15s ease;
+}
+
+.mx-btn:hover {
+  color: #1890ff;
+}
+
+.mx-table-date,
+.mx-table-month,
+.mx-table-year {
+  width: 100%;
+  text-align: center;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+
+.mx-table-date th {
+  font-weight: 600;
+  color: #64748b;
+  padding: 6px 2px;
+  text-align: center;
+  font-size: 12px;
+}
+
+.mx-table-date td.cell {
+  padding: 0;
+  text-align: center;
+  cursor: pointer;
+  color: #334155;
+  border-radius: 2px;
+  font-size: 12px;
+  height: 28px;
+  line-height: 28px;
+  width: 28px;
+  transition: all 0.15s ease-in-out;
+}
+
+.mx-table-month td.cell,
+.mx-table-year td.cell {
+  padding: 10px 4px;
+  text-align: center;
+  cursor: pointer;
+  color: #334155;
+  border-radius: 2px;
+  font-size: 12px;
+}
+
+.mx-table-date td.cell:hover,
+.mx-table-month td.cell:hover,
+.mx-table-year td.cell:hover {
+  background-color: #f1f5f9;
+  color: #1890ff;
+}
+
+/* Solid Blue Selected Square Active Cell */
+.mx-table-date td.cell.active,
+.mx-table-month td.cell.active,
+.mx-table-year td.cell.active {
+  background-color: #1890ff !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
+  border-radius: 2px;
+}
+
+.mx-table-date td.cell.today {
+  color: #1890ff;
+  font-weight: 600;
+}
+
+.mx-table-date td.cell.not-current-month {
+  color: #cbd5e1;
+}

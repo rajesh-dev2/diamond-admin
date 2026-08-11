@@ -1,0 +1,40 @@
+@reference "../../../styles/index.css";
+
+@layer components {
+  .sports-tree-container {
+    @apply w-[300px] h-full overflow-y-auto text-[12px] leading-[15px] font-normal text-[#1e1e1e] select-none;
+  }
+
+  .sports-tree-header {
+    @apply flex items-center justify-between px-3 pt-3 pb-2;
+  }
+
+  .sports-tree-title {
+    @apply text-[28px] font-normal text-[#000000] tracking-tight leading-none;
+  }
+
+  .sports-tree-gold-dot {
+    @apply absolute -left-[8px] top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-[#C48D2A] pointer-events-none shrink-0;
+  }
+
+  .sports-tree-node-item {
+    @apply flex items-center py-[2px] px-2 text-[12px] leading-[15px] font-normal text-[#1e1e1e] cursor-pointer whitespace-normal break-words;
+  }
+}
+
+.sports-tree-container::-webkit-scrollbar {
+  width: 5px;
+}
+
+.sports-tree-container::-webkit-scrollbar-track {
+  background: #F5F5F5;
+}
+
+.sports-tree-container::-webkit-scrollbar-thumb {
+  background: #CCCCCC;
+  border-radius: 3px;
+}
+
+.sports-tree-container::-webkit-scrollbar-thumb:hover {
+  background: #A8A8A8;
+}

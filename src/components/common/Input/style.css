@@ -1,0 +1,29 @@
+@reference "../../../styles/index.css";
+
+.common-input-wrapper {
+  @apply w-full flex flex-col gap-1.5;
+}
+
+.common-input-label {
+  @apply text-xs font-semibold text-gray-700 dark:text-gray-300;
+}
+
+.common-input-relative {
+  @apply relative flex items-center;
+}
+
+.common-input-left-icon {
+  @apply absolute left-3 text-gray-400 pointer-events-none;
+}
+
+.common-input-right-icon {
+  @apply absolute right-3 text-gray-400;
+}
+
+.common-input-element {
+  @apply w-full h-9 rounded-md border border-gray-300 bg-white px-3 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#C98A1B] focus:border-transparent transition-all dark:bg-gray-900 dark:border-gray-700 dark:text-gray-100;
+}
+
+.common-input-error-text {
+  @apply text-xs text-red-500 font-medium;
+}

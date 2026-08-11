@@ -1,0 +1,146 @@
+@font-face {
+  font-family: 'Roboto Condensed';
+  src: url('/fonts/ieVo2ZhZI2eCN5jzbjEETS9weq8-_d6T_POl0fRJeyWyosBO5Xw.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@layer base {
+  :root {
+    --primary: #C98B26;
+    --primary-hover: #A77118;
+    --dark: #1A1A1A;
+    --light-bg: #FFFFFF;
+    --sub-header-bg: #F4F5F7;
+    --border: #E5E5E5;
+    --success: #2ECC71;
+    --danger: #E74C3C;
+    --warning: #F39C12;
+    --sidebar-width-expanded: 300px;
+    --sidebar-width-collapsed: 0px;
+  }
+
+  .dark {
+    --primary: #BE8220;
+    --primary-hover: #A77118;
+    --dark: #121212;
+    --light-bg: #FFFFFF;
+    --sub-header-bg: #F4F5F7;
+    --border: #2E2E2E;
+  }
+}
+
+@theme {
+  --font-sans: 'Roboto Condensed', sans-serif;
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-brand-dark: var(--dark);
+  --color-brand-bg: var(--light-bg);
+  --color-brand-border: var(--border);
+  --color-success: var(--success);
+  --color-danger: var(--danger);
+  --color-warning: var(--warning);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  background-color: var(--light-bg);
+  color: #1e1e1e;
+  font-family: "Roboto Condensed", sans-serif;
+  font-size: 14px;
+  line-height: 15px;
+  overflow-x: hidden;
+}
+
+/* Define Tailwind v4 Custom Utility */
+@utility custom-sidebar-scrollbar {
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #F5F5F5;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #CCCCCC;
+    border-radius: 3px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: #A8A8A8;
+  }
+}
+
+/* General Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.4);
+}
+
+
+.page-content {
+  min-height: 100vh;
+  padding: 10px 15px 70px;
+}
+
+input:focus,
+input:hover,
+.mx-input:focus,
+.mx-input:hover {
+  outline: none !important;
+  box-shadow: none !important;
+  border-color: #CCCCCC !important;
+}
+
+/* Vue Multiselect exact styling */
+.multiselect {
+  @apply relative w-full text-xs font-normal text-[#333333] select-none;
+}
+
+.multiselect__select {
+  @apply absolute right-0 top-0 h-[30px] w-[30px] flex items-center justify-center text-[#222222] pointer-events-none z-10;
+}
+
+.multiselect__tags {
+  @apply flex items-center bg-white border border-[#CCCCCC] rounded-[3px] px-2.5 py-1 pr-8 cursor-text shadow-xs;
+}
+
+.multiselect__placeholder {
+  @apply text-[13px] font-normal text-[#999999] leading-tight select-none;
+}
+
+.multiselect__input {
+  @apply w-full bg-transparent text-[13px] font-normal text-[#333333] placeholder:text-[#999999] focus:outline-none;
+}
+
+.multiselect__content-wrapper {
+  @apply absolute top-full left-0 right-0 w-full bg-white border border-[#CCCCCC] rounded-b-[3px] shadow-lg z-50 max-h-[300px] overflow-y-auto mt-[1px];
+}
+
+.multiselect__content {
+  @apply list-none p-0 m-0 flex flex-col;
+}
+
+.multiselect__option {
+  @apply px-3 py-2 text-[13px] font-normal text-[#333333] hover:bg-[#f3f3f3] block cursor-pointer transition-colors;
+}

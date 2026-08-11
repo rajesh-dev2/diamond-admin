@@ -1,0 +1,428 @@
+@reference "../../../styles/index.css";
+
+@layer components {
+
+  /* Page Layout */
+  .report-wrapper {
+    @apply w-full p-4 bg-[#F9F9F9] h-auto text-[#333333] font-sans;
+
+
+    .report-header-bar {
+      @apply flex items-center justify-between mb-3;
+    }
+
+    .report-page-title {
+      @apply text-[18px] font-bold text-[#222222] mb-1 tracking-tight;
+    }
+
+    /* Report Main Card Container */
+    .report-card {
+      @apply bg-transparent p-4 rounded-[4px] border border-[#E0E0E0] shadow-2xs mb-4;
+    }
+
+    /* Current Bets Specific Controls */
+    .current-bets-filter-bar {
+      @apply flex flex-wrap items-center justify-between gap-3 mb-4 pb-2 border-b border-[#F0F0F0];
+    }
+
+    .current-bets-controls {
+      @apply flex flex-col gap-2.5;
+    }
+
+    .current-bets-control-row {
+      @apply flex items-center gap-4;
+    }
+
+    .current-bets-summary {
+      @apply text-[13px] font-bold text-[#333333] select-none text-right self-center;
+    }
+
+    .current-bets-summary span {
+      @apply font-semibold text-[#333333] mr-3 last:mr-0;
+    }
+
+    /* General Report Specific Controls */
+    .general-report-filter-bar {
+      @apply flex items-end gap-3 mb-4 pb-3 border-b border-[#F0F0F0];
+    }
+
+    /* Game Report Specific Controls */
+    .game-report-filter-bar {
+      @apply flex flex-col gap-3 mb-4 pb-3 border-b border-[#F0F0F0];
+    }
+
+    /* Casino Report Specific Controls */
+    .casino-report-filter-bar {
+      @apply flex flex-wrap items-end gap-3 mb-4 pb-3 border-b border-[#F0F0F0];
+    }
+
+    /* Profit Loss Specific Controls */
+    .profit-loss-filter-bar {
+      @apply flex flex-wrap items-end gap-3 mb-4 pb-3 border-b border-[#F0F0F0];
+    }
+
+    /* Casino Result Specific Controls */
+    .casino-result-filter-bar {
+      @apply flex flex-wrap items-end gap-3 mb-4 pb-3 border-b border-[#F0F0F0];
+    }
+
+    /* General Lock Specific Controls */
+    .user-lock-filter-bar {
+      @apply flex flex-wrap items-end gap-3 mb-4 pb-3 border-b border-[#F0F0F0];
+    }
+
+    /* User Register Detail Specific Controls */
+    .user-register-filter-bar {
+      @apply flex flex-wrap items-end gap-3 mb-4 pb-3 border-b border-[#F0F0F0];
+    }
+
+    /* Total Profit Loss Specific Controls */
+    .total-profit-loss-filter-bar {
+      @apply flex flex-col gap-3 mb-4 pb-3 border-b border-[#F0F0F0];
+    }
+
+    /* User Win Loss Specific Controls */
+    .user-win-loss-filter-bar {
+      @apply flex flex-wrap items-end gap-3 mb-4 pb-3 border-b border-[#F0F0F0];
+    }
+
+    .report-sub-section {
+      @apply mt-6 first:mt-2;
+    }
+
+    .report-sub-title {
+      @apply text-[14px] font-bold text-[#333333] mb-2;
+    }
+
+    .btn-export-excel {
+      @apply h-[34px] px-2.5 bg-[#46B48C] hover:bg-[#3ca47f] text-white rounded-[3px] flex items-center justify-center text-xs font-semibold cursor-pointer transition-colors shadow-2xs;
+    }
+
+    .btn-export-pdf {
+      @apply h-[34px] px-2.5 bg-[#E96A6A] hover:bg-[#d85858] text-white rounded-[3px] flex items-center justify-center text-xs font-semibold cursor-pointer transition-colors shadow-2xs;
+    }
+
+    /* Form & Filter Bar */
+    .report-form {
+      @apply bg-white p-4 rounded-[4px] border border-[#E0E0E0] shadow-2xs mb-4;
+    }
+
+    .report-form-fields {
+      @apply grid grid-cols-6 gap-[30px] mb-3;
+    }
+
+    .report-filter-select {
+      @apply w-full;
+    }
+
+    .report-filter-input {
+      @apply w-full;
+    }
+
+    .report-filter-datepicker {
+      @apply w-full;
+    }
+
+    .report-form-actions {
+      @apply flex justify-start;
+    }
+
+    .report-label {
+      @apply block text-[13px] font-medium text-[#444444] mb-1;
+    }
+
+    .report-select {
+      @apply w-full h-[36px] bg-white border border-[#CCCCCC] rounded-[3px] px-2.5 text-[13px] text-[#333333] focus:outline-none transition-colors cursor-pointer;
+    }
+
+    .report-input {
+      @apply w-full h-[36px] bg-white border border-[#CCCCCC] rounded-[3px] px-2.5 text-[13px] text-[#333333] placeholder:text-[#999999] focus:outline-none transition-colors;
+    }
+
+    .report-btn-load {
+      @apply h-[34px] px-6 bg-[#C98B26] hover:bg-[#A77118] text-white text-[13px] font-bold uppercase rounded-[3px] transition-colors cursor-pointer border-none shadow-2xs;
+    }
+
+    /* MX Datepicker Plugin Styles */
+    .mx-datepicker {
+      position: relative;
+      display: inline-block;
+      width: 100%;
+    }
+
+    .mx-input-wrapper {
+      position: relative;
+      width: 100%;
+      display: flex;
+      align-items: center;
+    }
+
+    .mx-input {
+      display: inline-block;
+      box-sizing: border-box;
+      width: 100%;
+      height: 32.2px;
+      padding: 4px 30px 4px 10px;
+      font-size: 13px;
+      line-height: 1.4;
+      color: #495057;
+      background-color: #e9ecef;
+      background-clip: padding-box;
+      border: 1px solid #ced4da;
+      border-radius: 3px;
+      transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+      cursor: pointer;
+    }
+
+    .report-wrapper .multiselect {
+      height: 30.2px !important;
+      min-height: 30.2px !important;
+    }
+
+    .mx-input:focus,
+    .mx-input:hover {
+      border-color: #ced4da !important;
+      background-color: #e9ecef !important;
+      outline: none !important;
+      box-shadow: none !important;
+    }
+
+    .mx-icon-calendar,
+    .mx-icon-clear {
+      position: absolute;
+      top: 50%;
+      right: 10px;
+      transform: translateY(-50%);
+      font-size: 14px;
+      color: #888888;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 5;
+    }
+
+    .mx-icon-clear {
+      display: none;
+    }
+
+    .mx-input-wrapper:hover .mx-icon-clear {
+      display: inline-flex;
+    }
+
+    .mx-input-wrapper:hover .mx-icon-clear~.mx-icon-calendar {
+      display: none;
+    }
+
+    .mx-icon-clear:hover {
+      color: #333333;
+    }
+
+    .mx-icon-calendar {
+      pointer-events: none;
+    }
+
+    /* Popover Popup */
+    .mx-datepicker-main,
+    .mx-datepicker-main.mx-datepicker-popup {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      margin-top: 4px;
+      z-index: 1000;
+      background-color: #ffffff;
+      border: 1px solid rgba(0, 0, 0, 0.12);
+      border-radius: 4px;
+      box-shadow: 0 6px 16px 0 rgba(0, 0, 0, 0.12);
+      padding: 8px 12px 12px;
+      width: 240px;
+    }
+
+    .mx-calendar-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 32px;
+      line-height: 32px;
+      text-align: center;
+      border-bottom: 1px solid #f0f0f0;
+      margin-bottom: 6px;
+      padding: 0 2px;
+    }
+
+    .mx-btn-icon-double-left {
+      order: 1;
+    }
+
+    .mx-btn-icon-left {
+      order: 2;
+    }
+
+    .mx-calendar-header-label,
+    .mx-calendar-header-label button,
+    .mx-calendar-header-label .mx-btn {
+      order: 3;
+      flex: 1;
+      text-align: center;
+      font-weight: 600;
+      font-size: 13px;
+      color: #1890ff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+    }
+
+    .mx-btn-icon-right {
+      order: 4;
+    }
+
+    .mx-btn-icon-double-right {
+      order: 5;
+    }
+
+    .mx-btn {
+      box-sizing: border-box;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #888888;
+      padding: 0 4px;
+      font-size: 11px;
+      line-height: 1;
+      outline: none;
+      font-family: inherit;
+    }
+
+    .mx-btn:hover {
+      color: #1890ff;
+    }
+
+    .mx-table-date,
+    .mx-table-month,
+    .mx-table-year {
+      width: 100%;
+      text-align: center;
+      border-collapse: collapse;
+      font-size: 11px;
+    }
+
+    .mx-table-date th {
+      font-weight: 600;
+      color: #555555;
+      padding: 4px 2px;
+      text-align: center;
+      font-size: 11px;
+    }
+
+    .mx-table-date td.cell {
+      padding: 4px 2px;
+      text-align: center;
+      cursor: pointer;
+      color: #555555;
+      border-radius: 2px;
+      font-size: 11px;
+      height: 26px;
+      line-height: 26px;
+    }
+
+    .mx-table-month td.cell,
+    .mx-table-year td.cell {
+      padding: 8px 4px;
+      text-align: center;
+      cursor: pointer;
+      color: #555555;
+      border-radius: 2px;
+      font-size: 11px;
+    }
+
+    .mx-table-date td.cell:hover,
+    .mx-table-month td.cell:hover,
+    .mx-table-year td.cell:hover {
+      background-color: #f5f5f5;
+      color: #1890ff;
+    }
+
+    .mx-table-date td.cell.active,
+    .mx-table-month td.cell.active,
+    .mx-table-year td.cell.active {
+      background-color: transparent !important;
+      color: #1890ff !important;
+      font-weight: bold;
+    }
+
+    .mx-table-date td.cell.today {
+      color: #1890ff;
+      font-weight: bold;
+    }
+
+    .mx-table-date td.cell.not-current-month {
+      color: #d9d9d9;
+    }
+
+    /* Report Table Styles */
+    .report-table-container {
+      @apply w-full bg-white rounded-[4px] border border-[#E0E0E0] shadow-2xs overflow-hidden mb-3;
+    }
+
+    .report-table {
+      @apply w-full text-left border-collapse text-[13px];
+    }
+
+    .report-table th {
+      @apply bg-[#FAFAFA] text-[#222222] font-bold px-3 py-2.5 border-b border-[#E0E0E0] border-r border-r-[#F0F0F0] last:border-r-0 uppercase tracking-tight text-[12px];
+    }
+
+    .report-table td {
+      @apply px-3 py-2.5 border-b border-[#F0F0F0] border-r border-r-[#F0F0F0] last:border-r-0 text-[#333333] text-[13px];
+    }
+
+    .report-table tr:nth-child(even) {
+      @apply bg-[#FAFAFA];
+    }
+
+    .report-table tr:hover {
+      @apply bg-[#F4F5F7];
+    }
+
+    /* Table Controls (Show entries / Search) */
+    .report-controls-bar {
+      @apply flex items-center justify-between mb-3 text-[13px] text-[#444444];
+    }
+
+    .report-entries-select {
+      @apply h-[30px] border border-[#CCCCCC] rounded-[3px] pl-2 pr-6 text-[12px] bg-white text-[#333333] focus:outline-none ml-1 mr-1 cursor-pointer appearance-none;
+      background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3E%3Cpath fill='%23343a40' d='M2 0L0 2h4zm0 5L0 3h4z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 6px center;
+      background-size: 8px 10px;
+    }
+
+    .report-entries-select:focus {
+      border-color: #b1bbc4 !important;
+      outline: 0 !important;
+      box-shadow: 0 0 0 0.15rem rgba(85, 110, 230, 0.25) !important;
+    }
+
+    .report-search-field {
+      @apply h-[30px] border border-[#CCCCCC] rounded-[3px] px-2 text-[12px] bg-white text-[#333333] placeholder:text-[#999999] focus:outline-none ml-1;
+    }
+
+    /* Pagination */
+    .report-pagination {
+      @apply flex items-center justify-end gap-1 text-[12px];
+    }
+
+    .report-page-item {
+      @apply inline-flex items-center justify-center min-w-[28px] h-[28px] px-2 border border-[#E0E0E0] bg-white text-[#555555] rounded-[3px] hover:bg-[#F5F5F5] cursor-pointer transition-colors select-none font-medium;
+    }
+
+    .report-page-item.active {
+      @apply bg-[#C98B26] border-[#C98B26] text-white font-bold hover:bg-[#C98B26];
+    }
+
+    .report-page-item.disabled {
+      @apply opacity-40 cursor-not-allowed bg-white hover:bg-white text-[#888888];
+    }
+  }
+}

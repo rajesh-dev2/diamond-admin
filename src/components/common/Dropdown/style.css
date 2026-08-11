@@ -1,0 +1,21 @@
+@reference "../../../styles/index.css";
+
+.common-dropdown-wrapper {
+  @apply relative inline-block text-left;
+}
+
+.common-dropdown-menu {
+  @apply absolute z-50 mt-2 w-48 rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 shadow-lg py-1 focus:outline-none;
+}
+
+.common-dropdown-item {
+  @apply w-full flex items-center gap-2 px-4 py-2 text-xs font-medium text-left transition-colors text-gray-700 dark:text-gray-200 hover:bg-amber-50 hover:text-[#C98A1B] dark:hover:bg-gray-800 border-none bg-transparent cursor-pointer;
+}
+
+.common-dropdown-item-danger {
+  @apply text-red-600 hover:bg-red-50 dark:hover:bg-red-950/40;
+}
+
+.common-dropdown-item-disabled {
+  @apply opacity-50 cursor-not-allowed;
+}

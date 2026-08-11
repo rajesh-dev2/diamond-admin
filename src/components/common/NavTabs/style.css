@@ -1,0 +1,17 @@
+@reference "../../../styles/index.css";
+
+.common-navtabs-wrapper {
+  @apply border-b border-[#ced4da] mb-0;
+}
+
+.common-navtabs-list {
+  @apply flex items-center gap-1 -mb-px list-none p-0 m-0;
+}
+
+.common-navtabs-btn {
+  @apply px-4 py-1.5 text-[12px] font-medium transition-colors cursor-pointer rounded-t-[4px] relative z-10 bg-transparent text-[#555555] border border-transparent hover:text-[#333333];
+}
+
+.common-navtabs-btn-active {
+  @apply bg-white text-[#333333] font-medium border border-[#ced4da] border-b-white -mb-px;
+}

@@ -1,0 +1,21 @@
+@reference "../../../styles/index.css";
+
+.common-pagination-wrapper {
+  @apply flex justify-end pt-2 select-none;
+}
+
+.common-pagination-container {
+  @apply flex items-center justify-end gap-1 text-[12px];
+}
+
+.common-pagination-btn {
+  @apply inline-flex items-center justify-center min-w-[28px] h-[28px] px-2 border border-[#E0E0E0] bg-white text-[#555555] rounded-[3px] transition-colors font-medium hover:bg-[#F5F5F5] cursor-pointer;
+}
+
+.common-pagination-btn-active {
+  @apply bg-[#C98B26] border-[#C98B26] text-white font-bold hover:bg-[#C98B26];
+}
+
+.common-pagination-btn-disabled {
+  @apply opacity-40 cursor-not-allowed bg-white hover:bg-white text-[#888888];
+}

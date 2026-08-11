@@ -1,0 +1,57 @@
+@reference "../../../styles/index.css";
+
+@layer components {
+  .site-header {
+    @apply sticky top-0 z-50 w-full h-auto bg-[#BE8220] text-white flex items-center justify-between px-3 select-none shadow-sm text-[14px] leading-[15px] font-bold;
+
+
+    .site-header-nav-link {
+      @apply p-2.5 rounded-xs transition-colors hover:bg-[#2A2A2A] text-white text-[14px] leading-[15px] font-bold;
+    }
+
+    .site-header-dropdown-btn {
+      @apply flex items-center gap-1 px-2.5 py-1.5 rounded-xs transition-colors cursor-pointer text-white text-[14px] leading-[15px] font-bold;
+    }
+
+    .site-header-dropdown-menu {
+      @apply absolute top-full left-0 mt-0 bg-[#BE8220] shadow-xl z-50 py-0 flex flex-col;
+    }
+
+    .site-header-dropdown-item {
+      @apply px-3 py-1.5 text-[14px] leading-[15px] font-bold text-white hover:bg-[#333333] transition-colors;
+    }
+
+    /* Vue Multiselect exact styling */
+    .multiselect {
+      @apply relative w-auto text-xs font-normal text-[#333333] select-none;
+    }
+
+    .multiselect__select {
+      @apply absolute right-0 top-0 h-[30px] w-[30px] flex items-center justify-center text-[#222222] pointer-events-none z-10;
+    }
+
+    .multiselect__tags {
+      @apply min-h-[40px] flex items-center bg-white border border-[#CCCCCC] rounded-[3px] px-2.5 py-1 pr-8 cursor-text shadow-sm;
+    }
+
+    .multiselect__placeholder {
+      @apply text-[13px] font-normal text-[#999999] leading-tight select-none;
+    }
+
+    .multiselect__input {
+      @apply w-full bg-transparent text-[13px] font-normal text-[#333333] placeholder:text-[#999999] focus:outline-none;
+    }
+
+    .multiselect__content-wrapper {
+      @apply absolute top-full left-0 right-0 w-full bg-white border border-[#CCCCCC] rounded-b-[3px] shadow-lg z-50 max-h-[300px] overflow-y-auto mt-[1px];
+    }
+
+    .multiselect__content {
+      @apply list-none p-0 m-0 flex flex-col;
+    }
+
+    .multiselect__option {
+      @apply px-3 py-2 text-[13px] font-normal text-[#333333] hover:bg-[#f3f3f3] block cursor-pointer transition-colors;
+    }
+  }
+}

@@ -1,0 +1,29 @@
+@reference "../../../styles/index.css";
+
+.common-badge {
+  @apply inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold border transition-colors;
+}
+
+.common-badge-default {
+  @apply bg-gray-100 text-gray-800 border-gray-300 dark:bg-gray-800 dark:text-gray-200;
+}
+
+.common-badge-success {
+  @apply bg-emerald-50 text-emerald-700 border-emerald-300 dark:bg-emerald-950 dark:text-emerald-300;
+}
+
+.common-badge-warning {
+  @apply bg-amber-50 text-amber-700 border-amber-300 dark:bg-amber-950 dark:text-amber-300;
+}
+
+.common-badge-danger {
+  @apply bg-rose-50 text-rose-700 border-rose-300 dark:bg-rose-950 dark:text-rose-300;
+}
+
+.common-badge-info {
+  @apply bg-sky-50 text-sky-700 border-sky-300 dark:bg-sky-950 dark:text-sky-300;
+}
+
+.common-badge-live {
+  @apply bg-red-600 text-white font-bold animate-pulse px-2 py-0.5 text-[10px] tracking-wider uppercase border-none;
+}

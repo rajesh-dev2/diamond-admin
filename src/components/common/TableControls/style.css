@@ -1,0 +1,75 @@
+@reference "../../../styles/index.css";
+
+.common-tablecontrols-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 12px;
+  font-size: 13px;
+  color: #444444;
+  user-select: none;
+}
+
+.common-tablecontrols-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.common-tablecontrols-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.common-tablecontrols-label {
+  display: inline-flex;
+  align-items: center;
+}
+
+.common-tablecontrols-select {
+  height: 23.2px;
+  border: 1px solid #CCCCCC;
+  border-radius: 3px;
+  padding-left: 8px;
+  padding-right: 24px;
+  font-size: 12px;
+  background-color: #ffffff;
+  color: #333333;
+  outline: none;
+  margin-left: 4px;
+  margin-right: 4px;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3E%3Cpath fill='%23343a40' d='M2 0L0 2h4zm0 5L0 3h4z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 6px center;
+  background-size: 8px 10px;
+}
+
+.common-tablecontrols-select:focus {
+  border-color: #b1bbc4 !important;
+  outline: 0 !important;
+  box-shadow: 0 0 0 0.15rem rgba(85, 110, 230, 0.25) !important;
+}
+
+.common-tablecontrols-input {
+  height: 30px;
+  border: 1px solid #CCCCCC;
+  border-radius: 3px;
+  padding-left: 8px;
+  padding-right: 8px;
+  font-size: 12px;
+  background-color: #ffffff;
+  color: #333333;
+  outline: none;
+  margin-left: 4px;
+}
+
+.common-tablecontrols-input:focus,
+.common-tablecontrols-input:hover {
+  border-color: #CCCCCC !important;
+  outline: none !important;
+  box-shadow: none !important;
+}

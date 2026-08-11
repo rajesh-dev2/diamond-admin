@@ -1,0 +1,29 @@
+@reference "../../../styles/index.css";
+
+.common-loader-wrapper {
+  @apply flex flex-col items-center justify-center gap-3;
+}
+
+.common-loader-spinner {
+  @apply rounded-full border-t-[#C98A1B] border-r-transparent border-b-gray-200 border-l-gray-200 animate-spin;
+}
+
+.common-loader-spinner-sm {
+  @apply w-5 h-5 border-2;
+}
+
+.common-loader-spinner-md {
+  @apply w-8 h-8 border-3;
+}
+
+.common-loader-spinner-lg {
+  @apply w-12 h-12 border-4;
+}
+
+.common-loader-text {
+  @apply text-xs font-medium text-gray-600 dark:text-gray-400;
+}
+
+.common-loader-fullpage {
+  @apply fixed inset-0 z-50 flex items-center justify-center bg-white/80 dark:bg-gray-950/80 backdrop-blur-xs;
+}

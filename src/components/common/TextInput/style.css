@@ -1,0 +1,20 @@
+@reference "../../../styles/index.css";
+
+.common-textinput-wrapper {
+  @apply flex flex-col w-full;
+}
+
+.common-textinput-label {
+  @apply block text-[13px] font-medium text-[#444444] mb-1 select-none;
+}
+
+.common-textinput-input {
+  @apply w-full h-[36px] bg-white border border-[#CCCCCC] rounded-[3px] px-2.5 text-[13px] text-[#333333] placeholder:text-[#999999] focus:outline-none transition-colors disabled:bg-gray-100 disabled:cursor-not-allowed;
+}
+
+.common-textinput-input:focus,
+.common-textinput-input:hover {
+  border-color: #CCCCCC !important;
+  outline: none !important;
+  box-shadow: none !important;
+}

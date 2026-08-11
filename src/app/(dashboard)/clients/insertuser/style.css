@@ -1,0 +1,76 @@
+@reference "../../../../styles/index.css";
+
+@layer components {
+  .insert-user-wrapper {
+    @apply w-full p-4 bg-[#F9F9F9] h-auto text-[#333333] font-sans rounded-[4px];
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+
+    .insert-user-title {
+      @apply text-[28px] font-normal text-[#1e1e1e] mb-8;
+    }
+
+    .insert-user-card {
+      @apply relative;
+    }
+
+    .insert-user-section {
+      @apply w-full rounded-[3px] overflow-hidden;
+    }
+
+    .insert-user-section-header {
+      @apply bg-[#2D2D2D] text-white px-3.5 py-2 mb-5 text-[18px] font-bold tracking-wide;
+    }
+
+    .insert-user-section-body {
+      @apply p-3.5 rounded-b-[3px];
+    }
+
+    .insert-user-label {
+      @apply block text-[14px] font-medium text-[#1e1e1e] mb-1.5;
+    }
+
+    .insert-user-input {
+      @apply w-full h-[34px] px-3 border border-[#CCCCCC] rounded-[3px] text-[13px] text-[#333333] placeholder-[#888888] bg-white transition-colors focus:border-[#BE8220] focus:outline-none;
+    }
+
+    .insert-user-select {
+      @apply w-full h-[34px] px-3 border border-[#CCCCCC] rounded-[3px] text-[13px] text-[#333333] bg-white transition-colors focus:border-[#BE8220] focus:outline-none cursor-pointer;
+    }
+
+    .insert-user-table-wrapper {
+      @apply bg-white border border-t-0 border-[#D0D0D0] rounded-b-[3px] overflow-hidden;
+    }
+
+    .insert-user-table {
+      @apply w-full border-collapse text-[13px];
+
+      tr {
+        @apply border-b border-[#E0E0E0] last:border-b-0;
+      }
+
+      tr:nth-child(odd) {
+        @apply bg-[#F5F5F5];
+      }
+
+      tr:nth-child(even) {
+        @apply bg-transparent;
+      }
+
+      .insert-user-table-label {
+        @apply px-4 py-2 font-medium text-[#333333] border-r border-[#E0E0E0] w-[30%];
+      }
+
+      .insert-user-table-val {
+        @apply px-4 py-2 text-[#333333] h-[38px];
+      }
+
+      .insert-user-table-input {
+        @apply w-full h-full text-[13px] text-[#333333] placeholder-[#888888] bg-white focus:border-[#BE8220] focus:outline-none;
+      }
+    }
+
+    .btn-create-account {
+      @apply bg-[#BE8220] hover:bg-[#A77118] text-white px-4 py-2 text-[13px] font-medium rounded-[3px] shadow-2xs transition-colors cursor-pointer border-none;
+    }
+  }
+}

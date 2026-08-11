@@ -1,0 +1,17 @@
+@reference "../../../styles/index.css";
+
+.common-radiogroup-wrapper {
+  @apply inline-flex items-center gap-4;
+}
+
+.common-radiogroup-label {
+  @apply inline-flex items-center gap-1.5 text-[13px] font-medium text-[#333333] cursor-pointer select-none;
+}
+
+.common-radiogroup-label-disabled {
+  @apply opacity-50 cursor-not-allowed;
+}
+
+.common-radiogroup-input {
+  @apply w-3.5 h-3.5 accent-[#C98B26] cursor-pointer;
+}

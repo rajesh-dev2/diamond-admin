@@ -1,0 +1,372 @@
+@reference "../../../styles/index.css";
+
+@layer components {
+
+  /* Layout Containers */
+  .detail-page-container {
+    @apply w-full bg-[#FFFFFF] p-2.5 flex flex-col lg:flex-row gap-3 font-sans select-none;
+  }
+
+  .center-main-container {
+    @apply basis-[65%] min-w-0 flex flex-col gap-2;
+  }
+
+  .center-content {
+    @apply flex flex-col;
+  }
+
+  .right-sidebar-container {
+    @apply w-full basis-[35%] shrink-0 flex flex-col gap-2;
+  }
+
+  /* Game Header Bar */
+  .game-header {
+    @apply bg-[#2E2E2E] text-white p-[10px_20px] text-base font-bold flex justify-between items-center leading-normal;
+  }
+
+  .game-header-name {
+    @apply truncate font-bold tracking-wide;
+  }
+
+  /* Market Container & Grid System */
+  .market-container {
+    @apply flex flex-wrap gap-2;
+  }
+
+  .market-4 {
+    @apply w-full;
+  }
+
+  .market-6 {
+    @apply w-full lg:w-[calc(50%-0.25rem)];
+  }
+
+  .market-10 {
+    @apply w-full lg:w-[calc(50%-0.25rem)];
+  }
+
+  .mt-0 {
+    @apply mt-0;
+  }
+
+  /* Bet Table Component */
+  .bet-table {
+    @apply bg-white overflow-hidden shadow-xs w-full;
+  }
+
+  .bet-table-header {
+    @apply bg-[#2E2E2EB3] text-white p-[5px] text-[13px] font-bold flex justify-between items-center uppercase tracking-wider;
+  }
+
+  .bet-table-header .nation-name {
+    @apply cursor-pointer flex items-center gap-1.5 font-bold text-[14px];
+  }
+
+  .float-right {
+    @apply flex items-center gap-1 ml-auto;
+  }
+
+  .float-left {
+    @apply float-left;
+  }
+
+  .text-right {
+    @apply text-right;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center;
+  }
+
+  .btn-back {
+    @apply bg-[#28303b] p-[3px_5px] text-white text-[12px] font-bold rounded-xs transition-colors uppercase cursor-pointer no-underline font-normal;
+  }
+
+  .bet-table-body {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Accordion Collapse Transition */
+  .bet-table-body-wrapper {
+    display: grid;
+    grid-template-rows: 1fr;
+    transition: grid-template-rows 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .bet-table-body-wrapper.collapsed {
+    grid-template-rows: 0fr;
+  }
+
+  .bet-table-body-inner {
+    min-height: 0;
+    overflow: hidden;
+    transition: opacity 0.25s ease-in-out;
+  }
+
+  .bet-table-body-wrapper.collapsed .bet-table-body-inner {
+    opacity: 0;
+  }
+
+  .market-4 .bet-table-row .nation-name {
+    width: calc(100% - 340px);
+  }
+
+  .market-6 .bet-table-row .nation-name {
+    width: calc(100% - 242px);
+  }
+
+  .market-10 .bet-table-row .nation-name {
+    width: calc(100% - 156px);
+  }
+
+  .market-2-box .bet-table-row .nation-name {
+    width: calc(100% - 170px);
+  }
+
+  /* Rows */
+  .bet-table-row {
+    @apply flex items-center border-b border-white min-h-auto text-[12px] bg-[#ECECEC] relative;
+  }
+
+  .bet-table-row-top {
+    @apply bg-[#f8f9fa] font-bold min-h-[28px] border-b border-[#e2e8f0] h-auto;
+  }
+
+  .bet-table-row .nation-name {
+    @apply px-2.5 py-1 min-w-0;
+    width: stretch;
+  }
+
+  .bet-table-row .nation-name p {
+    @apply m-0 font-normal text-[#1e1e1e] text-[14px] truncate;
+  }
+
+  .bet-table-row .nation-name p.position-red {
+    @apply mb-0 text-[14px] text-[#ff0000] font-normal;
+  }
+
+  .mb-0 {
+    @apply mb-0;
+  }
+
+  .d-none {
+    @apply hidden;
+  }
+
+  .max-bet {
+    @apply text-[12px] text-[#333] font-bold;
+  }
+
+  .bl-title {
+    @apply w-[85px] h-[30px] text-center text-[14px] text-black font-bold uppercase py-1 tracking-wider flex items-center justify-center;
+  }
+
+  .bl-title.back {
+    @apply bg-[#4fa1dc];
+  }
+
+  .bl-title.lay {
+    @apply bg-[#e16f9a];
+  }
+
+
+  /* Odds Boxes */
+  .bl-box {
+    @apply w-[85px] h-[45px] flex flex-col justify-center items-center cursor-pointer border-l border-white transition-opacity select-none hover:opacity-85;
+  }
+
+  .bl-box.back2 {
+    @apply bg-[#bce1fd];
+  }
+
+  .bl-box.back1 {
+    @apply bg-[#9bd2fc];
+  }
+
+  .bl-box.back {
+    @apply bg-[#72bbef];
+  }
+
+  .bl-box.lay {
+    @apply bg-[#ffa2b6];
+  }
+
+  .bl-box.lay1 {
+    @apply bg-[#ffb8c8];
+  }
+
+  .bl-box.lay2 {
+    @apply bg-[#ffd0dc];
+  }
+
+  .bl-box.no-val {
+    @apply bg-[#f1f3f5] text-[#adb5bd] cursor-default;
+  }
+
+  /* Suspended: keeps back/lay colour, shows SVG lock icon overlay via ::after */
+  .bl-box.suspended {
+    position: relative;
+    cursor: not-allowed;
+    pointer-events: none;
+    @apply bg-[#CAE3F5];
+  }
+
+  .bl-box.suspended span {
+    opacity: 0.35;
+  }
+
+  .bl-box.suspended::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    width: 14px;
+    height: 16px;
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512'%3E%3Cpath d='M400 224h-24v-72C376 68.2 307.8 0 224 0S72 68.2 72 152v72H48c-26.5 0-48 21.5-48 48v192c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V272c0-26.5-21.5-48-48-48zM264 392c0 22.1-17.9 40-40 40s-40-17.9-40-40v-48c0-22.1 17.9-40 40-40s40 17.9 40 40v48zm32-168H152v-72c0-39.7 32.3-72 72-72s72 32.3 72 72v72z'/%3E%3C/svg%3E") no-repeat center / contain;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512'%3E%3Cpath d='M400 224h-24v-72C376 68.2 307.8 0 224 0S72 68.2 72 152v72H48c-26.5 0-48 21.5-48 48v192c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V272c0-26.5-21.5-48-48-48zM264 392c0 22.1-17.9 40-40 40s-40-17.9-40-40v-48c0-22.1 17.9-40 40-40s40 17.9 40 40v48zm32-168H152v-72c0-39.7 32.3-72 72-72s72 32.3 72 72v72z'/%3E%3C/svg%3E") no-repeat center / contain;
+    z-index: 5;
+    @apply bg-black;
+  }
+
+  /* Trend flash colours — override back/lay background */
+  .bl-box.trend-down {
+    background: #03b37f !important;
+    transition: background 0.15s ease;
+  }
+
+  .bl-box.trend-up {
+    background: #fc4242 !important;
+    transition: background 0.15s ease;
+    opacity: 0.85;
+  }
+
+
+  .bl-box .odds,
+  .d-block.odds {
+    @apply text-[16px] leading-[14px] text-black block font-bold;
+  }
+
+  .bl-box span:not(.odds),
+  .d-block:not(.odds) {
+    @apply text-[12px] leading-[14px] text-black font-normal block mt-[3px];
+  }
+
+  /* Suspended Overlay Styling */
+  .suspendedtext {
+    @apply relative;
+  }
+
+  .suspendedtext::after {
+    content: attr(data-title);
+    @apply absolute right-0 top-0 h-full bg-[#131313c2] text-[#fc4242] text-[14px] cursor-not-allowed font-medium uppercase tracking-wider flex items-center justify-center z-10;
+  }
+
+  .market-4 .suspendedtext::after {
+    @apply right-0 w-[510px];
+  }
+
+  .fancy-tripple .suspendedtext::after {
+    @apply right-[72px] w-[169px];
+  }
+
+  .market-2-box .suspendedtext::after {
+    @apply right-0 w-[170px];
+  }
+
+  /* Fancy Triple Section */
+  .fancy-tripple {
+    @apply flex flex-col border-b border-[#eeeeee];
+  }
+
+  .fancy-tripple:last-child {
+    @apply border-b-0;
+  }
+
+  .fancy-tripple .bet-table-row {
+    @apply border-b-0;
+  }
+
+  .fancy-tripple .nation-name p:first-child {
+    @apply m-0 font-normal text-[#3154fd] text-[14px] truncate;
+  }
+
+  .fancy-tripple .nation-name p.position-red {
+    @apply text-black;
+  }
+
+  .fancy-min-max {
+    @apply w-[72px] text-center text-[14px] text-[#17a2b8] px-2 font-normal flex flex-col;
+  }
+
+  /* Remarks */
+  .remark {
+    @apply block text-[#666] text-[11px] font-normal;
+  }
+
+  .sec-remark {
+    @apply px-2.5 py-1 bg-[#e6fcf5] text-[#0ca678] text-[11px] font-bold border-y border-[#c3fae8];
+  }
+
+  /* Sidebar Cards */
+  .side-card {
+    @apply bg-white border border-[#d4d4d4] rounded-xs overflow-hidden;
+  }
+
+  .side-card-header {
+    @apply bg-[#595959] text-white px-3 py-1 text-[13px] font-bold h-[34px] flex justify-between items-center tracking-wide;
+  }
+
+  .btn-view-more {
+    @apply bg-[#28303b] border border-[#3d4756] text-white text-[11px] font-bold uppercase px-2.5 py-1 rounded-xs cursor-pointer transition-colors hover:bg-[#161c24] tracking-wider;
+  }
+
+  .my-bets-tabs {
+    @apply flex px-1.5 pt-1.5 bg-white border-b border-[#d4d4d4] gap-1;
+  }
+
+  .my-bets-tab {
+    @apply px-3 py-1 text-[12px] font-bold text-[#666666] cursor-pointer rounded-t-xs border border-transparent -mb-[1px];
+  }
+
+  .my-bets-tab.active {
+    @apply text-[#222222] bg-white border-t-2 border-t-[#595959] border-x border-x-[#d4d4d4] border-b-transparent;
+  }
+
+  .my-bets-table {
+    @apply w-full border-collapse text-[12px];
+  }
+
+  .my-bets-table th {
+    @apply bg-white px-2.5 py-1.5 text-left font-bold text-[#111111] border-b border-[#e0e0e0];
+  }
+
+  .my-bets-table td {
+    @apply px-2.5 py-2 border-b border-[#f1f3f5] text-[12px];
+  }
+
+  .no-records {
+    @apply text-center py-6 text-gray-700 font-semibold text-[13px];
+  }
+
+  /* Modal Inner Content Styles */
+  .modal-inner-card {
+    @apply bg-white p-3 rounded border border-gray-200 shadow-xs flex flex-col gap-4;
+  }
+
+  .modal-tabs {
+    @apply flex items-center gap-2 p-1.5 bg-[#f1f3f5] rounded;
+  }
+
+  .modal-tab {
+    @apply px-4 py-1.5 text-[12px] font-bold rounded transition-colors text-[#495057] hover:text-black cursor-pointer;
+  }
+
+  .modal-tab.active {
+    @apply bg-[#5c7cfa] text-white shadow-xs;
+  }
+
+  .modal-no-records {
+    @apply py-8 text-center text-[#666666] font-semibold text-[13px];
+  }
+}
