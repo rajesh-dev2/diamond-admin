@@ -118,7 +118,7 @@ input:hover,
 }
 
 .multiselect__select {
-  @apply absolute right-0 top-0 h-[30px] w-[30px] flex items-center justify-center text-[#222222] pointer-events-none z-10;
+  @apply absolute right-2 top-0 h-[30px] w-[30px] flex items-center justify-center text-[#222222] pointer-events-none z-10;
 }
 
 .multiselect__tags {
