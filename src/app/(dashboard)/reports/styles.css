@@ -38,11 +38,11 @@
     }
 
     .current-bets-summary {
-      @apply text-[13px] font-bold text-[#333333] select-none text-right self-center;
+      @apply text-[14px] font-normal text-[#1e1e1e] select-none text-right self-center;
     }
 
     .current-bets-summary span {
-      @apply font-semibold text-[#333333] mr-3 last:mr-0;
+      @apply text-[14px] font-normal text-[#1e1e1e] mr-[0.5rem] last:mr-0;
     }
 
     /* General Report Specific Controls */
