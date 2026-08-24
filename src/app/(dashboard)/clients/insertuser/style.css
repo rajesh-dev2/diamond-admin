@@ -37,6 +37,23 @@
       @apply w-full h-[34px] px-3 border border-[#CCCCCC] rounded-[3px] text-[13px] text-[#333333] bg-white transition-colors focus:border-[#BE8220] focus:outline-none cursor-pointer;
     }
 
+    .insert-user-field-wrap {
+      @apply relative;
+    }
+
+    .insert-user-input-error,
+    .insert-user-input-error.insert-user-select {
+      @apply border-[#DC3545] bg-[#FFF5F5] pr-8;
+    }
+
+    .insert-user-input-error-icon {
+      @apply absolute right-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-[#DC3545] pointer-events-none;
+    }
+
+    .insert-user-error-text {
+      @apply text-[12px] text-[#DC3545] mt-1;
+    }
+
     .insert-user-table-wrapper {
       @apply bg-white border border-t-0 border-[#D0D0D0] rounded-b-[3px] overflow-hidden;
     }

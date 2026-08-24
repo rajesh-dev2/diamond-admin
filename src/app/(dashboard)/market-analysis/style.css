@@ -1,7 +1,51 @@
+@reference "../../../styles/index.css";
+
 .market-analysis-wrapper {
   display: flex;
   flex-direction: column;
   width: 100%;
   height: 100%;
   background-color: #f4f5f7;
+}
+
+@layer components {
+  .market-analysis-empty {
+    @apply flex items-center justify-center py-6;
+  }
+
+  .market-analysis-list {
+    @apply flex flex-col gap-3 p-3;
+  }
+
+  .market-analysis-card {
+    @apply bg-white rounded-[3px] overflow-hidden shadow-sm;
+  }
+
+  .market-analysis-columns {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6;
+  }
+
+  .market-analysis-column {
+    @apply flex flex-col;
+  }
+
+  .market-analysis-column-title {
+    @apply bg-[#EDEDED] text-[#2E5AAC] font-semibold text-[13px] px-3 py-2 underline;
+  }
+
+  .market-analysis-row {
+    @apply flex items-center justify-between px-3 py-1.5 text-[13px] text-[#333333] border-b border-[#F0F0F0] last:border-b-0;
+  }
+
+  .market-analysis-row-label {
+    @apply truncate pr-2;
+  }
+
+  .market-analysis-row-value {
+    @apply font-medium text-[#1A1A1A] shrink-0;
+  }
+
+  .market-analysis-row-value-neg {
+    @apply font-medium text-[#DC3545] shrink-0;
+  }
 }

@@ -46,5 +46,7 @@ export const API_ENDPOINTS = {
     ACCOUNT_STATEMENT: '/admin/reports/account-statement',
     CURRENT_BETS: '/admin/reports/current-bets',
     GENERAL_REPORT: '/admin/reports/general-report',
+    USER_REGISTER_DETAIL: '/admin/reports/user-register-detail',
+    BALANCE_SUMMARY: '/admin/reports/balance-summary',
   },
 } as const;
