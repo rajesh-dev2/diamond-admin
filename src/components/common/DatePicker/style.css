@@ -13,6 +13,7 @@
   color: #444444;
   margin-bottom: 4px;
   user-select: none;
+  @apply block text-[14px] font-normal text-[#1e1e1e] mb-2 select-none;
 }
 
 /* MX Datepicker Plugin Styles */
@@ -60,7 +61,7 @@
   top: 50%;
   right: 10px;
   transform: translateY(-50%);
-  font-size: 14px;
+  font-size: 16px;
   color: #888888;
   cursor: pointer;
   display: inline-flex;

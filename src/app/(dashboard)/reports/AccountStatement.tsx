@@ -117,7 +117,7 @@ export default function AccountStatementPage() {
       </div>
 
       <div className="report-card">
-        <div className="mb-4 pb-3 border-b border-[#F0F0F0]">
+        <div className="mb-4 pb-3">
           <form onSubmit={handleLoadData}>
             <div className="report-form-fields">
               <FormSelect
@@ -189,6 +189,7 @@ export default function AccountStatementPage() {
           data={statementData}
           isLoading={isLoading}
           emptyMessage="No data available in table"
+          className='statement-table'
         />
 
         <Pagination

@@ -12,12 +12,16 @@
     }
 
     .report-page-title {
-      @apply text-[18px] font-bold text-[#222222] mb-1 tracking-tight;
+      @apply text-[22px] font-normal text-[#1e1e1e] mb-5;
     }
 
     /* Report Main Card Container */
     .report-card {
-      @apply bg-transparent p-4 rounded-[4px] border border-[#E0E0E0] shadow-2xs mb-4;
+      @apply bg-transparent mb-4;
+    }
+
+    .multiselect__tags {
+      height: 33px !important;
     }
 
     /* Current Bets Specific Controls */
@@ -141,6 +145,15 @@
 
     .report-btn-load {
       @apply h-[34px] px-6 bg-[#C98B26] hover:bg-[#A77118] text-white text-[13px] font-bold uppercase rounded-[3px] transition-colors cursor-pointer border-none shadow-2xs;
+    }
+
+
+    .statement-table .common-datatable-table {
+      border: 1px solid #dee2e6 !important;
+    }
+
+    .statement-table .common-datatable-table .common-datatable-empty-td {
+      border: 1px solid #dee2e6 !important;
     }
 
     /* MX Datepicker Plugin Styles */
