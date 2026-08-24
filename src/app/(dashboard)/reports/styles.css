@@ -26,7 +26,7 @@
 
     /* Current Bets Specific Controls */
     .current-bets-filter-bar {
-      @apply flex flex-wrap items-center justify-between gap-3 mb-4 pb-2 border-b border-[#F0F0F0];
+      @apply flex flex-wrap items-center justify-between gap-3 mb-4 pb-2;
     }
 
     .current-bets-controls {
@@ -148,11 +148,13 @@
     }
 
 
-    .statement-table .common-datatable-table {
+    .statement-table .common-datatable-table,
+    .table-current-bets .common-datatable-table {
       border: 1px solid #dee2e6 !important;
     }
 
-    .statement-table .common-datatable-table .common-datatable-empty-td {
+    .statement-table .common-datatable-table .common-datatable-empty-td,
+    .table-current-bets .common-datatable-table .common-datatable-empty-td {
       border: 1px solid #dee2e6 !important;
     }
 

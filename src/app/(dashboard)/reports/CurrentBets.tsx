@@ -181,6 +181,7 @@ export default function CurrentBetsPage() {
           data={betsData}
           isLoading={isLoading}
           emptyMessage="No data available in table"
+          className='table-current-bets'
         />
 
         <Pagination
