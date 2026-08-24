@@ -6,11 +6,11 @@
 
 
     .site-header-nav-link {
-      @apply p-2.5 rounded-xs transition-colors hover:bg-[#2A2A2A] text-white text-[14px] leading-[15px] font-bold;
+      @apply p-2.5 rounded-xs transition-colors hover:bg-[#2A2A2A] text-white text-[14px] leading-[15px] font-bold whitespace-nowrap;
     }
 
     .site-header-dropdown-btn {
-      @apply flex items-center gap-1 px-2.5 py-1.5 rounded-xs transition-colors cursor-pointer text-white text-[14px] leading-[15px] font-bold;
+      @apply flex items-center gap-1 px-2.5 py-1.5 rounded-xs transition-colors whitespace-nowrap cursor-pointer text-white text-[14px] leading-[15px] font-bold;
     }
 
     .site-header-dropdown-menu {
@@ -23,23 +23,23 @@
 
     /* Vue Multiselect exact styling */
     .multiselect {
-      @apply relative w-auto text-xs font-normal text-[#333333] select-none;
+      @apply relative w-[160px]! text-xs font-normal select-none h-[38px]!;
     }
 
     .multiselect__select {
-      @apply absolute right-0 top-0 h-[30px] w-[30px] flex items-center justify-center text-[#222222] pointer-events-none z-10;
+      @apply absolute right-0 top-0 flex items-center justify-center text-[#222222] pointer-events-none z-10 h-full!;
     }
 
     .multiselect__tags {
-      @apply min-h-[40px] flex items-center bg-white border border-[#CCCCCC] rounded-[3px] px-2.5 py-1 pr-8 cursor-text shadow-sm;
+      @apply flex items-center bg-white px-2.5 py-1 pr-8 cursor-text shadow-sm h-full;
     }
 
     .multiselect__placeholder {
-      @apply text-[13px] font-normal text-[#999999] leading-tight select-none;
+      @apply text-[14px] font-normal text-[#ced4da] leading-tight select-none;
     }
 
     .multiselect__input {
-      @apply w-full bg-transparent text-[13px] font-normal text-[#333333] placeholder:text-[#999999] focus:outline-none;
+      @apply w-full bg-transparent text-[14px]! font-normal text-[#ced4da]! placeholder:text-[#ced4da]! focus:outline-none;
     }
 
     .multiselect__content-wrapper {
