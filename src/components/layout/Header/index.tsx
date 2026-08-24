@@ -182,7 +182,7 @@ export function Header() {
                 }`}
             >
               <span>Live Market</span>
-              <i className="fa fa-caret-down text-[10px] ml-0.5"></i>
+              <i className="fa fa-caret-down text-[14px] ml-0.5"></i>
             </button>
 
             {activeDropdown === 'live' && (
@@ -213,7 +213,7 @@ export function Header() {
                 }`}
             >
               <span>Live Virtual Market</span>
-              <i className="fa fa-caret-down text-[10px] ml-0.5"></i>
+              <i className="fa fa-caret-down text-[14px] ml-0.5"></i>
             </button>
 
             {activeDropdown === 'virtual' && (
@@ -244,7 +244,7 @@ export function Header() {
                 }`}
             >
               <span>Reports</span>
-              <i className="fa fa-caret-down text-[10px] ml-0.5"></i>
+              <i className="fa fa-caret-down text-[14px] ml-0.5"></i>
             </button>
 
             {activeDropdown === 'reports' && (

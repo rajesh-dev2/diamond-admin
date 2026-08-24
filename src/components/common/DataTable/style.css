@@ -1,45 +1,46 @@
 @reference "../../../styles/index.css";
 
 .common-datatable-container {
-  @apply w-full bg-white rounded-[4px] border border-[#E0E0E0] shadow-2xs overflow-x-auto;
-}
+  @apply w-full overflow-x-auto;
 
-.common-datatable-table {
-  @apply w-full text-left border-collapse text-[13px];
-}
+  .common-datatable-table {
+    @apply w-full text-left border-collapse text-[13px];
+  }
 
-.common-datatable-header-tr {
-  @apply bg-[#FAFAFA];
-}
+  .common-datatable-header-tr {
+    @apply bg-transparent;
+  }
 
-.common-datatable-th {
-  @apply text-[#222222] font-bold px-3 py-2.5 border-b border-[#E0E0E0] border-r border-r-[#F0F0F0] last:border-r-0 uppercase tracking-tight text-[12px];
-}
+  .common-datatable-th {
+    @apply text-[#1e1e1e] font-bold px-3 py-2.5 uppercase tracking-tight text-[14px] border border-b-[#111] border-t-0 border-l-0 border-r-0;
+  }
 
-.common-datatable-th-sortable {
-  @apply cursor-pointer select-none hover:bg-[#F0F0F0] transition-colors;
-}
+  .common-datatable-th-sortable {
+    @apply cursor-pointer select-none transition-colors;
+  }
 
-.common-datatable-th-inner {
-  @apply inline-flex items-center gap-1;
-}
+  .common-datatable-th-inner {
+    @apply inline-flex items-center gap-1;
+  }
 
-.common-datatable-tr {
-  @apply hover:bg-[#F4F5F7] transition-colors;
-}
+  .common-datatable-tr {
+    @apply transition-colors;
+  }
 
-.common-datatable-tr-alt {
-  @apply bg-[#FAFAFA];
-}
+  .common-datatable-tr:nth-of-type(2n + 1) {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
 
-.common-datatable-td {
-  @apply px-3 py-2.5 border-b border-[#F0F0F0] border-r border-r-[#F0F0F0] last:border-r-0 text-[#333333] text-[13px];
-}
+  .common-datatable-td {
+    @apply px-3 py-2.5 text-[#333333] text-[13px];
+    border: 1px solid #dee2e6;
+  }
 
-.common-datatable-loading-td {
-  @apply text-center py-4 text-[#888888];
-}
+  .common-datatable-loading-td {
+    @apply text-center py-4 text-[#888888];
+  }
 
-.common-datatable-empty-td {
-  @apply text-center py-5 text-[#666666];
+  .common-datatable-empty-td {
+    @apply text-center py-[0.5rem] text-[#1e1e1e] text-[14px];
+  }
 }

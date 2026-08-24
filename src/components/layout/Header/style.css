@@ -2,7 +2,7 @@
 
 @layer components {
   .site-header {
-    @apply sticky top-0 z-50 w-full h-auto bg-[#BE8220] text-white flex items-center justify-between px-3 select-none shadow-sm text-[14px] leading-[15px] font-bold;
+    @apply w-full h-auto bg-[#C98B26] text-white flex items-center justify-between pl-[5px] select-none shadow-sm text-[14px] leading-[15px] pr-[30px] font-bold;
 
 
     .site-header-nav-link {
@@ -31,7 +31,7 @@
     }
 
     .multiselect__tags {
-      @apply flex items-center bg-white px-2.5 py-1 pr-8 cursor-text shadow-sm h-full;
+      @apply flex items-center bg-white px-2.5 py-1 pr-8 cursor-text shadow-sm h-full!;
     }
 
     .multiselect__placeholder {

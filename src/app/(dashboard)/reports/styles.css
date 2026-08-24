@@ -8,21 +8,25 @@
 
 
     .report-header-bar {
-      @apply flex items-center justify-between mb-3;
+      @apply flex items-center justify-between mb-2;
     }
 
     .report-page-title {
-      @apply text-[18px] font-bold text-[#222222] mb-1 tracking-tight;
+      @apply text-[22px] font-normal text-[#1e1e1e] mb-5;
     }
 
     /* Report Main Card Container */
     .report-card {
-      @apply bg-transparent p-4 rounded-[4px] border border-[#E0E0E0] shadow-2xs mb-4;
+      @apply bg-transparent mb-4;
+    }
+
+    .multiselect__tags {
+      height: 33px !important;
     }
 
     /* Current Bets Specific Controls */
     .current-bets-filter-bar {
-      @apply flex flex-wrap items-center justify-between gap-3 mb-4 pb-2 border-b border-[#F0F0F0];
+      @apply flex flex-wrap items-center justify-between gap-3 mb-4 pb-2;
     }
 
     .current-bets-controls {
@@ -34,11 +38,11 @@
     }
 
     .current-bets-summary {
-      @apply text-[13px] font-bold text-[#333333] select-none text-right self-center;
+      @apply text-[14px] font-normal text-[#1e1e1e] select-none text-right self-center;
     }
 
     .current-bets-summary span {
-      @apply font-semibold text-[#333333] mr-3 last:mr-0;
+      @apply text-[14px] font-normal text-[#1e1e1e] mr-[0.5rem] last:mr-0;
     }
 
     /* General Report Specific Controls */
@@ -141,6 +145,17 @@
 
     .report-btn-load {
       @apply h-[34px] px-6 bg-[#C98B26] hover:bg-[#A77118] text-white text-[13px] font-bold uppercase rounded-[3px] transition-colors cursor-pointer border-none shadow-2xs;
+    }
+
+
+    .statement-table .common-datatable-table,
+    .table-current-bets .common-datatable-table {
+      border: 1px solid #dee2e6 !important;
+    }
+
+    .statement-table .common-datatable-table .common-datatable-empty-td,
+    .table-current-bets .common-datatable-table .common-datatable-empty-td {
+      border: 1px solid #dee2e6 !important;
     }
 
     /* MX Datepicker Plugin Styles */
@@ -423,6 +438,20 @@
 
     .report-page-item.disabled {
       @apply opacity-40 cursor-not-allowed bg-white hover:bg-white text-[#888888];
+    }
+  }
+
+
+  .current-bets {
+    padding: 10px;
+
+    .report-page-title {
+      @apply mb-[6px];
+    }
+
+    .report-card {
+      background-color: white;
+      padding: 1.25rem;
     }
   }
 }

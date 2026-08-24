@@ -118,7 +118,7 @@ input:hover,
 }
 
 .multiselect__select {
-  @apply absolute right-0 top-0 h-[30px] w-[30px] flex items-center justify-center text-[#222222] pointer-events-none z-10;
+  @apply absolute right-2 top-0 h-[30px] w-[30px] flex items-center justify-center text-[#222222] pointer-events-none z-10;
 }
 
 .multiselect__tags {
@@ -143,4 +143,11 @@ input:hover,
 
 .multiselect__option {
   @apply px-3 py-2 text-[13px] font-normal text-[#333333] hover:bg-[#f3f3f3] block cursor-pointer transition-colors;
+}
+
+
+.page-content:has(.assign-agent-wrapper) {
+  padding: 0;
+  background-color: white;
+  height: auto;
 }
