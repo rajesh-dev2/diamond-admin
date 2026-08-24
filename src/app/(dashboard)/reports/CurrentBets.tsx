@@ -127,7 +127,7 @@ export default function CurrentBetsPage() {
   const activeColumns = currentBetsTab === 'sports' ? SPORTS_COLUMNS : CASINO_COLUMNS;
 
   return (
-    <div className="report-wrapper">
+    <div className="report-wrapper current-bets">
       <div className="report-header-bar">
         <h4 className="report-page-title">Current Bets</h4>
       </div>

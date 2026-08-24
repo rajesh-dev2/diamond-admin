@@ -8,7 +8,7 @@
 
 
     .report-header-bar {
-      @apply flex items-center justify-between mb-3;
+      @apply flex items-center justify-between mb-2;
     }
 
     .report-page-title {
@@ -436,6 +436,20 @@
 
     .report-page-item.disabled {
       @apply opacity-40 cursor-not-allowed bg-white hover:bg-white text-[#888888];
+    }
+  }
+
+
+  .current-bets {
+    padding: 10px;
+
+    .report-page-title {
+      @apply mb-[6px];
+    }
+
+    .report-card {
+      background-color: white;
+      padding: 1.25rem;
     }
   }
 }
