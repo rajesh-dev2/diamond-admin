@@ -147,8 +147,8 @@ export function Header() {
           <Link
             to={ROUTES.CLIENTS}
             className={`site-header-nav-link ${pathname === ROUTES.CLIENTS || pathname.startsWith('/admin/users') || pathname.startsWith('/clients') || pathname.startsWith('/users')
-                ? 'bg-[#2A2A2A]'
-                : ''
+              ? 'bg-[#2A2A2A]'
+              : ''
               }`}
           >
             List of Clients
@@ -279,7 +279,7 @@ export function Header() {
         <div className="relative py-2" ref={userRef}>
           <button
             onClick={() => setUserDropdownOpen(!userDropdownOpen)}
-            className="text-[14px] leading-[15px] font-bold text-white flex items-center gap-1 hover:text-amber-100 cursor-pointer"
+            className="text-[14px] leading-[15px] font-bold text-white flex items-center gap-1 hover:text-amber-100 cursor-pointer whitespace-nowrap"
           >
             <span>{user?.name || 'pwdemm1'}</span>
             {typeof user?.balance === 'number' && (
@@ -309,14 +309,12 @@ export function Header() {
         </div>
 
         {/* Site Searchbox: Vue Multiselect structure */}
-        <div className="w-[180px]">
-          <MultiSelect
-            value={searchValue}
-            onChange={setSearchValue}
-            placeholder="All Client"
-            icon={<i className="fas fa-search-plus text-[24px]"></i>}
-          />
-        </div>
+        <MultiSelect
+          value={searchValue}
+          onChange={setSearchValue}
+          placeholder="All Client"
+          icon={<i className="fas fa-search-plus text-[24px]"></i>}
+        />
       </div>
     </header>
   );
