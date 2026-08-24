@@ -1,5 +1,6 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import Modal from '@/components/common/Modal';
+import Loader from '@/components/common/Loader';
 import { useAppSelector } from '@/store/hooks';
 import { AccountService, AccountListItem } from '@/services/account.service';
 import './style.css';
@@ -27,9 +28,30 @@ export function AccountTransactionModal({ isOpen, onClose, account, type, onSucc
   const [transactionPassword, setTransactionPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
+  const [targetBalance, setTargetBalance] = useState(account.balance ?? 0);
+  const [adminBalance, setAdminBalance] = useState(0);
+  const [adminLabel, setAdminLabel] = useState(adminUser?.username || adminUser?.name);
+  const [isAdminBalanceLoading, setIsAdminBalanceLoading] = useState(true);
 
-  const adminBalance = adminUser?.balance ?? 0;
-  const targetBalance = account.balance ?? 0;
+  useEffect(() => {
+    if (!isOpen) return;
+    let ignore = false;
+
+    setTargetBalance(account.balance ?? 0);
+    setAdminBalance(0);
+    setIsAdminBalanceLoading(true);
+    AccountService.getBalance(account.id).then(({ balance, username, name }) => {
+      if (ignore) return;
+      setAdminBalance(balance);
+      setAdminLabel(username || name || adminUser?.username || adminUser?.name);
+      setIsAdminBalanceLoading(false);
+    });
+
+    return () => {
+      ignore = true;
+    };
+  }, [isOpen, account.id]);
+
   const amountNum = Number(amount) || 0;
 
   // Deposit: admin credits the account (admin balance down, target balance up).
@@ -102,7 +124,10 @@ export function AccountTransactionModal({ isOpen, onClose, account, type, onSucc
     >
       <form id="account-txn-modal-form" onSubmit={handleSubmit}>
         <div className="account-txn-modal-row">
-          <span className="account-txn-modal-row-label">{adminUser?.username || adminUser?.name}</span>
+          <span className="account-txn-modal-row-label flex items-center gap-2">
+            {adminLabel}
+            {isAdminBalanceLoading && <Loader size="sm" />}
+          </span>
           <input type="text" className="account-txn-modal-balance-input" value={adminBalance} disabled readOnly />
           <input type="text" className="account-txn-modal-balance-input" value={adminNewBalance} disabled readOnly />
         </div>

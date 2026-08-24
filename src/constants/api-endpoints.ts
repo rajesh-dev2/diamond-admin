@@ -19,6 +19,7 @@ export const API_ENDPOINTS = {
   ACCOUNTS: {
     LIST: '/admin/accounts',
     DOWNLINE: (id: string) => `/admin/accounts/${id}/downline`,
+    BALANCE: (id: string) => `/admin/accounts/${id}/balance`,
     DEPOSIT: (id: string) => `/admin/accounts/${id}/deposit`,
     WITHDRAW: (id: string) => `/admin/accounts/${id}/withdraw`,
     EXPOSURE_LIMIT: (id: string) => `/admin/accounts/${id}/exposure-limit`,

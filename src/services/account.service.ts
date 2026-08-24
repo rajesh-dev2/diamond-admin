@@ -140,6 +140,20 @@ export const AccountService = {
     }),
 
   /**
+   * GET /admin/accounts/:id/balance
+   */
+  getBalance: async (id: string): Promise<{ balance: number; username?: string; name?: string }> => {
+    try {
+      const data = await api.get<any>(API_ENDPOINTS.ACCOUNTS.BALANCE(id));
+      const payload = data?.data ?? data;
+      return { balance: payload?.balance ?? 0, username: payload?.username, name: payload?.name };
+    } catch (err) {
+      console.error(`Error fetching balance for account ${id}:`, err);
+      return { balance: 0 };
+    }
+  },
+
+  /**
    * GET /admin/accounts/:id/downline?search=&accountType=&isActive=&page=&limit=
    */
   getDownline: (id: string, params: AccountDownlineParams): Promise<AccountListResponse> =>
