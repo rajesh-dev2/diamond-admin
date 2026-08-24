@@ -55,6 +55,30 @@ export interface ProfitLossParams {
   to: string;
 }
 
+export interface BalanceSummary {
+  upperLevelCreditReference: number;
+  totalMasterBalance: number;
+  availableBalance: number;
+  downLevelOccupyBalance: number;
+  upperLevel: number;
+  availableBalanceWithProfitLoss: number;
+  downLevelCreditReference: number;
+  downLevelProfitLoss: number;
+  myProfitLoss: number;
+}
+
+export interface UserRegisterDetailParams {
+  search: string;
+  page: number;
+  limit: number;
+}
+
+export interface UserRegisterDetailResult {
+  data: any[];
+  total: number;
+  totalPages: number;
+}
+
 export const ReportsService = {
   /**
    * GET /admin/reports/statement-types
@@ -183,6 +207,56 @@ export const ReportsService = {
     } catch (err) {
       console.error('Error fetching profit loss:', err);
       return [];
+    }
+  },
+
+  /**
+   * GET /admin/reports/user-register-detail?search=&page=&limit=
+   */
+  getUserRegisterDetail: async (params: UserRegisterDetailParams): Promise<UserRegisterDetailResult> => {
+    try {
+      const data = await HttpService.get<any>(API_ENDPOINTS.REPORTS.USER_REGISTER_DETAIL, params);
+      return {
+        data: getArrayFromResponse(data),
+        total: data?.total ?? 0,
+        totalPages: data?.totalPages ?? 1,
+      };
+    } catch (err) {
+      console.error('Error fetching user register detail:', err);
+      return { data: [], total: 0, totalPages: 1 };
+    }
+  },
+
+  /**
+   * GET /admin/reports/balance-summary
+   */
+  getBalanceSummary: async (): Promise<BalanceSummary> => {
+    try {
+      const data = await HttpService.get<any>(API_ENDPOINTS.REPORTS.BALANCE_SUMMARY);
+      return {
+        upperLevelCreditReference: data?.upperLevelCreditReference ?? 0,
+        totalMasterBalance: data?.totalMasterBalance ?? 0,
+        availableBalance: data?.availableBalance ?? 0,
+        downLevelOccupyBalance: data?.downLevelOccupyBalance ?? 0,
+        upperLevel: data?.upperLevel ?? 0,
+        availableBalanceWithProfitLoss: data?.availableBalanceWithPL ?? 0,
+        downLevelCreditReference: data?.downLevelCreditReference ?? 0,
+        downLevelProfitLoss: data?.downLevelProfitLoss ?? 0,
+        myProfitLoss: data?.myProfitLoss ?? 0,
+      };
+    } catch (err) {
+      console.error('Error fetching balance summary:', err);
+      return {
+        upperLevelCreditReference: 0,
+        totalMasterBalance: 0,
+        availableBalance: 0,
+        downLevelOccupyBalance: 0,
+        upperLevel: 0,
+        availableBalanceWithProfitLoss: 0,
+        downLevelCreditReference: 0,
+        downLevelProfitLoss: 0,
+        myProfitLoss: 0,
+      };
     }
   },
 };

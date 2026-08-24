@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import FormSelect, { SelectOption } from '@/components/common/FormSelect';
 import TextInput from '@/components/common/TextInput';
 import MultiSelect from '@/components/common/MultiSelect';
 import TableControls from '@/components/common/TableControls';
 import DataTable, { ColumnDef } from '@/components/common/DataTable';
 import Pagination from '@/components/common/Pagination';
+import { ReportsService } from '@/services/reports.service';
 
 const USER_REGISTER_TYPE_OPTIONS: SelectOption[] = [
   { label: 'All', value: 'all' },
@@ -32,14 +33,27 @@ export default function UserRegisterDetailPage() {
   const [entriesPerPage, setEntriesPerPage] = useState(25);
   const [tableSearch, setTableSearch] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
+  const [tableData, setTableData] = useState<any[]>([]);
+
+  const fetchData = useCallback(async (page: number, limit: number, search: string) => {
+    setIsLoading(true);
+    const res = await ReportsService.getUserRegisterDetail({ search, page, limit });
+    setTableData(res.data);
+    setTotalPages(res.totalPages);
+    setIsLoading(false);
+  }, []);
+
+  useEffect(() => {
+    fetchData(currentPage, entriesPerPage, tableSearch);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentPage, entriesPerPage]);
 
   const handleLoadData = (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 400);
+    setCurrentPage(1);
+    fetchData(1, entriesPerPage, tableSearch);
   };
 
   return (
@@ -76,6 +90,9 @@ export default function UserRegisterDetailPage() {
               onClick={() => {
                 setClientSearch('');
                 setUserRegisterType('all');
+                setTableSearch('');
+                setCurrentPage(1);
+                fetchData(1, entriesPerPage, '');
               }}
               className="h-[34px] px-3 border border-[#CCCCCC] bg-white hover:bg-[#F5F5F5] text-[#333333] text-xs font-semibold rounded-[3px] transition-colors"
             >
@@ -111,14 +128,14 @@ export default function UserRegisterDetailPage() {
 
         <DataTable
           columns={COLUMNS}
-          data={[]}
+          data={tableData}
           isLoading={isLoading}
           emptyMessage="There are no records to show"
         />
 
         <Pagination
           currentPage={currentPage}
-          totalPages={1}
+          totalPages={totalPages}
           onPageChange={setCurrentPage}
         />
       </div>
