@@ -1,0 +1,45 @@
+@reference "../../../styles/index.css";
+
+@layer components {
+  .exposure-limit-modal {
+    .modal-close-btn {
+      @apply bg-[#2196F3] hover:bg-[#1877CC];
+    }
+
+    .modal-body {
+      @apply bg-white;
+    }
+  }
+
+  .exposure-limit-modal-field {
+    @apply mb-3;
+  }
+
+  .exposure-limit-modal-label {
+    @apply block text-[14px] text-[#333333] mb-1.5;
+  }
+
+  .exposure-limit-modal-input-readonly {
+    @apply w-full h-[36px] px-3 border border-[#CCCCCC] rounded-[3px] text-[13px] bg-[#E9E9E9] text-[#333333] text-right cursor-not-allowed;
+  }
+
+  .exposure-limit-modal-input {
+    @apply w-full h-[36px] px-3 border border-[#CCCCCC] rounded-[3px] text-[13px] bg-white focus:border-[#2196F3] focus:outline-none;
+  }
+
+  .exposure-limit-modal-input-highlight {
+    @apply bg-[#EAF2FF];
+  }
+
+  .exposure-limit-modal-error {
+    @apply p-2.5 bg-red-100 border border-red-400 text-red-700 text-[13px] rounded-[3px];
+  }
+
+  .exposure-limit-modal-btn-back {
+    @apply bg-[#2C3542] hover:bg-[#1F2733] text-white px-4 py-2 text-[13px] font-medium rounded-[3px] flex items-center gap-2 transition-colors cursor-pointer border-none;
+  }
+
+  .exposure-limit-modal-btn-submit {
+    @apply bg-[#2196F3] hover:bg-[#1877CC] text-white px-4 py-2 text-[13px] font-medium rounded-[3px] flex items-center gap-2 transition-colors cursor-pointer border-none disabled:opacity-60 disabled:cursor-not-allowed;
+  }
+}

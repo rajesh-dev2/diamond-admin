@@ -125,13 +125,11 @@ export function DataTable<T extends Record<string, any>>({
         </thead>
         <tbody>
           {isLoading ? (
-            Array.from({ length: 3 }).map((_, i) => (
-              <tr key={i} className="animate-pulse">
-                <td colSpan={columns.length} className="common-datatable-loading-td">
-                  Loading data...
-                </td>
-              </tr>
-            ))
+            <tr className="animate-pulse">
+              <td colSpan={columns.length} className="common-datatable-loading-td">
+                Loading data...
+              </td>
+            </tr>
           ) : sortedData.length === 0 ? (
             <tr>
               <td colSpan={columns.length} className="common-datatable-empty-td">

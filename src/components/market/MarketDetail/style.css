@@ -4,7 +4,7 @@
 
   /* Layout Containers */
   .detail-page-container {
-    @apply w-full bg-[#FFFFFF] p-2.5 flex flex-col lg:flex-row gap-3 font-sans select-none;
+    @apply w-full bg-[#FFFFFF] flex flex-col lg:flex-row gap-3 font-sans select-none;
   }
 
   .center-main-container {
@@ -177,26 +177,32 @@
   }
 
   .bl-box.back2 {
+    --odds-rest-color: #bce1fd;
     @apply bg-[#bce1fd];
   }
 
   .bl-box.back1 {
+    --odds-rest-color: #9bd2fc;
     @apply bg-[#9bd2fc];
   }
 
   .bl-box.back {
+    --odds-rest-color: #72bbef;
     @apply bg-[#72bbef];
   }
 
   .bl-box.lay {
+    --odds-rest-color: #ffa2b6;
     @apply bg-[#ffa2b6];
   }
 
   .bl-box.lay1 {
+    --odds-rest-color: #ffb8c8;
     @apply bg-[#ffb8c8];
   }
 
   .bl-box.lay2 {
+    --odds-rest-color: #ffd0dc;
     @apply bg-[#ffd0dc];
   }
 
@@ -229,16 +235,23 @@
     @apply bg-black;
   }
 
-  /* Trend flash colours — override back/lay background */
-  .bl-box.trend-down {
-    background: #03b37f !important;
-    transition: background 0.15s ease;
+  /* Trend flash — briefly flash red (rate dropped) or green (rate rose),
+     then fade back to the box's own resting colour. --odds-rest-color is set
+     per box type above (back/back1/back2/lay/lay1/lay2) so this one rule
+     covers every market layout: Match Odds, Bookmaker, Fancy, Tied Match,
+     Khado, Odd/Even — anywhere a trend is passed to OddsBox. */
+  @keyframes oddsFlash {
+    0% { background-color: var(--odds-flash-color); }
+    100% { background-color: var(--odds-rest-color); }
   }
 
+  .bl-box.trend-down {
+    --odds-flash-color: #fc4242;
+    animation: oddsFlash 0.6s ease-out;
+  }
   .bl-box.trend-up {
-    background: #fc4242 !important;
-    transition: background 0.15s ease;
-    opacity: 0.85;
+    --odds-flash-color: #03b37f;
+    animation: oddsFlash 0.6s ease-out;
   }
 
 

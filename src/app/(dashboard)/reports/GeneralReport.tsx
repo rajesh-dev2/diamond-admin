@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import FormSelect, { SelectOption } from '@/components/common/FormSelect';
 import DataTable, { ColumnDef } from '@/components/common/DataTable';
+import { ReportsService } from '@/services/reports.service';
 
 const GENERAL_REPORT_TYPE_OPTIONS: SelectOption[] = [
+  { label: 'Credit Reference Report', value: 'credit-reference' },
   { label: 'General Report', value: 'general' },
-  { label: 'Deposit/Withdraw Report', value: 'deposit_withdraw' },
-  { label: 'Sports Report', value: 'sports' },
-  { label: 'Casino Report', value: 'casino' },
 ];
 
 const COLUMNS: ColumnDef<any>[] = [
@@ -16,15 +15,19 @@ const COLUMNS: ColumnDef<any>[] = [
 ];
 
 export default function GeneralReportPage() {
-  const [generalReportType, setGeneralReportType] = useState('general');
+  const [generalReportType, setGeneralReportType] = useState('credit-reference');
   const [isLoading, setIsLoading] = useState(false);
+  const [reportData, setReportData] = useState<any[]>([]);
 
   const handleLoadData = (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 400);
+    ReportsService.getGeneralReport({
+      type: generalReportType,
+      search: '',
+    })
+      .then(setReportData)
+      .finally(() => setIsLoading(false));
   };
 
   return (
@@ -44,6 +47,7 @@ export default function GeneralReportPage() {
                 options={GENERAL_REPORT_TYPE_OPTIONS}
               />
             </div>
+
             <button type="submit" className="report-btn-load">
               Load
             </button>
@@ -52,7 +56,7 @@ export default function GeneralReportPage() {
 
         <DataTable
           columns={COLUMNS}
-          data={[]}
+          data={reportData}
           isLoading={isLoading}
           emptyMessage="No data available in table"
         />

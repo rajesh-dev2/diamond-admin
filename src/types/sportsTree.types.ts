@@ -24,20 +24,3 @@ export interface TreeMarketItem {
   mid: string | number;
   mname: string;
 }
-
-export interface TreeData2Req {
-  etid: number | string;
-}
-
-export interface TreeData3Req {
-  cid: string | number;
-}
-
-export interface TreeData4Req {
-  cid: string | number;
-  dt: string;
-}
-
-export interface TreeData5Req {
-  gmid: string | number;
-}

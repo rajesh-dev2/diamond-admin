@@ -1,10 +1,16 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '@/constants/routes';
+import { AccountService } from '@/services/account.service';
+import { useAppSelector } from '@/store/hooks';
+import { getCreatableRoles } from '@/constants/roles';
+import { toast } from '@/components/common/Toast';
 import './style.css';
 
 export default function InsertUserPage() {
   const navigate = useNavigate();
+  const { user } = useAppSelector((state) => state.auth);
+  const accountTypeOptions = useMemo(() => getCreatableRoles(user?.role), [user?.role]);
 
   const [formData, setFormData] = useState({
     clientName: '',
@@ -15,12 +21,15 @@ export default function InsertUserPage() {
     phone: '',
     accountType: '',
     creditReference: '',
-    commissionDownline: '',
-    partnershipDownline: '',
+    commissionDownline: '0',
+    partnershipDownline: '0',
     transactionPassword: '',
+    minBet: '100',
+    maxBet: '5000000',
+    betDelay: '5',
   });
 
-  const [message, setMessage] = useState<string | null>(null);
+  const [submitting, setSubmitting] = useState(false);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -29,12 +38,41 @@ export default function InsertUserPage() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setMessage('Account created successfully!');
-    setTimeout(() => {
-      navigate(ROUTES.CLIENTS);
-    }, 1200);
+
+    if (formData.userPassword !== formData.retypePassword) {
+      toast.error('Password and Retype Password do not match.');
+      return;
+    }
+
+    setSubmitting(true);
+    try {
+      await AccountService.register({
+        accountType: formData.accountType,
+        name: formData.fullName,
+        username: formData.clientName,
+        password: formData.userPassword,
+        retypePassword: formData.retypePassword,
+        city: formData.city,
+        phone: formData.phone,
+        creditReference: formData.creditReference,
+        transactionPassword: formData.transactionPassword,
+        commissionDownline: Number(formData.commissionDownline) || 0,
+        partnershipDownline: Number(formData.partnershipDownline) || 0,
+        minBet: Number(formData.minBet) || 0,
+        maxBet: Number(formData.maxBet) || 0,
+        betDelay: Number(formData.betDelay) || 0,
+      });
+      toast.success('Account created successfully!');
+      setTimeout(() => {
+        navigate(ROUTES.CLIENTS);
+      }, 1200);
+    } catch (err: any) {
+      toast.error(err?.response?.data?.message || 'Failed to create account.');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -42,12 +80,6 @@ export default function InsertUserPage() {
       <h2 className="insert-user-title">Add Account</h2>
 
       <form onSubmit={handleSubmit} className="insert-user-card">
-        {message && (
-          <div className="mb-4 p-3 bg-green-100 border border-green-400 text-green-700 text-sm rounded-[3px]">
-            {message}
-          </div>
-        )}
-
         {/* Top Grid: Personal Detail & Account Detail */}
         <div className="grid grid-cols-2 gap-4 mb-4 items-start">
           {/* Personal Detail Box */}
@@ -145,8 +177,11 @@ export default function InsertUserPage() {
                     className="insert-user-select"
                   >
                     <option value="">Select Account Type</option>
-                    <option value="5">Agent</option>
-                    <option value="6">User</option>
+                    {accountTypeOptions.map((option) => (
+                      <option key={option.accountType} value={option.accountType}>
+                        {option.label}
+                      </option>
+                    ))}
                   </select>
                 </div>
 
@@ -158,6 +193,42 @@ export default function InsertUserPage() {
                     value={formData.creditReference}
                     onChange={handleChange}
                     placeholder="Credit Reference"
+                    className="insert-user-input"
+                  />
+                </div>
+
+                <div>
+                  <label className="insert-user-label">Min Bet:</label>
+                  <input
+                    type="number"
+                    name="minBet"
+                    value={formData.minBet}
+                    onChange={handleChange}
+                    placeholder="Min Bet"
+                    className="insert-user-input"
+                  />
+                </div>
+
+                <div>
+                  <label className="insert-user-label">Max Bet:</label>
+                  <input
+                    type="number"
+                    name="maxBet"
+                    value={formData.maxBet}
+                    onChange={handleChange}
+                    placeholder="Max Bet"
+                    className="insert-user-input"
+                  />
+                </div>
+
+                <div>
+                  <label className="insert-user-label">Bet Delay:</label>
+                  <input
+                    type="number"
+                    name="betDelay"
+                    value={formData.betDelay}
+                    onChange={handleChange}
+                    placeholder="Bet Delay"
                     className="insert-user-input"
                   />
                 </div>
@@ -218,8 +289,8 @@ export default function InsertUserPage() {
                       value={formData.partnershipDownline}
                       onChange={handleChange}
                       placeholder="0"
-                      disabled
-                      className="insert-user-table-input opacity-70 cursor-not-allowed"
+                      maxLength={4}
+                      className="insert-user-table-input"
                     />
                   </td>
                 </tr>
@@ -246,8 +317,11 @@ export default function InsertUserPage() {
             />
           </div>
 
-          <button type="submit" className="btn-create-account">
-            Create Account
+          <button type="submit" className="btn-create-account flex items-center justify-center gap-2" disabled={submitting}>
+            {submitting && (
+              <span className="w-4 h-4 rounded-full border-2 border-white/30 border-t-white animate-spin" />
+            )}
+            {submitting ? 'Creating...' : 'Create Account'}
           </button>
         </div>
       </form>

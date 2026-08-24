@@ -1,0 +1,41 @@
+@reference "../../../styles/index.css";
+
+@layer components {
+  .credit-modal {
+    .modal-close-btn {
+      @apply bg-[#2196F3] hover:bg-[#1877CC];
+    }
+
+    .modal-body {
+      @apply bg-white;
+    }
+  }
+
+  .credit-modal-field {
+    @apply mb-3;
+  }
+
+  .credit-modal-label {
+    @apply block text-[14px] text-[#333333] mb-1.5;
+  }
+
+  .credit-modal-input-readonly {
+    @apply w-full h-[36px] px-3 border border-[#CCCCCC] rounded-[3px] text-[13px] bg-[#E9E9E9] text-[#333333] text-right cursor-not-allowed;
+  }
+
+  .credit-modal-input {
+    @apply w-full h-[36px] px-3 border border-[#CCCCCC] rounded-[3px] text-[13px] bg-white focus:border-[#2196F3] focus:outline-none;
+  }
+
+  .credit-modal-error {
+    @apply p-2.5 bg-red-100 border border-red-400 text-red-700 text-[13px] rounded-[3px];
+  }
+
+  .credit-modal-btn-back {
+    @apply bg-[#2C3542] hover:bg-[#1F2733] text-white px-4 py-2 text-[13px] font-medium rounded-[3px] flex items-center gap-2 transition-colors cursor-pointer border-none;
+  }
+
+  .credit-modal-btn-submit {
+    @apply bg-[#2196F3] hover:bg-[#1877CC] text-white px-4 py-2 text-[13px] font-medium rounded-[3px] flex items-center gap-2 transition-colors cursor-pointer border-none disabled:opacity-60 disabled:cursor-not-allowed;
+  }
+}

@@ -1,8 +1,14 @@
 import React, { useState } from 'react';
 
+export interface BetTableButton {
+  label: string;
+  onClick?: () => void;
+  disabled?: boolean;
+}
+
 export interface BetTableProps {
   title: string;
-  buttons?: string[];
+  buttons?: BetTableButton[];
   marketId?: string;
   marketType?: 'market-4' | 'market-6' | 'market-10';
   status?: string;
@@ -13,7 +19,7 @@ export interface BetTableProps {
 
 export const BetTable: React.FC<BetTableProps> = ({
   title,
-  buttons = ['Bet Lock'],
+  buttons = [{ label: 'Bet Lock' }],
   marketId = 'market0',
   marketType = 'market-6',
   status = 'OPEN',
@@ -35,9 +41,14 @@ export const BetTable: React.FC<BetTableProps> = ({
           </div>
           {buttons && buttons.length > 0 && (
             <div className="float-right" onClick={(e) => e.stopPropagation()}>
-              {buttons.map((btnText, idx) => (
-                <a key={idx} href="javascript:void(0)" className="btn btn-back">
-                  {btnText}
+              {buttons.map((btn, idx) => (
+                <a
+                  key={idx}
+                  href="javascript:void(0)"
+                  className={`btn btn-back ${btn.disabled ? 'opacity-50 pointer-events-none' : ''}`}
+                  onClick={btn.onClick}
+                >
+                  {btn.label}
                 </a>
               ))}
             </div>

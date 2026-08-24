@@ -1,21 +1,21 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useAppDispatch } from '@/store/hooks';
 import { setUser } from '@/store/slices/authSlice';
-import { AuthService } from '@/services/auth.service';
-import { ROUTES } from '@/constants/routes';
+import { useLoginMutation } from '@/store/slices/apiSlice';
 import './login.css';
 
 export default function LoginPage() {
   const navigate = useNavigate();
+  const location = useLocation();
   const dispatch = useAppDispatch();
+  const [login, { isLoading }] = useLoginMutation();
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [usernameError, setUsernameError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [apiError, setApiError] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -38,20 +38,16 @@ export default function LoginPage() {
 
     if (hasError) return;
 
-    setIsLoading(true);
-
     try {
-      const res = await AuthService.login({
+      const res = await login({
         username: username.trim(),
         password: password.trim(),
-      });
+      }).unwrap();
       dispatch(setUser({ user: res.user, token: res.token }));
-      document.cookie = `auth_token=${res.token}; path=/; max-age=86400;`;
-      navigate(ROUTES.DASHBOARD);
+      const from = (location.state as { from?: { pathname: string } } | null)?.from?.pathname;
+      navigate(from || '/', { replace: true });
     } catch (err: any) {
-      setApiError(err.message || 'Invalid username or password.');
-    } finally {
-      setIsLoading(false);
+      setApiError(err?.data?.message || err?.error || 'Invalid username or password.');
     }
   };
 

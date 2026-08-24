@@ -3,16 +3,35 @@ import { Link, useLocation } from 'react-router-dom';
 import { ROUTES } from '@/constants/routes';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { toggleSidebar } from '@/store/slices/sidebarSlice';
-import { logout } from '@/store/slices/authSlice';
+import { logout, updateProfile } from '@/store/slices/authSlice';
+import { useGetMeQuery } from '@/store/slices/apiSlice';
 import MultiSelect from '@/components/common/MultiSelect';
 import './style.css';
+
+const ME_POLLING_INTERVAL_MS = 5000;
 
 export function Header() {
   const dispatch = useAppDispatch();
   const location = useLocation();
   const pathname = location.pathname;
 
-  const { user } = useAppSelector((state) => state.auth);
+  const { user, isAuthenticated } = useAppSelector((state) => state.auth);
+
+  const { data: me } = useGetMeQuery(undefined, {
+    skip: !isAuthenticated,
+    pollingInterval: ME_POLLING_INTERVAL_MS,
+  });
+
+  useEffect(() => {
+    if (!me) return;
+    dispatch(
+      updateProfile({
+        balance: me.balance,
+        exposure: me.exposure,
+        creditLimit: me.creditLimit,
+      })
+    );
+  }, [me, dispatch]);
 
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [userDropdownOpen, setUserDropdownOpen] = useState(false);
@@ -106,7 +125,7 @@ export function Header() {
       {/* Left Section: Logo, Hamburger & Nav Links */}
       <div className="flex items-center gap-2" ref={navRef}>
         {/* Logo Image */}
-        <Link to={ROUTES.MARKET_ANALYSIS} className="flex items-center shrink-0 pr-1 h-[52px]">
+        <Link to={ROUTES.ACCOUNT_LIST} className="flex items-center shrink-0 pr-1 h-[52px]">
           <img
             src="/assets/logo/logo.png"
             alt="RICE EXCH"
@@ -263,6 +282,11 @@ export function Header() {
             className="text-[14px] leading-[15px] font-bold text-white flex items-center gap-1 hover:text-amber-100 cursor-pointer"
           >
             <span>{user?.name || 'pwdemm1'}</span>
+            {typeof user?.balance === 'number' && (
+              <span className="text-[12px] font-normal opacity-90">
+                ({user.balance.toLocaleString()})
+              </span>
+            )}
             <i className="fa fa-caret-down text-[10px]"></i>
           </button>
 

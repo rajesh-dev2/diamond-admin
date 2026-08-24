@@ -54,5 +54,21 @@
     .client-list-pagination {
       @apply mt-4 flex justify-end;
     }
+
+    .account-action-btns {
+      @apply flex items-center justify-center gap-1;
+    }
+
+    .account-action-btn {
+      @apply bg-[#333333] hover:bg-[#4A4A4A] text-white text-[11px] font-semibold w-6 h-6 flex items-center justify-center rounded-[2px] transition-colors cursor-pointer border-none;
+    }
+
+    .account-action-btn-more {
+      @apply w-auto px-2;
+    }
+
+    .account-username-badge {
+      @apply inline-block bg-[#333333] text-white text-[13px] font-medium px-3 py-1 rounded-[3px];
+    }
   }
 }

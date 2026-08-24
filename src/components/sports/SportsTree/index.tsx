@@ -229,6 +229,7 @@ export function SportsTree() {
                                                   });
                                                   navigate(
                                                     {
+                                                      pathname: '/market-analysis',
                                                       search: buildParams({
                                                         gmid,
                                                         etid: sport.etid,
@@ -240,6 +241,7 @@ export function SportsTree() {
                                                     { replace: true }
                                                   );
                                                   handleMatchClick(gmid);
+                                                  dispatch(setIsOpen(false));
                                                 }}
                                                 className="py-[2px] px-1 text-[12px] leading-[15px] font-normal text-[#1e1e1e] cursor-pointer whitespace-normal break-words flex items-center w-full"
                                               >
@@ -272,6 +274,7 @@ export function SportsTree() {
                                                           sportName: sport.ename,
                                                           leagueName: league.cname,
                                                         });
+                                                        dispatch(setIsOpen(false));
                                                       }}
                                                       className="py-[1.5px] px-1 text-[12px] leading-[15px] font-normal text-[#1e1e1e] cursor-pointer whitespace-normal break-words"
                                                     >

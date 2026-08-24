@@ -4,7 +4,8 @@ import DatePicker from '@/components/common/DatePicker';
 import DataTable, { ColumnDef } from '@/components/common/DataTable';
 
 const GAME_REPORT_TYPE_OPTIONS: SelectOption[] = [
-  { label: 'All', value: 'all' },
+  { label: 'Match', value: 'match' },
+  { label: 'Fancy', value: 'fancy' },
 ];
 
 const GAME_REPORT_SUB_OPTIONS: SelectOption[] = [
@@ -20,7 +21,7 @@ const COLUMNS: ColumnDef<any>[] = [
 export default function GameReportPage() {
   const [fromDate, setFromDate] = useState('02/08/2026');
   const [toDate, setToDate] = useState('09/08/2026');
-  const [gameReportType, setGameReportType] = useState('all');
+  const [gameReportType, setGameReportType] = useState('match');
   const [gameReportSubSelect, setGameReportSubSelect] = useState('all');
   const [isLoading, setIsLoading] = useState(false);
 

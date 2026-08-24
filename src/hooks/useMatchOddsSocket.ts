@@ -1,4 +1,7 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
+import { io, Socket } from 'socket.io-client';
+import { useAppSelector } from '@/store/hooks';
+import { baseURL } from '@/api/axios';
 
 export interface UseMatchOddsSocketOptions {
   gmid?: number;
@@ -7,165 +10,120 @@ export interface UseMatchOddsSocketOptions {
   enabled?: boolean;
 }
 
-export interface MatchOddsSocketMessage {
-  type: 'connected' | 'subscribed' | 'matchOdds' | 'ping' | 'error' | string;
-  data?: any[];
-  message?: string;
-  gmid?: number;
-  etid?: number;
-  pollMs?: number;
-  stale?: boolean;
-  timestamp?: number;
-}
+// Falls back to the same host the REST API uses (minus the /api suffix)
+// when VITE_SOCKET_URL isn't set, instead of letting socket.io-client
+// default to the page's own origin (e.g. ws://localhost:3000).
+const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || baseURL?.replace(/\/api\/?$/, '');
 
 export function useMatchOddsSocket({
-  gmid = 542267677,
+  gmid = 0,
   etid = 1,
-  url = 'wss://sky99.co/ws/admin/match-odds',
+  url = SOCKET_URL,
   enabled = true,
 }: UseMatchOddsSocketOptions = {}) {
+  const token = useAppSelector((state) => state.auth.token);
+
   const [marketData, setMarketData] = useState<any[]>([]);
-  const [isStale, setIsStale] = useState<boolean>(false);
   const [isConnected, setIsConnected] = useState(false);
   const [connectionStatus, setConnectionStatus] = useState<'connecting' | 'connected' | 'disconnected' | 'error'>('disconnected');
 
-  const socketRef = useRef<WebSocket | null>(null);
-  const reconnectTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const socketRef = useRef<Socket | null>(null);
   const isMountedRef = useRef(true);
+  const joinedGmidRef = useRef<number | null>(null); // which room we're actually in right now
 
   // Store params in refs so connect callback remains stable
-  const paramsRef = useRef({ gmid, etid, url, enabled });
+  const paramsRef = useRef({ gmid, etid, url, enabled, token });
 
   useEffect(() => {
     const prevGmid = paramsRef.current.gmid;
-    const prevEtid = paramsRef.current.etid;
-    paramsRef.current = { gmid, etid, url, enabled };
+    paramsRef.current = { gmid, etid, url, enabled, token };
 
-    // If socket is open and gmid or etid changed, re-subscribe immediately without reconnecting
+    // If the socket's already up and gmid changed, switch rooms without
+    // reconnecting — leave the old match's room, join the new one. Our
+    // rooms are keyed by gmid alone (domain comes from the account, not
+    // sent by the client), so there's no "etid" in this call.
     if (
-      socketRef.current &&
-      socketRef.current.readyState === WebSocket.OPEN &&
-      (prevGmid !== gmid || prevEtid !== etid) &&
-      gmid && etid && !isNaN(Number(gmid)) && !isNaN(Number(etid))
+      socketRef.current?.connected &&
+      prevGmid !== gmid &&
+      gmid && !isNaN(Number(gmid))
     ) {
-      const subscribePayload = JSON.stringify({ type: 'subscribe', gmid, etid });
-      console.log('[WebSocket] Params changed — sending re-subscribe:', subscribePayload);
-      socketRef.current.send(subscribePayload);
+      console.log('[Socket.IO] gmid changed — switching rooms:', { from: prevGmid, to: gmid });
+      if (joinedGmidRef.current) {
+        socketRef.current.emit('leave:match', joinedGmidRef.current);
+      }
+      socketRef.current.emit('join:match', gmid);
+      joinedGmidRef.current = gmid;
     }
-  }, [gmid, etid, url, enabled]);
+  }, [gmid, etid, url, enabled, token]);
 
-  // Helper to detach event handlers and close socket safely without triggering handleReconnect
   const destroySocket = useCallback(() => {
     if (socketRef.current) {
-      const ws = socketRef.current;
-      socketRef.current = null;
-      ws.onopen = null;
-      ws.onmessage = null;
-      ws.onerror = null;
-      ws.onclose = null;
-      if (ws.readyState === WebSocket.OPEN || ws.readyState === WebSocket.CONNECTING) {
-        ws.close();
+      const socket = socketRef.current;
+      if (joinedGmidRef.current) {
+        socket.emit('leave:match', joinedGmidRef.current);
+        joinedGmidRef.current = null;
       }
+      socketRef.current = null;
+      socket.removeAllListeners();
+      socket.disconnect();
     }
   }, []);
 
   const connect = useCallback(() => {
-    const { gmid: currentGmid, etid: currentEtid, url: currentUrl, enabled: currentEnabled } = paramsRef.current;
+    const { gmid: currentGmid, url: currentUrl, enabled: currentEnabled, token: currentToken } = paramsRef.current;
 
     if (!currentEnabled) return;
 
-    // Clean up previous socket if any without triggering onclose reconnect
+    // Clean up previous socket if any
     destroySocket();
 
     setConnectionStatus('connecting');
 
-    try {
-      const ws = new WebSocket(currentUrl);
-      socketRef.current = ws;
+    const socket = io(currentUrl, {
+      auth: { token: currentToken, scope: 'user' }, // admin AND client both use scope "user"
+    });
+    socketRef.current = socket;
 
-      ws.onopen = () => {
-        if (!isMountedRef.current || socketRef.current !== ws) return;
-        setIsConnected(true);
-        setConnectionStatus('connected');
+    socket.on('connect', () => {
+      if (!isMountedRef.current || socketRef.current !== socket) return;
+      setIsConnected(true);
+      setConnectionStatus('connected');
 
-        // Send subscribe payload on open
-        const subscribePayload = JSON.stringify({
-          type: 'subscribe',
-          gmid: currentGmid,
-          etid: currentEtid,
-        });
-        console.log('[WebSocket] Sending subscribe payload:', subscribePayload);
-        ws.send(subscribePayload);
-      };
+      console.log('[Socket.IO] joining match room:', currentGmid);
+      socket.emit('join:match', currentGmid);
+      joinedGmidRef.current = currentGmid;
+    });
 
-      ws.onmessage = (e) => {
-        if (!isMountedRef.current || socketRef.current !== ws) return;
-        try {
-          const msg: MatchOddsSocketMessage = JSON.parse(e.data);
-          console.log('[WebSocket] Message received:', msg.type, msg);
+    // Full snapshot every tick — replace, don't merge, so anything that
+    // disappeared (removed selection/market) drops out automatically too.
+    socket.on('markets:update', ({ gmid: updatedGmid, data }: { gmid: number; data: any[] }) => {
+      if (!isMountedRef.current || socketRef.current !== socket) return;
+      if (Number(updatedGmid) !== Number(paramsRef.current.gmid)) return; // stale event from a room we've since left
+      console.log('[Socket.IO] markets:update received:', updatedGmid, data.length, 'markets');
+      setMarketData(data);
+    });
 
-          if (msg.type === 'matchOdds') {
-            if (msg.stale !== undefined) {
-              setIsStale(!!msg.stale);
-            }
-            if (Array.isArray(msg.data)) {
-              setMarketData(msg.data);
-            }
-          } else if (msg.type === 'ping') {
-            // Reply with pong if server pings
-            ws.send(JSON.stringify({ type: 'pong' }));
-          }
-        } catch (err) {
-          console.error('[WebSocket] JSON parse error:', err);
-        }
-      };
+    // A whole market disappeared from the provider — drop it from state.
+    socket.on('markets:removed', ({ gmid: updatedGmid, marketIds }: { gmid: number; marketIds: string[] }) => {
+      if (!isMountedRef.current || socketRef.current !== socket) return;
+      if (Number(updatedGmid) !== Number(paramsRef.current.gmid)) return;
+      console.log('[Socket.IO] markets:removed received:', marketIds);
+      setMarketData((prev) => prev.filter((m) => !marketIds.includes(m.marketId)));
+    });
 
-      const handleReconnect = () => {
-        if (!isMountedRef.current) return;
-        setIsConnected(false);
-        setConnectionStatus('disconnected');
+    socket.on('disconnect', (reason) => {
+      if (!isMountedRef.current || socketRef.current !== socket) return;
+      console.warn('[Socket.IO] Disconnected:', reason);
+      setIsConnected(false);
+      setConnectionStatus('disconnected');
+    });
 
-        if (reconnectTimeoutRef.current) {
-          clearTimeout(reconnectTimeoutRef.current);
-        }
-
-        // Reconnect after short delay (1000ms)
-        reconnectTimeoutRef.current = setTimeout(() => {
-          if (isMountedRef.current && paramsRef.current.enabled) {
-            console.log('[WebSocket] Reconnecting & re-subscribing...');
-            connect();
-          }
-        }, 1000);
-      };
-
-      ws.onclose = (event) => {
-        console.warn('[WebSocket] Closed:', event.code, event.reason);
-        if (socketRef.current === ws) {
-          socketRef.current = null;
-          handleReconnect();
-        }
-      };
-
-      ws.onerror = (err) => {
-        console.error('[WebSocket] Error event:', err);
-        if (socketRef.current === ws) {
-          destroySocket();
-          handleReconnect();
-        }
-      };
-    } catch (error) {
-      console.error('[WebSocket] Connection creation error:', error);
+    socket.on('connect_error', (err) => {
+      if (!isMountedRef.current || socketRef.current !== socket) return;
+      console.error('[Socket.IO] Connection error:', err.message);
+      setIsConnected(false);
       setConnectionStatus('error');
-
-      if (reconnectTimeoutRef.current) {
-        clearTimeout(reconnectTimeoutRef.current);
-      }
-      reconnectTimeoutRef.current = setTimeout(() => {
-        if (isMountedRef.current && paramsRef.current.enabled) {
-          connect();
-        }
-      }, 1000);
-    }
+    });
   }, [destroySocket]);
 
   // Mount once — connect and clean up on unmount
@@ -175,9 +133,6 @@ export function useMatchOddsSocket({
 
     return () => {
       isMountedRef.current = false;
-      if (reconnectTimeoutRef.current) {
-        clearTimeout(reconnectTimeoutRef.current);
-      }
       destroySocket();
     };
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -185,7 +140,6 @@ export function useMatchOddsSocket({
 
   return {
     marketData,
-    isStale,
     isConnected,
     connectionStatus,
     reconnect: connect,

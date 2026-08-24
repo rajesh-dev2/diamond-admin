@@ -1,4 +1,3 @@
-import React from 'react';
 import { MarketDetail } from '@/components/market/MarketDetail';
 import './style.css';
 

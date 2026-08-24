@@ -1,0 +1,32 @@
+@reference "../../../styles/index.css";
+
+.common-toast-container {
+  @apply fixed top-4 right-4 z-[100] flex flex-col gap-2 items-end;
+}
+
+.common-toast {
+  @apply px-4 py-3 rounded-[4px] shadow-lg text-sm font-medium text-white min-w-[220px] max-w-[360px] animate-[toast-in_0.2s_ease-out];
+}
+
+.common-toast-success {
+  @apply bg-green-600;
+}
+
+.common-toast-error {
+  @apply bg-red-600;
+}
+
+.common-toast-info {
+  @apply bg-gray-800;
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateX(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}

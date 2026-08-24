@@ -1,11 +1,13 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Modal } from '@/components/common/Modal';
 import { useAppSelector } from '@/store/hooks';
 import { OddsGroup, OddsData } from '../OddsBox';
 import { OddsBox } from '../OddsBox';
-import { BetTable } from '../BetTable';
+import { BetTable, BetTableButton } from '../BetTable';
 import { useMatchOddsSocket } from '@/hooks/useMatchOddsSocket';
+import { MarketService } from '@/services/market.service';
+import { BetsService, MatchBetItem, MatchBookItem } from '@/services/bets.service';
 import './style.css';
 
 // ── Live Data Types ──────────────────────────────────────────────────────────
@@ -19,7 +21,7 @@ interface LiveOdd {
 }
 
 interface LiveSection {
-  sid: number;
+  sid: number | string; // "Normal"/fancy markets send this as a string, MATCH_ODDS/Bookmaker as a number
   nat: string;
   gstatus: string;
   max: number;
@@ -30,6 +32,7 @@ interface LiveSection {
 
 interface LiveMarket {
   mid: number;
+  marketId: string; // string identifier used by the lock API — has a "_BM" suffix for Bookmaker markets
   mname: string;
   gtype: string;
   status: string;
@@ -39,6 +42,7 @@ interface LiveMarket {
   ocnt: number;
   min: number;
   max: number;
+  betLock: boolean;
   section: LiveSection[];
 }
 
@@ -66,18 +70,18 @@ function getOdd(odds: LiveOdd[], name: string): LiveOdd | undefined {
 }
 
 /** back3 (lightest) → back2 → back1 (darkest) for OddsGroup backOdds[0..2] */
-function backGroup(odds: LiveOdd[]): (OddsData | null)[] {
+function backGroup(odds: LiveOdd[], getTrendForOname: (oname: string) => 'down' | 'up' | null): (OddsData | null)[] {
   return ['back3', 'back2', 'back1'].map(name => {
     const o = getOdd(odds, name);
-    return o && o.odds > 0 ? { odds: o.odds, volume: fmtVol(o.size) } : null;
+    return o && o.odds > 0 ? { odds: o.odds, volume: fmtVol(o.size), trend: getTrendForOname(name) } : null;
   });
 }
 
 /** lay1 (darkest) → lay2 → lay3 (lightest) for OddsGroup layOdds[0..2] */
-function layGroup(odds: LiveOdd[]): (OddsData | null)[] {
+function layGroup(odds: LiveOdd[], getTrendForOname: (oname: string) => 'down' | 'up' | null): (OddsData | null)[] {
   return ['lay1', 'lay2', 'lay3'].map(name => {
     const o = getOdd(odds, name);
-    return o && o.odds > 0 ? { odds: o.odds, volume: fmtVol(o.size) } : null;
+    return o && o.odds > 0 ? { odds: o.odds, volume: fmtVol(o.size), trend: getTrendForOname(name) } : null;
   });
 }
 
@@ -154,12 +158,73 @@ export function MarketDetail({
 
   const [activeTab, setActiveTab] = useState<'matched' | 'unmatched'>('matched');
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [matchedBets, setMatchedBets] = useState<MatchBetItem[]>([]);
+  const [unmatchedBets, setUnmatchedBets] = useState<MatchBetItem[]>([]);
+
+  useEffect(() => {
+    if (!activeGmid) return;
+
+    const fetchBets = () => {
+      BetsService.getMatchBets({ gmid: activeGmid, type: activeTab, status: 'PLACED', otype: 'all' }).then(
+        (res) => {
+          if (activeTab === 'matched') {
+            setMatchedBets(res.matchedBets);
+          } else {
+            setUnmatchedBets(res.unmatchedBets);
+          }
+        }
+      );
+    };
+
+    fetchBets();
+    const interval = setInterval(fetchBets, 3000);
+    return () => clearInterval(interval);
+  }, [activeGmid, activeTab]);
+
+  const [matchBook, setMatchBook] = useState<MatchBookItem[]>([]);
+
+  useEffect(() => {
+    if (!activeGmid) return;
+
+    const fetchBook = () => {
+      BetsService.getMatchBook(activeGmid).then(setMatchBook);
+    };
+
+    fetchBook();
+    const interval = setInterval(fetchBook, 4000);
+    return () => clearInterval(interval);
+  }, [activeGmid]);
+
+  const getBookValue = (mid: number | string, nat: string): number =>
+    matchBook.find((b) => String(b.mid) === String(mid) && b.nat === nat)?.value ?? 0;
+
   const [modalTab, setModalTab] = useState<'matched' | 'deleted'>('matched');
 
+  // ── Bet Lock / Unlock ───────────────────────────────────────────────────────
+  const [lockingIds, setLockingIds] = useState<Set<string>>(new Set());
+
+  const handleToggleLock = async (market: LiveMarket) => {
+    const nextLocked = !market.betLock;
+    setLockingIds((prev) => new Set(prev).add(market.marketId));
+    try {
+      await MarketService.setLock(market.marketId, nextLocked);
+    } catch (err) {
+      console.error(`Failed to ${nextLocked ? 'lock' : 'unlock'} market ${market.marketId}:`, err);
+    } finally {
+      setLockingIds((prev) => {
+        const next = new Set(prev);
+        next.delete(market.marketId);
+        return next;
+      });
+    }
+  };
+
   // ── Odds Trend Tracking ────────────────────────────────────────────────────
-  /** key: `${sid}-${oname}` → previous odds value */
+  // Keyed by market id too (not just section sid) — different markets can
+  // reuse the same sid, and comparing across markets caused spurious flashes.
+  /** key: `${mid}-${sid}-${oname}` → previous odds value */
   const prevOddsRef = useRef<Map<string, number>>(new Map());
-  /** key: `${sid}-${oname}` → 'down' | 'up' */
+  /** key: `${mid}-${sid}-${oname}` → 'down' | 'up' */
   const [trendMap, setTrendMap] = useState<Map<string, 'down' | 'up'>>(new Map());
   const trendResetRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
@@ -172,7 +237,7 @@ export function MarketDetail({
     for (const market of allMarkets) {
       for (const section of market.section) {
         for (const odd of section.odds) {
-          const key = `${section.sid}-${odd.oname}`;
+          const key = `${market.mid}-${section.sid}-${odd.oname}`;
           const prev = prevOddsRef.current.get(key);
           if (prev !== undefined && odd.odds !== prev) {
             newTrend.set(key, odd.odds < prev ? 'down' : 'up');
@@ -185,18 +250,52 @@ export function MarketDetail({
     if (newTrend.size > 0) {
       setTrendMap(newTrend);
       clearTimeout(trendResetRef.current);
-      trendResetRef.current = setTimeout(() => setTrendMap(new Map()), 1500);
+      trendResetRef.current = setTimeout(() => setTrendMap(new Map()), 600);
     }
 
     return () => clearTimeout(trendResetRef.current);
   }, [marketData]);
 
-  /** Look up the trend for a specific section + odd name */
-  const getTrend = (sid: number, oname: string): 'down' | 'up' | null =>
-    trendMap.get(`${sid}-${oname}`) ?? null;
+  /** Look up the trend for a specific market + section + odd name */
+  const getTrend = (mid: number, sid: number | string, oname: string): 'down' | 'up' | null =>
+    trendMap.get(`${mid}-${sid}-${oname}`) ?? null;
 
   // Sort markets by sno ascending
   const markets: LiveMarket[] = [...(marketData as LiveMarket[])].sort((a, b) => a.sno - b.sno);
+
+  // Fancy-style markets (fancy, khado, oddeven) = anything that isn't match odds/bookmaker or tied-match
+  const fancyMids = useMemo(
+    () =>
+      markets
+        .filter((m) => {
+          const isMatch = m.gtype === 'match' || (m.gtype === 'match1' && m.dtype === 4);
+          const isTwoBox = m.dtype === 2 || (m.mname || '').toUpperCase().includes('TIED MATCH');
+          return !isMatch && !isTwoBox;
+        })
+        .map((m) => m.mid),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [marketData]
+  );
+
+  const [fancyBookMap, setFancyBookMap] = useState<Record<string, MatchBookItem[]>>({});
+
+  useEffect(() => {
+    if (fancyMids.length === 0) return;
+
+    const fetchFancyBooks = () => {
+      Promise.all(
+        fancyMids.map((mid) => BetsService.getFancyBook(mid).then((rows) => [String(mid), rows] as const))
+      ).then((results) => setFancyBookMap(Object.fromEntries(results)));
+    };
+
+    fetchFancyBooks();
+    const interval = setInterval(fetchFancyBooks, 4000);
+    return () => clearInterval(interval);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [fancyMids.join(',')]);
+
+  const getFancyBookValue = (mid: number | string, nat: string): number =>
+    (fancyBookMap[String(mid)] || []).find((b) => b.nat === nat)?.value ?? 0;
 
   // ── Market Section Renderers ─────────────────────────────────────────────
 
@@ -227,12 +326,12 @@ export function MarketDetail({
             >
               <div className="nation-name d-none-mobile">
                 <p>{section.nat}</p>
-                <p className="mb-0 float-left position-red">0</p>
-                <p className="mb-0 float-right d-none">0</p>
+                <p className="mb-0 float-left position-red">{getBookValue(market.mid, section.nat)}</p>
+                <p className="mb-0 float-right d-none">{getBookValue(market.mid, section.nat)}</p>
               </div>
               <OddsGroup
-                backOdds={backGroup(section.odds)}
-                layOdds={layGroup(section.odds)}
+                backOdds={backGroup(section.odds, (oname) => getTrend(market.mid, section.sid, oname))}
+                layOdds={layGroup(section.odds, (oname) => getTrend(market.mid, section.sid, oname))}
                 disabled={isNotActive}
               />
             </div>
@@ -271,21 +370,21 @@ export function MarketDetail({
               >
                 <div className="nation-name d-none-mobile">
                   <p>{section.nat}</p>
-                  <p className="mb-0 position-red">0</p>
+                  <p className="mb-0 position-red">{getFancyBookValue(market.mid, section.nat)}</p>
                 </div>
                 <OddsBox
                   type="lay"
                   odds={hasLay ? layOdd!.odds : '—'}
                   volume={hasLay ? fmtVol(layOdd!.size) : ''}
                   disabled={isNotActive || !hasLay}
-                  trend={getTrend(section.sid, 'lay1')}
+                  trend={getTrend(market.mid, section.sid, 'lay1')}
                 />
                 <OddsBox
                   type="back"
                   odds={hasBack ? backOdd!.odds : '—'}
                   volume={hasBack ? fmtVol(backOdd!.size) : ''}
                   disabled={isNotActive || !hasBack}
-                  trend={getTrend(section.sid, 'back1')}
+                  trend={getTrend(market.mid, section.sid, 'back1')}
                 />
                 <div className="fancy-min-max">
                   <span>Min:{fmtVol(minVal) || '—'}</span>
@@ -325,7 +424,7 @@ export function MarketDetail({
             >
               <div className="nation-name d-none-mobile">
                 <p><span>{section.nat}</span></p>
-                <p className="mb-0 position-red">0</p>
+                <p className="mb-0 position-red">{getFancyBookValue(market.mid, section.nat)}</p>
               </div>
               <OddsBox
                 type="back"
@@ -333,7 +432,7 @@ export function MarketDetail({
                 volume={hasBack ? fmtVol(backOdd!.size) : ''}
                 disabled={!useLockIcon && (isNotActive || !hasBack)}
                 suspended={useLockIcon}
-                trend={getTrend(section.sid, 'back1')}
+                trend={getTrend(market.mid, section.sid, 'back1')}
               />
               <div className="fancy-min-max">
                 <span>Min:{fmtVol(minVal) || '—'}</span>
@@ -375,7 +474,7 @@ export function MarketDetail({
               >
                 <div className="nation-name d-none-mobile">
                   <p>{section.nat}</p>
-                  <p className="mb-0 position-red">0</p>
+                  <p className="mb-0 position-red">{getFancyBookValue(market.mid, section.nat)}</p>
                 </div>
                 <OddsBox
                   type="back"
@@ -383,7 +482,7 @@ export function MarketDetail({
                   volume={hasBack ? fmtVol(backOdd!.size) : ''}
                   disabled={!useLockIcon && (isNotActive || !hasBack)}
                   suspended={useLockIcon}
-                  trend={getTrend(section.sid, 'back1')}
+                  trend={getTrend(market.mid, section.sid, 'back1')}
                 />
                 <OddsBox
                   type="back"
@@ -391,7 +490,7 @@ export function MarketDetail({
                   volume={hasLay ? fmtVol(layOdd!.size) : ''}
                   disabled={!useLockIcon && (isNotActive || !hasLay)}
                   suspended={useLockIcon}
-                  trend={getTrend(section.sid, 'lay1')}
+                  trend={getTrend(market.mid, section.sid, 'lay1')}
                 />
                 <div className="fancy-min-max">
                   <span>Min:{fmtVol(minVal) || '—'}</span>
@@ -437,8 +536,8 @@ export function MarketDetail({
             >
               <div className="nation-name d-none-mobile">
                 <p>{section.nat}</p>
-                <p className="mb-0 float-left position-red">0</p>
-                <p className="mb-0 float-right d-none">0</p>
+                <p className="mb-0 float-left position-red">{getBookValue(market.mid, section.nat)}</p>
+                <p className="mb-0 float-right d-none">{getBookValue(market.mid, section.nat)}</p>
               </div>
               <div className="flex items-center">
                 <OddsBox
@@ -446,14 +545,14 @@ export function MarketDetail({
                   odds={hasBack ? backOdd!.odds : '—'}
                   volume={hasBack ? fmtVol(backOdd!.size) : ''}
                   disabled={isNotActive || !hasBack}
-                  trend={getTrend(section.sid, 'back1')}
+                  trend={getTrend(market.mid, section.sid, 'back1')}
                 />
                 <OddsBox
                   type="lay"
                   odds={hasLay ? layOdd!.odds : '—'}
                   volume={hasLay ? fmtVol(layOdd!.size) : ''}
                   disabled={isNotActive || !hasLay}
-                  trend={getTrend(section.sid, 'lay1')}
+                  trend={getTrend(market.mid, section.sid, 'lay1')}
                 />
               </div>
             </div>
@@ -507,9 +606,14 @@ export function MarketDetail({
             ) : (
               markets.map((market, index) => {
                 const cssClass = marketCssClass(market.dtype);
-                const buttons = isMatchGtype(market.gtype)
-                  ? ['Bet Lock', 'User Book']
-                  : ['Bet Lock'];
+                const lockButton: BetTableButton = {
+                  label: market.betLock ? 'Bet Unlock' : 'Bet Lock',
+                  onClick: () => handleToggleLock(market),
+                  disabled: lockingIds.has(market.marketId),
+                };
+                const buttons: BetTableButton[] = isMatchGtype(market.gtype)
+                  ? [lockButton, { label: 'User Book' }]
+                  : [lockButton];
 
                 return (
                   <BetTable
@@ -586,11 +690,22 @@ export function MarketDetail({
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td colSpan={4} className="no-records">
-                  No records found
-                </td>
-              </tr>
+              {(activeTab === 'matched' ? matchedBets : unmatchedBets).length === 0 ? (
+                <tr>
+                  <td colSpan={4} className="no-records">
+                    No records found
+                  </td>
+                </tr>
+              ) : (
+                (activeTab === 'matched' ? matchedBets : unmatchedBets).map((bet, idx) => (
+                  <tr key={idx} style={{ backgroundColor: bet.otype === 'lay' ? '#ffa2b6' : '#72bbef' }}>
+                    <td>{bet.username}</td>
+                    <td>{bet.nation}</td>
+                    <td>{bet.rate}</td>
+                    <td className="text-right">{bet.amount}</td>
+                  </tr>
+                ))
+              )}
             </tbody>
           </table>
         </div>

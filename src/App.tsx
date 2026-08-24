@@ -6,11 +6,14 @@ import { ReactQueryProvider } from '@/components/providers/ReactQueryProvider';
 import { ThemeProvider } from '@/components/providers/ThemeProvider';
 import { PageLoaderProvider } from '@/components/providers/PageLoaderProvider';
 import { ProtectedRoute } from '@/components/auth/ProtectedRoute';
+import { PublicRoute } from '@/components/auth/PublicRoute';
+import { ToastContainer } from '@/components/common/Toast';
 
 import DashboardLayout from '@/app/(dashboard)/layout';
 import LoginPage from '@/app/(auth)/login/page';
 import DashboardPage from '@/app/(dashboard)/dashboard/page';
 import ClientsPage from '@/app/(dashboard)/clients/page';
+import AccountList2Page from '@/app/(dashboard)/clients/AccountList2';
 import InsertUserPage from '@/app/(dashboard)/clients/insertuser/page';
 import AssignAgentPage from '@/app/(dashboard)/assign-agent/page';
 import MarketAnalysisPage from '@/app/(dashboard)/market-analysis/page';
@@ -26,12 +29,27 @@ export function App() {
     <Provider store={store}>
       <ReactQueryProvider>
         <ThemeProvider>
+          <ToastContainer />
           <BrowserRouter>
             <PageLoaderProvider>
               <Routes>
                 {/* Auth Routes */}
-                <Route path="/login" element={<LoginPage />} />
-                <Route path="/admin" element={<LoginPage />} />
+                <Route
+                  path="/login"
+                  element={
+                    <PublicRoute>
+                      <LoginPage />
+                    </PublicRoute>
+                  }
+                />
+                <Route
+                  path="/admin"
+                  element={
+                    <PublicRoute>
+                      <LoginPage />
+                    </PublicRoute>
+                  }
+                />
 
                 {/* Protected Dashboard Routes */}
                 <Route
@@ -49,6 +67,9 @@ export function App() {
                   <Route path="/clients" element={<ClientsPage />} />
                   <Route path="/users" element={<ClientsPage />} />
                   <Route path="/admin/users" element={<ClientsPage />} />
+                  <Route path="/admin/users/downline/:id" element={<ClientsPage />} />
+                  <Route path="/admin/users2" element={<AccountList2Page />} />
+                  <Route path="/admin/users2/downline/:id" element={<AccountList2Page />} />
 
                   {/* Add Account / Insert User (admin/users/insertuser) */}
                   <Route path="/clients/insertuser" element={<InsertUserPage />} />

@@ -1,12 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import FormSelect, { SelectOption } from '@/components/common/FormSelect';
+import DatePicker from '@/components/common/DatePicker';
 import TableControls from '@/components/common/TableControls';
 import DataTable, { ColumnDef } from '@/components/common/DataTable';
 import Pagination from '@/components/common/Pagination';
-
-const PROFIT_LOSS_SELECT_OPTIONS: SelectOption[] = [
-  { label: 'All', value: 'all' },
-];
+import { ReportsService } from '@/services/reports.service';
 
 const COLUMNS: ColumnDef<any>[] = [
   { key: 'no', header: 'No', width: '80px' },
@@ -19,19 +17,37 @@ const COLUMNS: ColumnDef<any>[] = [
 ];
 
 export default function ProfitLossPage() {
+  const [levelOptions, setLevelOptions] = useState<SelectOption[]>([]);
   const [profitLossSelect, setProfitLossSelect] = useState('all');
+  const [fromDate, setFromDate] = useState('02/08/2026');
+  const [toDate, setToDate] = useState('09/08/2026');
 
   const [entriesPerPage, setEntriesPerPage] = useState(25);
   const [tableSearch, setTableSearch] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
+  const [reportData, setReportData] = useState<any[]>([]);
+
+  useEffect(() => {
+    ReportsService.getProfitLossLevels().then((options) => {
+      setLevelOptions(options);
+      if (options.length > 0) {
+        setProfitLossSelect(String(options[0].value));
+      }
+    });
+  }, []);
 
   const handleLoadData = (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 400);
+    ReportsService.getProfitLoss({
+      level: profitLossSelect,
+      search: tableSearch,
+      from: fromDate,
+      to: toDate,
+    })
+      .then(setReportData)
+      .finally(() => setIsLoading(false));
   };
 
   return (
@@ -47,9 +63,18 @@ export default function ProfitLossPage() {
               <FormSelect
                 value={profitLossSelect}
                 onChange={setProfitLossSelect}
-                options={PROFIT_LOSS_SELECT_OPTIONS}
+                options={levelOptions}
               />
             </div>
+
+            <div className="w-[220px]">
+              <DatePicker label="From" value={fromDate} onChange={setFromDate} />
+            </div>
+
+            <div className="w-[220px]">
+              <DatePicker label="To" value={toDate} onChange={setToDate} />
+            </div>
+
             <button type="submit" className="report-btn-load">
               Load
             </button>
@@ -66,7 +91,7 @@ export default function ProfitLossPage() {
 
         <DataTable
           columns={COLUMNS}
-          data={[]}
+          data={reportData}
           isLoading={isLoading}
           emptyMessage="No data available in table"
         />

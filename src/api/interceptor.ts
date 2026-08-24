@@ -22,7 +22,11 @@ export function setupInterceptors() {
     (error: AxiosError) => {
       if (error.response?.status === 401) {
         store.dispatch(logout());
-        if (typeof window !== 'undefined' && window.location.pathname !== '/login') {
+        if (
+          typeof window !== 'undefined' &&
+          window.location.pathname !== '/login' &&
+          window.location.pathname !== '/admin'
+        ) {
           window.location.href = '/login';
         }
       }

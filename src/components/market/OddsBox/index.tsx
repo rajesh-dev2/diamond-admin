@@ -9,7 +9,7 @@ export interface OddsBoxProps {
   disabled?: boolean;
   /** When true the box keeps its back/lay colour but overlays a lock icon */
   suspended?: boolean;
-  /** 'down' = green flash (odds decreased), 'up' = red flash (odds increased) */
+  /** 'down' = red flash (odds decreased), 'up' = green flash (odds increased) */
   trend?: 'down' | 'up' | null;
   onClick?: () => void;
   className?: string;
@@ -62,6 +62,7 @@ export const OddsBox: React.FC<OddsBoxProps> = ({
 export interface OddsData {
   odds: string | number;
   volume?: string | number;
+  trend?: 'down' | 'up' | null;
 }
 
 export interface OddsGroupProps {
@@ -99,6 +100,7 @@ export const OddsGroup: React.FC<OddsGroupProps> = ({
             volume={data ? data.volume : ''}
             disabled={!suspended && (disabled || !data)}
             suspended={suspended && !!data}
+            trend={data?.trend ?? null}
             onClick={() => data && onOddsClick && onOddsClick(type, data)}
           />
         );
@@ -113,6 +115,7 @@ export const OddsGroup: React.FC<OddsGroupProps> = ({
             volume={data ? data.volume : ''}
             disabled={!suspended && (disabled || !data)}
             suspended={suspended && !!data}
+            trend={data?.trend ?? null}
             onClick={() => data && onOddsClick && onOddsClick(type, data)}
           />
         );

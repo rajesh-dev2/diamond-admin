@@ -13,7 +13,7 @@ import PasswordModal from '@/components/account/PasswordModal';
 import ChangeStatusModal from '@/components/account/ChangeStatusModal';
 import './style.css';
 
-export default function ClientsPage() {
+export default function AccountList2Page() {
   const navigate = useNavigate();
   const { id: parentId } = useParams<{ id: string }>();
   const [entriesPerPage, setEntriesPerPage] = useState(25);
@@ -81,17 +81,33 @@ export default function ClientsPage() {
         render: (row) => (
           <span
             className="account-username-badge cursor-pointer hover:underline"
-            onClick={() => navigate(ROUTES.CLIENTS_DOWNLINE(row.id))}
+            onClick={() => navigate(ROUTES.ACCOUNT_LIST_DOWNLINE(row.id))}
           >
             {row.username}
           </span>
         ),
       },
-      { key: 'creditReference', header: 'Credit Referance', width: '160px', align: 'right' },
-      { key: 'uSt', header: 'U st', width: '80px', align: 'center' },
-      { key: 'bSt', header: 'B st', width: '80px', align: 'center' },
-      { key: 'exposure', header: 'Exposure Limit', width: '140px', align: 'right' },
-      { key: 'defaultPct', header: 'Deafult (%)', width: '120px', align: 'center' },
+      { key: 'creditReference', header: 'CR', width: '120px', align: 'right' },
+      { key: 'balance', header: 'Balance', width: '120px', align: 'right' },
+      { key: 'clientPL', header: 'Client(P/L)', width: '120px', align: 'right' },
+      { key: 'exposure', header: 'Exposure', width: '120px', align: 'right' },
+      { key: 'availableBalance', header: 'Available Balance', width: '150px', align: 'right' },
+      {
+        key: 'ust',
+        header: 'U st',
+        width: '70px',
+        align: 'center',
+        render: (row) => (row.ust ? '✓' : '✗'),
+      },
+      {
+        key: 'bst',
+        header: 'B st',
+        width: '70px',
+        align: 'center',
+        render: (row) => (row.bst ? '✓' : '✗'),
+      },
+      { key: 'exposureLimit', header: 'Exposure Limit', width: '140px', align: 'right' },
+      { key: 'defaultPercent', header: 'Default(%)', width: '120px', align: 'center' },
       {
         key: 'accountType',
         header: 'Account Type',
@@ -155,7 +171,6 @@ export default function ClientsPage() {
             >
               S
             </button>
-            <button type="button" className="account-action-btn account-action-btn-more" title="More">MORE</button>
           </div>
         ),
       },
@@ -175,7 +190,7 @@ export default function ClientsPage() {
             <button
               type="button"
               className="btn-reset-data"
-              onClick={() => navigate(ROUTES.CLIENTS)}
+              onClick={() => navigate(ROUTES.ACCOUNT_LIST)}
             >
               Back
             </button>

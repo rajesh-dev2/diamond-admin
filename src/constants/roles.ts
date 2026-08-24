@@ -1,9 +1,25 @@
 import { UserRole } from '@/types/user.types';
 
-export const USER_ROLES: Record<UserRole, { label: string; level: number; badgeColor: string }> = {
-  SUPER_ADMIN: { label: 'Super Admin', level: 1, badgeColor: 'bg-amber-100 text-amber-900 border-amber-300' },
-  ADMIN: { label: 'Admin', level: 2, badgeColor: 'bg-blue-100 text-blue-900 border-blue-300' },
-  MASTER: { label: 'Master Agent', level: 3, badgeColor: 'bg-purple-100 text-purple-900 border-purple-300' },
-  AGENT: { label: 'Agent', level: 4, badgeColor: 'bg-green-100 text-green-900 border-green-300' },
-  CLIENT: { label: 'Client / User', level: 5, badgeColor: 'bg-gray-100 text-gray-900 border-gray-300' },
-};
+export interface RoleHierarchyEntry {
+  role: UserRole;
+  label: string;
+  accountType: string;
+}
+
+export const ROLE_HIERARCHY: RoleHierarchyEntry[] = [
+  { role: 'SUPER_ADMIN', label: 'Super Admin', accountType: 'superadmin' },
+  { role: 'ADMIN', label: 'Admin', accountType: 'admin' },
+  { role: 'SUPER_MASTER', label: 'Super Master', accountType: 'supermaster' },
+  { role: 'MASTER', label: 'Master', accountType: 'master' },
+  { role: 'AGENT', label: 'Agent', accountType: 'agent' },
+  { role: 'CLIENT', label: 'Client', accountType: 'client' },
+];
+
+/**
+ * Roles a given logged-in role is allowed to create — everything below it in the hierarchy.
+ */
+export function getCreatableRoles(currentRole: UserRole | undefined): RoleHierarchyEntry[] {
+  const index = ROLE_HIERARCHY.findIndex((entry) => entry.role === currentRole);
+  if (index === -1) return [];
+  return ROLE_HIERARCHY.slice(index + 1);
+}
