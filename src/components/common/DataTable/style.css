@@ -2,45 +2,45 @@
 
 .common-datatable-container {
   @apply w-full overflow-x-auto;
-}
 
-.common-datatable-table {
-  @apply w-full text-left border-collapse text-[13px];
-}
+  .common-datatable-table {
+    @apply w-full text-left border-collapse text-[13px];
+  }
 
-.common-datatable-header-tr {
-  @apply bg-transparent;
-}
+  .common-datatable-header-tr {
+    @apply bg-transparent;
+  }
 
-.common-datatable-th {
-  @apply text-[#1e1e1e] font-bold px-3 py-2.5 uppercase tracking-tight text-[14px] border border-b-[#111] border-t-0 border-l-0 border-r-0;
-}
+  .common-datatable-th {
+    @apply text-[#1e1e1e] font-bold px-3 py-2.5 uppercase tracking-tight text-[14px] border border-b-[#111] border-t-0 border-l-0 border-r-0;
+  }
 
-.common-datatable-th-sortable {
-  @apply cursor-pointer select-none transition-colors;
-}
+  .common-datatable-th-sortable {
+    @apply cursor-pointer select-none transition-colors;
+  }
 
-.common-datatable-th-inner {
-  @apply inline-flex items-center gap-1;
-}
+  .common-datatable-th-inner {
+    @apply inline-flex items-center gap-1;
+  }
 
-.common-datatable-tr {
-  @apply transition-colors;
-}
+  .common-datatable-tr {
+    @apply transition-colors;
+  }
 
-.common-datatable-tr:nth-of-type(2n + 1) {
-  background-color: rgba(0, 0, 0, 0.05);
-}
+  .common-datatable-tr:nth-of-type(2n + 1) {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
 
-.common-datatable-td {
-  @apply px-3 py-2.5 text-[#333333] text-[13px];
-  border: 1px solid #dee2e6;
-}
+  .common-datatable-td {
+    @apply px-3 py-2.5 text-[#333333] text-[13px];
+    border: 1px solid #dee2e6;
+  }
 
-.common-datatable-loading-td {
-  @apply text-center py-4 text-[#888888];
-}
+  .common-datatable-loading-td {
+    @apply text-center py-4 text-[#888888];
+  }
 
-.common-datatable-empty-td {
-  @apply text-center py-5 text-[#666666];
+  .common-datatable-empty-td {
+    @apply text-center py-[0.5rem] text-[#1e1e1e] text-[14px];
+  }
 }

@@ -144,3 +144,8 @@ input:hover,
 .multiselect__option {
   @apply px-3 py-2 text-[13px] font-normal text-[#333333] hover:bg-[#f3f3f3] block cursor-pointer transition-colors;
 }
+
+
+.page-content:has(.assign-agent-wrapper) {
+  padding: 0;
+}

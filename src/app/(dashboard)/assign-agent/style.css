@@ -2,22 +2,26 @@
 
 @layer components {
   .assign-agent-wrapper {
-    @apply w-full p-4 bg-[#F9F9F9] min-h-screen text-[#333333] font-sans;
+    @apply w-full bg-[#ffffff] h-auto text-[#333333] font-sans;
+    padding: 15px 15px 70px;
 
     .assign-agent-title {
-      @apply text-[22px] font-normal text-[#1e1e1e] mb-3;
+      @apply text-[22px] font-normal text-[#1e1e1e] mb-8;
     }
 
     .assign-agent-card {
-      @apply bg-transparent rounded-[4px] border border-[#E0E0E0] p-4 shadow-2xs mb-6;
+      padding: 1.25rem;
+      margin-bottom: 24px;
+      background: white;
+      box-shadow: 0 0.75rem 1.5rem rgba(18, 38, 63, 0.03);
     }
 
     .user-creation-title {
-      @apply text-[18px] font-medium text-[#333333] mb-3;
+      @apply text-[22px] font-normal text-[#1e1e1e] mb-3;
     }
 
     .user-creation-card {
-      @apply bg-transparent rounded-[4px] border border-[#E0E0E0] p-4 shadow-2xs;
+      @apply bg-transparent p-4;
     }
 
     .user-creation-filter-row {
@@ -29,9 +33,30 @@
     }
 
     .btn-download-csv {
-      @apply bg-[#BE8220] hover:bg-[#A77118] text-white px-4 py-1.5 text-[13px] font-medium rounded-[3px] transition-colors cursor-pointer border-none;
-      box-shadow: 0px 5px 6px -6px #000;
-      min-height: 32.19px;
+      @apply bg-[#C98B26] hover:bg-[#C98B26] text-white px-3 py-1.5 text-[13px] font-medium rounded-[3px] shadow-2xs transition-colors cursor-pointer border-none;
+      padding: 6px 12px;
+      font-size: 1rem;
+      line-height: 1.5;
+      border-radius: 0.25rem;
+    }
+
+  }
+
+  .assign-agent-table {
+
+    .common-datatable-th,
+    .common-datatable-th-sortable {
+      vertical-align: bottom;
+      border-top: 1px solid #eff2f7 !important;
+      border-bottom: 1px solid #eff2f7 !important;
+      border-left: 1px solid #eff2f7 !important;
+      border-right: 1px solid #eff2f7 !important;
+      padding: 4px 6px !important;
+      padding-right: calc(0.75rem + 0.65em) !important;
+    }
+
+    .common-datatable-table {
+      border: 1px solid #eff2f7;
     }
   }
 }
