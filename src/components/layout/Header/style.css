@@ -31,7 +31,7 @@
     }
 
     .multiselect__tags {
-      @apply flex items-center bg-white px-2.5 py-1 pr-8 cursor-text shadow-sm h-full;
+      @apply flex items-center bg-white px-2.5 py-1 pr-8 cursor-text shadow-sm h-full!;
     }
 
     .multiselect__placeholder {
