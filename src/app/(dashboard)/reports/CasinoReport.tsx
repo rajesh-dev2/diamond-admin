@@ -91,6 +91,7 @@ export default function CasinoReportPage() {
           data={[]}
           isLoading={isLoading}
           emptyMessage="No data available in table"
+          className='statement-table'
         />
 
         <Pagination

@@ -111,7 +111,7 @@ export default function AccountStatementPage() {
   };
 
   return (
-    <div className="report-wrapper">
+    <div className="report-wrapper account-statement-page">
       <div className="report-header-bar">
         <h4 className="report-page-title">Account Statement</h4>
       </div>

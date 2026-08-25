@@ -14,6 +14,7 @@
   .common-datatable-th {
     @apply text-[#1e1e1e] font-bold tracking-tight text-[14px] border border-b-[#111] border-t-0 border-l-0 border-r-0;
     padding: 4px 6px;
+    height: 40px;
   }
 
   .common-datatable-th-sortable {

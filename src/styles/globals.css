@@ -165,8 +165,22 @@ input:hover,
 }
 
 .user-register-page {
-
-  .common-multiselect-label {
+  .common-multiselect-label,
+  .common-form-select-label {
     font-weight: 400;
+  }
+
+  .multiselect__tags {
+    height: 34px !important;
+    min-height: 34px !important;
+    display: flex;
+    align-items: center;
+    border-color: #ced4da;
+  }
+
+  .common-form-select-input {
+    height: 34px !important;
+    font-size: 13px;
+    border-color: #ced4da;
   }
 }

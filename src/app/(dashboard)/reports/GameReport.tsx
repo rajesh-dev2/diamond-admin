@@ -43,7 +43,7 @@ export default function GameReportPage() {
       <div className="report-card">
         <div className="game-report-filter-bar">
           <form onSubmit={handleLoadData} className="flex flex-col gap-4">
-            <div className="flex flex-wrap items-center gap-3">
+            <div className="flex flex-wrap items-end gap-3">
               <div className="w-[210px] pr-6">
                 <DatePicker
                   label="From"
