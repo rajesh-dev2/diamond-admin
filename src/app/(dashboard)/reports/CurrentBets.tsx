@@ -16,7 +16,6 @@ const CURRENT_BETS_TABS: TabItem[] = [
 const STATUS_RADIO_OPTIONS: RadioOption[] = [
   { label: 'Matched', value: 'matched' },
   { label: 'Deleted', value: 'deleted' },
-  { label: 'All', value: 'all' },
 ];
 
 const BET_TYPE_RADIO_OPTIONS: RadioOption[] = [
@@ -141,16 +140,14 @@ export default function CurrentBetsPage() {
       <div className="report-card">
         <div className="current-bets-filter-bar">
           <form onSubmit={handleLoadData} className="current-bets-controls">
-            {currentBetsTab === 'sports' && (
-              <div className="current-bets-control-row">
-                <RadioGroup
-                  name="statusFilter"
-                  options={STATUS_RADIO_OPTIONS}
-                  value={statusFilter}
-                  onChange={setStatusFilter}
-                />
-              </div>
-            )}
+            <div className="current-bets-control-row">
+              <RadioGroup
+                name="statusFilter"
+                options={STATUS_RADIO_OPTIONS}
+                value={statusFilter}
+                onChange={setStatusFilter}
+              />
+            </div>
             <div className="current-bets-control-row">
               <RadioGroup
                 name="betTypeFilter"

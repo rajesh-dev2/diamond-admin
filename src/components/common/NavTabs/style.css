@@ -9,7 +9,7 @@
 }
 
 .common-navtabs-btn {
-  @apply px-[14px] py-[7px] text-[14px] font-medium transition-colors cursor-pointer relative z-10 bg-transparent text-[#555555] border border-transparent hover:text-[#333333];
+  @apply px-[14px] py-[7px] text-[14px] font-normal transition-colors cursor-pointer relative z-10 bg-transparent text-[#495057] border border-transparent hover:text-[#333333];
 }
 
 .common-navtabs-btn-active {
