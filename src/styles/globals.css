@@ -131,7 +131,7 @@ input:hover,
 }
 
 .multiselect__input {
-  @apply w-full bg-transparent text-[13px] font-normal text-[#333333] placeholder:text-[#999999] focus:outline-none;
+  @apply w-full bg-transparent text-[13px] font-normal text-[#333333] placeholder:text-black/20 focus:outline-none;
 }
 
 .multiselect__content-wrapper {
@@ -151,4 +151,15 @@ input:hover,
   padding: 0;
   background-color: white;
   height: auto;
+}
+
+
+
+.casino-result-page,
+.general-lock-page {
+  padding: 10px;
+
+  .report-page-title {
+    margin-bottom: 4px;
+  }
 }

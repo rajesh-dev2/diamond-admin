@@ -32,7 +32,7 @@ export default function CasinoResultPage() {
   };
 
   return (
-    <div className="report-wrapper">
+    <div className="report-wrapper casino-result-page">
       <div className="report-header-bar">
         <h4 className="report-page-title">Casino Result Report</h4>
       </div>
@@ -40,13 +40,13 @@ export default function CasinoResultPage() {
       <div className="report-card">
         <div className="casino-result-filter-bar">
           <form onSubmit={handleLoadData} className="flex flex-wrap items-end gap-3">
-            <div className="w-[220px]">
+            <div className="w-[162px]">
               <DatePicker
                 value={casinoResultDate}
                 onChange={setCasinoResultDate}
               />
             </div>
-            <div className="w-[250px]">
+            <div className="w-[218px]">
               <FormSelect
                 value={casinoResultGame}
                 onChange={setCasinoResultGame}
@@ -71,6 +71,7 @@ export default function CasinoResultPage() {
           data={[]}
           isLoading={isLoading}
           emptyMessage="No data available in table"
+          className='general-report-table'
         />
 
         <Pagination

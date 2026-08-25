@@ -25,15 +25,15 @@ export default function GeneralLockPage() {
   };
 
   return (
-    <div className="report-wrapper">
+    <div className="report-wrapper general-lock-page">
       <div className="report-header-bar">
         <h4 className="report-page-title">General Lock</h4>
       </div>
 
       <div className="report-card">
         <div className="user-lock-filter-bar">
-          <form onSubmit={handleLoadData} className="flex flex-wrap items-end gap-3">
-            <div className="w-[250px]">
+          <form onSubmit={handleLoadData} className="flex flex-wrap items-center gap-3">
+            <div className="w-[331px]">
               <MultiSelect
                 value={clientSearch}
                 onChange={setClientSearch}
@@ -56,7 +56,7 @@ export default function GeneralLockPage() {
                 setClientSearch('');
                 setTxCode('');
               }}
-              className="h-[34px] px-3 border border-[#CCCCCC] bg-white hover:bg-[#F5F5F5] text-[#333333] text-xs font-semibold rounded-[3px] transition-colors"
+              className="h-[34px] px-3 ml-[-6px] bg-[#eff2f7] text-[#212529] text-[14px] font-normal rounded-[3px] transition-colors"
             >
               Reset
             </button>
@@ -68,6 +68,7 @@ export default function GeneralLockPage() {
           data={[]}
           isLoading={isLoading}
           emptyMessage="No data available in table"
+          className='general-report-table'
         />
       </div>
     </div>
