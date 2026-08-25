@@ -97,6 +97,7 @@ export default function UserWinLossPage() {
             data={[]}
             isLoading={isLoading}
             emptyMessage="There are no records to show"
+            className='assign-agent-table'
           />
           <div className="flex justify-end items-center gap-12 py-2 px-6 text-[13px] font-bold text-[#333333] border-t border-[#E0E0E0]">
             <span>0.00</span>
