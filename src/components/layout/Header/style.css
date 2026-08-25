@@ -14,11 +14,37 @@
     }
 
     .site-header-dropdown-menu {
-      @apply absolute top-full left-0 mt-0 bg-[#BE8220] shadow-xl z-50 py-0 flex flex-col;
+      @apply absolute top-full left-0 mt-0 bg-[#C98B26] z-50 py-2.5 flex flex-col min-h-[200px];
+      box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175);
+      border: 0 solid rgba(0, 0, 0, 0.15);
+      border-radius: 0.25rem;
     }
 
     .site-header-dropdown-item {
-      @apply px-3 py-1.5 text-[14px] leading-[15px] font-bold text-white hover:bg-[#333333] transition-colors;
+      @apply p-2.5 text-[14px] leading-[15px] font-bold text-white hover:bg-[#333333] transition-colors;
+    }
+
+    .site-header-user-wrapper {
+      @apply relative py-2;
+    }
+
+    .site-header-user-btn {
+      @apply text-[14px] leading-[15px] font-bold text-white flex items-center gap-1 hover:text-amber-100 cursor-pointer whitespace-nowrap;
+    }
+
+    .site-header-user-balance {
+      @apply text-[12px] font-normal opacity-90;
+    }
+
+    .site-header-user-menu {
+      @apply absolute right-0 top-full mt-0 w-48 bg-[#C98B26] z-50 py-[7px] flex flex-col border-t border-amber-600/30;
+      box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175);
+      border: 0 solid rgba(0, 0, 0, 0.15);
+      border-radius: 0.25rem;
+    }
+
+    .site-header-user-menu-item {
+      @apply px-2.5 py-1 text-[14px] font-bold text-white text-left hover:underline transition-colors cursor-pointer whitespace-nowrap;
     }
 
     /* Vue Multiselect exact styling */

@@ -1,9 +1,10 @@
 @font-face {
   font-family: 'Roboto Condensed';
-  src: url('/fonts/ieVo2ZhZI2eCN5jzbjEETS9weq8-_d6T_POl0fRJeyWyosBO5Xw.woff2') format('woff2');
-  font-weight: 400;
   font-style: normal;
+  font-weight: 400;
   font-display: swap;
+  src: url(https://fonts.gstatic.com/s/robotocondensed/v31/ieVo2ZhZI2eCN5jzbjEETS9weq8-_d6T_POl0fRJeyWyosBD5XxxKA.woff2) format('woff2');
+  unicode-range: U +0460 -052F, U +1C80 -1C8A, U +20B4, U +2DE0 -2DFF, U + A640-A69F, U + FE2E-FE2F;
 }
 
 @layer base {
@@ -49,7 +50,7 @@
 
 html,
 body {
-  height: 100%;
+  min-height: 100%;
   background-color: var(--light-bg);
   color: #1e1e1e;
   font-family: "Roboto Condensed", sans-serif;
@@ -99,7 +100,7 @@ body {
 
 
 .page-content {
-  min-height: 100vh;
+  min-height: auto;
   padding: 10px 15px 70px;
 }
 

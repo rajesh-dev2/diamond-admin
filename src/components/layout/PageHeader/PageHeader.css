@@ -2,11 +2,11 @@
 
 @layer components {
   .page-title-box {
-    @apply w-full bg-[#F7F7F7] px-2.5 flex items-center justify-between font-sans select-none shrink-0 min-h-[72px];
+    @apply w-full p-2.5 flex items-center justify-between font-sans select-none shrink-0;
   }
 
   .page-title-heading {
-    @apply text-[22px] leading-[27px] font-medium text-[#1e1e1e] flex items-center gap-1.5 mb-0;
+    @apply text-[22px] leading-[27px] font-normal text-[#1e1e1e] flex items-center gap-1.5 mb-0;
   }
 
   .page-title-right {
@@ -14,6 +14,33 @@
   }
 
   .page-header-search-input {
-    @apply w-40 sm:w-52 min-h-[40px] px-2.5 bg-white text-xs text-[#333333] placeholder:text-[#999999] rounded border border-[#CCCCCC] focus:outline-none focus:border-[#999999] shadow-xs;
+    display: block;
+    width: 80%;
+    height: calc(1.5em + 0.94rem + 2px) !important;
+    padding: 0.47rem 0.75rem !important;
+    font-size: 1rem;
+    font-weight: 300;
+    line-height: 1.5;
+    color: #495057 !important;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    margin: 0 0 0 auto;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  }
+
+  .page-header-search-input::placeholder{
+    color: #495057 !important;
+    font-size:13px;
+    opacity: 0.8;
+  }
+
+  .page-header-search-input:focus {
+    color: #495057 !important;
+    background-color: #fff !important;
+    border-color: #b1bbc4 !important;
+    outline: 0;
+    box-shadow: none !important;
   }
 }

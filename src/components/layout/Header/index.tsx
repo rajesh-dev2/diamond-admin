@@ -115,9 +115,9 @@ export function Header() {
   ];
 
   const userMenuItems = [
-    { label: 'Secure Auth Verification', action: () => { } },
-    { label: 'Change Password', action: () => { } },
-    { label: 'Logout', action: () => dispatch(logout()) },
+    { label: 'Secure Auth Verification', path: '#', action: () => { } },
+    { label: 'Change Password', path: '#', action: () => { } },
+    { label: 'Logout', path: '#', action: () => dispatch(logout()) },
   ];
 
   return (
@@ -136,7 +136,7 @@ export function Header() {
         {/* Sidebar Hamburger Toggle */}
         <button
           onClick={() => dispatch(toggleSidebar())}
-          className="p-1 text-white hover:bg-[#2A2A2A] rounded transition-colors cursor-pointer mr-1 hover:bg-transparent"
+          className="p-1 text-white rounded transition-colors cursor-pointer mr-1 hover:bg-transparent"
           title="Toggle Sports Menu"
         >
           <i className="fa fa-fw fa-bars"></i>
@@ -276,14 +276,14 @@ export function Header() {
       {/* Right Section: pwdemm1 dropdown, Combined Site Search Box */}
       <div className="flex items-center gap-2">
         {/* User profile dropdown (pwdemm1) */}
-        <div className="relative py-2" ref={userRef}>
+        <div className="site-header-user-wrapper" ref={userRef}>
           <button
             onClick={() => setUserDropdownOpen(!userDropdownOpen)}
-            className="text-[14px] leading-[15px] font-bold text-white flex items-center gap-1 hover:text-amber-100 cursor-pointer whitespace-nowrap"
+            className="site-header-user-btn"
           >
             <span>{user?.name || 'pwdemm1'}</span>
             {typeof user?.balance === 'number' && (
-              <span className="text-[12px] font-normal opacity-90">
+              <span className="site-header-user-balance">
                 ({user.balance.toLocaleString()})
               </span>
             )}
@@ -291,18 +291,19 @@ export function Header() {
           </button>
 
           {userDropdownOpen && (
-            <div className="absolute right-0 top-full mt-0 w-48 bg-[#BE8220] shadow-xl z-50 py-0 flex flex-col border-t border-amber-600/30">
+            <div className="site-header-user-menu">
               {userMenuItems.map((item, idx) => (
-                <button
+                <Link
                   key={idx}
+                  to={item.path}
                   onClick={() => {
                     setUserDropdownOpen(false);
-                    item.action();
+                    if (item.action) item.action();
                   }}
-                  className="px-3 py-1.5 text-xs font-bold text-white text-left hover:bg-[#333333] transition-colors cursor-pointer whitespace-nowrap"
+                  className="site-header-user-menu-item"
                 >
                   {item.label}
-                </button>
+                </Link>
               ))}
             </div>
           )}
