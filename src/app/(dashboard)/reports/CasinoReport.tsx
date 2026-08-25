@@ -44,29 +44,29 @@ export default function CasinoReportPage() {
   };
 
   return (
-    <div className="report-wrapper">
+    <div className="report-wrapper casino-report">
       <div className="report-header-bar">
         <h4 className="report-page-title">Casino Report</h4>
       </div>
 
       <div className="report-card">
         <div className="casino-report-filter-bar">
-          <form onSubmit={handleLoadData} className="flex flex-wrap items-end gap-3">
-            <div className="w-[220px]">
+          <form onSubmit={handleLoadData} className="flex flex-wrap items-center gap-3">
+            <div className="w-[210px]">
               <FormSelect
                 value={casinoType}
                 onChange={setCasinoType}
                 options={CASINO_TYPE_OPTIONS}
               />
             </div>
-            <div className="w-[220px]">
+            <div className="w-[210px]">
               <MultiSelect
                 value={casinoSearchOption}
                 onChange={setCasinoSearchOption}
                 placeholder="Select option"
               />
             </div>
-            <div className="w-[220px]">
+            <div className="w-[210px]">
               <FormSelect
                 value={casinoSelect}
                 onChange={setCasinoSelect}

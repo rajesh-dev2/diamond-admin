@@ -9,5 +9,7 @@
 }
 
 .common-form-select-input {
-  @apply w-full h-[33px] bg-white border border-[#CCCCCC] rounded-[3px] px-2.5 text-[13px] text-[#333333] focus:outline-none transition-colors cursor-pointer disabled:bg-gray-100 disabled:cursor-not-allowed;
+  @apply w-full bg-white rounded-[3px] px-2.5 text-[14px] text-[#495057] focus:outline-none transition-colors cursor-pointer disabled:bg-gray-100 disabled:cursor-not-allowed;
+  border: 1px solid #ced4da;
+  height: calc(1.5em + 0.94rem + 2px);
 }
