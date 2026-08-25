@@ -39,7 +39,7 @@ export default function CasinoResultPage() {
 
       <div className="report-card">
         <div className="casino-result-filter-bar">
-          <form onSubmit={handleLoadData} className="flex flex-wrap items-end gap-3">
+          <form onSubmit={handleLoadData} className="flex flex-wrap items-center gap-3">
             <div className="w-[162px]">
               <DatePicker
                 value={casinoResultDate}

@@ -64,7 +64,7 @@ export default function UserRegisterDetailPage() {
 
       <div className="report-card">
         <div className="user-register-filter-bar">
-          <form onSubmit={handleLoadData} className="flex flex-wrap items-end gap-3">
+          <form onSubmit={handleLoadData} className="flex flex-wrap items-center gap-3">
             <div className="w-[220px]">
               <MultiSelect
                 label="Search By Client Name"

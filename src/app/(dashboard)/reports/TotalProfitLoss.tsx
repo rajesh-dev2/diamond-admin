@@ -57,7 +57,7 @@ export default function TotalProfitLossPage() {
       <div className="report-card">
         <div className="total-profit-loss-filter-bar">
           <form onSubmit={handleLoadData} className="flex flex-col gap-3">
-            <div className="flex flex-wrap items-end gap-3">
+            <div className="flex flex-wrap items-center gap-3">
               <div className="w-[240px]">
                 <MultiSelect
                   label="Search By Client Name"
