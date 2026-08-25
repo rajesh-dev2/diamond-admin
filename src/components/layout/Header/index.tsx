@@ -191,7 +191,6 @@ export function Header() {
                   <Link
                     key={idx}
                     to={item.path}
-                    onClick={() => setActiveDropdown(null)}
                     className="site-header-dropdown-item"
                   >
                     {item.label}
@@ -222,7 +221,6 @@ export function Header() {
                   <Link
                     key={idx}
                     to={item.path}
-                    onClick={() => setActiveDropdown(null)}
                     className="site-header-dropdown-item"
                   >
                     {item.label}
@@ -253,7 +251,6 @@ export function Header() {
                   <Link
                     key={idx}
                     to={item.path}
-                    onClick={() => setActiveDropdown(null)}
                     className="site-header-dropdown-item"
                   >
                     {item.label}

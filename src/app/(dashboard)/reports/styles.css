@@ -78,7 +78,7 @@
 
     /* User Register Detail Specific Controls */
     .user-register-filter-bar {
-      @apply flex flex-wrap items-end gap-3 mb-4 pb-3;
+      @apply flex flex-wrap items-end gap-3 mb-4 pb-3 pl-[17px];
     }
 
     /* Total Profit Loss Specific Controls */
@@ -165,14 +165,26 @@
         background-color: rgba(0, 0, 0, 0.05);
         margin: 20px 0;
       }
+
+      .common-datatable-th {
+        border-bottom: 2px solid #eff2f7;
+      }
     }
 
     .general-report-table .common-datatable-table {
       border: 1px solid #dee2e6;
+
+      .common-datatable-th {
+        border-bottom: 2px solid #eff2f7;
+      }
     }
 
     .general-report-table .common-datatable-table .common-datatable-td {
       border: 1px solid #dee2e6;
+
+      .common-datatable-th {
+        border-bottom: 2px solid #eff2f7;
+      }
     }
 
     /* MX Datepicker Plugin Styles */

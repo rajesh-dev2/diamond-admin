@@ -163,3 +163,10 @@ input:hover,
     margin-bottom: 4px;
   }
 }
+
+.user-register-page {
+
+  .common-multiselect-label {
+    font-weight: 400;
+  }
+}

@@ -57,7 +57,7 @@ export default function UserRegisterDetailPage() {
   };
 
   return (
-    <div className="report-wrapper">
+    <div className="report-wrapper user-register-page">
       <div className="report-header-bar">
         <h4 className="report-page-title">User Register Detail</h4>
       </div>
@@ -131,6 +131,7 @@ export default function UserRegisterDetailPage() {
           data={tableData}
           isLoading={isLoading}
           emptyMessage="There are no records to show"
+          className='assign-agent-table'
         />
 
         <Pagination
