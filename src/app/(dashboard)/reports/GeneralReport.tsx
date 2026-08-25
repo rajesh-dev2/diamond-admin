@@ -31,7 +31,7 @@ export default function GeneralReportPage() {
   };
 
   return (
-    <div className="report-wrapper">
+    <div className="report-wrapper p-2.5">
       <div className="report-header-bar">
         <h4 className="report-page-title">General Report</h4>
       </div>
@@ -59,6 +59,7 @@ export default function GeneralReportPage() {
           data={reportData}
           isLoading={isLoading}
           emptyMessage="No data available in table"
+          className='general-report-table'
         />
       </div>
     </div>

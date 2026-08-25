@@ -48,47 +48,47 @@
 
     /* General Report Specific Controls */
     .general-report-filter-bar {
-      @apply flex items-end gap-3 mb-4 pb-3 border-b border-[#F0F0F0];
+      @apply flex items-end gap-3 mb-2 pb-3;
     }
 
     /* Game Report Specific Controls */
     .game-report-filter-bar {
-      @apply flex flex-col gap-3 mb-4 pb-3 border-b border-[#F0F0F0];
+      @apply flex flex-col gap-3 mb-4 pb-3;
     }
 
     /* Casino Report Specific Controls */
     .casino-report-filter-bar {
-      @apply flex flex-wrap items-end gap-3 mb-4 pb-3 border-b border-[#F0F0F0];
+      @apply flex flex-wrap items-end gap-3 mb-4 pb-3;
     }
 
     /* Profit Loss Specific Controls */
     .profit-loss-filter-bar {
-      @apply flex flex-wrap items-end gap-3 mb-4 pb-3 border-b border-[#F0F0F0];
+      @apply flex flex-wrap items-end gap-3 mb-4 pb-3;
     }
 
     /* Casino Result Specific Controls */
     .casino-result-filter-bar {
-      @apply flex flex-wrap items-end gap-3 mb-4 pb-3 border-b border-[#F0F0F0];
+      @apply flex flex-wrap items-end gap-3 mb-4 pb-3;
     }
 
     /* General Lock Specific Controls */
     .user-lock-filter-bar {
-      @apply flex flex-wrap items-end gap-3 mb-4 pb-3 border-b border-[#F0F0F0];
+      @apply flex flex-wrap items-end gap-3 mb-4 pb-3;
     }
 
     /* User Register Detail Specific Controls */
     .user-register-filter-bar {
-      @apply flex flex-wrap items-end gap-3 mb-4 pb-3 border-b border-[#F0F0F0];
+      @apply flex flex-wrap items-end gap-3 mb-4 pb-3;
     }
 
     /* Total Profit Loss Specific Controls */
     .total-profit-loss-filter-bar {
-      @apply flex flex-col gap-3 mb-4 pb-3 border-b border-[#F0F0F0];
+      @apply flex flex-col gap-3 mb-4 pb-3;
     }
 
     /* User Win Loss Specific Controls */
     .user-win-loss-filter-bar {
-      @apply flex flex-wrap items-end gap-3 mb-4 pb-3 border-b border-[#F0F0F0];
+      @apply flex flex-wrap items-end gap-3 mb-4 pb-3;
     }
 
     .report-sub-section {
@@ -165,6 +165,14 @@
         background-color: rgba(0, 0, 0, 0.05);
         margin: 20px 0;
       }
+    }
+
+    .general-report-table .common-datatable-table {
+      border: 1px solid #dee2e6;
+    }
+
+    .general-report-table .common-datatable-table .common-datatable-td {
+      border: 1px solid #dee2e6;
     }
 
     /* MX Datepicker Plugin Styles */

@@ -117,7 +117,7 @@ export default function AccountStatementPage() {
       </div>
 
       <div className="report-card">
-        <div className="mb-4 pb-3">
+        <div className="pb-3">
           <form onSubmit={handleLoadData}>
             <div className="report-form-fields">
               <FormSelect
@@ -169,7 +169,7 @@ export default function AccountStatementPage() {
               />
             </div>
 
-            <div className="report-form-actions mt-3">
+            <div className="report-form-actions mt-5">
               <button type="submit" className="report-btn-load">
                 Load
               </button>
