@@ -284,7 +284,7 @@ export function MarketDetail({
 
     const fetchFancyBooks = () => {
       Promise.all(
-        fancyMids.map((mid) => BetsService.getFancyBook(mid).then((rows) => [String(mid), rows] as const))
+        fancyMids.map((mid) => BetsService.getFancyBook(activeGmid).then((rows) => [String(mid), rows] as const))
       ).then((results) => setFancyBookMap(Object.fromEntries(results)));
     };
 

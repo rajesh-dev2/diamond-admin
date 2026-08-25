@@ -94,16 +94,16 @@ export const BetsService = {
   },
 
   /**
-   * GET /admin/book?id=<fancyId or marketId>
+   * GET /admin/book?id=<matchId>
    */
-  getFancyBook: async (id: string | number): Promise<MatchBookItem[]> => {
+  getFancyBook: async (gmid: string | number): Promise<MatchBookItem[]> => {
     try {
-      const data = await HttpService.get<any>(API_ENDPOINTS.BOOK.FANCY, { id });
+      const data = await HttpService.get<any>(API_ENDPOINTS.BOOK.FANCY, { id: gmid });
       if (Array.isArray(data?.items)) return flattenBookItems(data.items);
       const list = Array.isArray(data) ? data : Array.isArray(data?.book) ? data.book : Array.isArray(data?.data) ? data.data : [];
       return list.map((row: any) => ({
         ...row,
-        mid: row.mid ?? row.marketId ?? id,
+        mid: row.mid ?? row.marketId ?? gmid,
         nat: row.team ?? row.nat ?? row.nation ?? row.selection ?? '',
         value: row.combinedClientPL ?? row.value ?? row.book ?? row.position ?? row.pl ?? 0,
       }));

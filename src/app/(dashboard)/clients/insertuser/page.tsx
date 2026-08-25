@@ -96,8 +96,9 @@ export default function InsertUserPage() {
 
     setSubmitting(true);
     try {
+      const accountType = formData.accountType.toLowerCase() === 'user' ? 'client' : formData.accountType;
       await AccountService.register({
-        accountType: formData.accountType,
+        accountType,
         name: formData.fullName,
         username: formData.clientName,
         password: formData.userPassword,
