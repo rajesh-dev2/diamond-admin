@@ -72,41 +72,111 @@ export default function ClientsPage() {
     fetchAccounts(1, entriesPerPage, '');
   };
 
+  const BLANK_ROW = useMemo(
+    () =>
+      ({
+        id: '__blank-row__',
+        name: '',
+        username: '',
+        accountType: '',
+        creditReference: '',
+        balance: 0,
+        clientPL: 0,
+        exposure: '',
+        availableBalance: 0,
+        ust: false,
+        bst: false,
+        exposureLimit: 0,
+        defaultPercent: '',
+      }) as unknown as AccountListItem,
+    []
+  );
+  const isBlankRow = (row: AccountListItem) => row.id === BLANK_ROW.id;
+  const displayData = useMemo(
+    () => (tableData.length > 0 ? [BLANK_ROW, ...tableData] : tableData),
+    [tableData, BLANK_ROW]
+  );
+
   const columns: ColumnDef<AccountListItem>[] = useMemo(
     () => [
       {
         key: 'username',
         header: 'User Name',
-        width: '160px',
-        render: (row) => (
-          <span
-            className="account-username-badge cursor-pointer hover:underline"
-            onClick={() => navigate(ROUTES.CLIENTS_DOWNLINE(row.id))}
-          >
-            {row.username}
-          </span>
-        ),
+        width: '15%',
+        render: (row) =>
+          isBlankRow(row) ? null : (
+            <span
+              className="account-username-badge cursor-pointer hover:underline"
+              onClick={() => navigate(ROUTES.CLIENTS_DOWNLINE(row.id))}
+            >
+              {row.username}
+            </span>
+          ),
       },
-      { key: 'creditReference', header: 'Credit Referance', width: '160px', align: 'right' },
-      { key: 'uSt', header: 'U st', width: '80px', align: 'center' },
-      { key: 'bSt', header: 'B st', width: '80px', align: 'center' },
-      { key: 'exposure', header: 'Exposure Limit', width: '140px', align: 'right' },
-      { key: 'defaultPct', header: 'Deafult (%)', width: '120px', align: 'center' },
+      { key: 'creditReference', header: 'CR', width: '107.52px', align: 'right' },
+      {
+        key: 'ust',
+        header: 'U st',
+        width: '61.71px',
+        align: 'center',
+        render: (row) =>
+          isBlankRow(row) ? null : (
+            <div className="mb-1 custom-control custom-checkbox">
+              <input
+                type="checkbox"
+                disabled
+                checked={row.ust}
+                readOnly
+                className="custom-control-input"
+                id={`ust-${row.id}`}
+              />
+              <label className="custom-control-label" htmlFor={`ust-${row.id}`}></label>
+            </div>
+          ),
+      },
+      {
+        key: 'bst',
+        header: 'B st',
+        width: '61.71px',
+        align: 'center',
+        render: (row) =>
+          isBlankRow(row) ? null : (
+            <div className="mb-1 custom-control custom-checkbox">
+              <input
+                type="checkbox"
+                disabled
+                checked={row.bst}
+                readOnly
+                className="custom-control-input"
+                id={`bst-${row.id}`}
+              />
+              <label className="custom-control-label" htmlFor={`bst-${row.id}`}></label>
+            </div>
+          ),
+      },
+      { key: 'exposure', header: 'Exposure Limit', width: '165.52px', align: 'left' },
+      { key: 'defaultPercent', header: 'Deafult (%)', width: '128.28px', align: 'left' },
       {
         key: 'accountType',
         header: 'Account Type',
-        width: '140px',
-        align: 'center',
-        render: (row) => ROLE_HIERARCHY.find((r) => r.accountType === row.accountType)?.label || row.accountType,
+        width: '152.98px',
+        align: 'left',
+        render: (row) =>
+          isBlankRow(row)
+            ? null
+            : ROLE_HIERARCHY.find((r) => r.accountType === row.accountType)?.label || row.accountType,
       },
       {
         key: 'action',
         header: 'Action',
-        width: '280px',
-        align: 'center',
+        width: '503.77px',
+        align: 'left',
         sortable: false,
-        render: (row) => (
-          <div className="account-action-btns">
+        render: (row) =>
+          isBlankRow(row) ? (
+            <div className="account-action-btns" />
+          ) : (
+            <div className="account-action-btns">
             <button
               type="button"
               className="account-action-btn"
@@ -156,8 +226,8 @@ export default function ClientsPage() {
               S
             </button>
             <button type="button" className="account-action-btn account-action-btn-more" title="More">MORE</button>
-          </div>
-        ),
+            </div>
+          ),
       },
     ],
     []
@@ -224,7 +294,7 @@ export default function ClientsPage() {
         {/* Data Table */}
         <DataTable
           columns={columns}
-          data={tableData}
+          data={displayData}
           isLoading={isLoading}
           emptyMessage="There are no records to show"
         />

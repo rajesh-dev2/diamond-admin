@@ -22,6 +22,7 @@ export default function AccountList2Page() {
   const [totalPages, setTotalPages] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+  const [activeTab, setActiveTab] = useState<'active' | 'inactive'>('active');
   const [tableData, setTableData] = useState<AccountListItem[]>([]);
   const [txnModal, setTxnModal] = useState<{ account: AccountListItem; type: TransactionType } | null>(null);
   const [exposureLimitAccount, setExposureLimitAccount] = useState<AccountListItem | null>(null);
@@ -30,12 +31,13 @@ export default function AccountList2Page() {
   const [statusAccount, setStatusAccount] = useState<AccountListItem | null>(null);
 
   const fetchAccounts = useCallback(
-    async (page: number, limit: number, search: string) => {
+    async (page: number, limit: number, search: string, tab: 'active' | 'inactive') => {
       setIsLoading(true);
       try {
+        const isActive = tab === 'active' ? 'true' : 'false';
         const res = parentId
-          ? await AccountService.getDownline(parentId, { search, accountType: '', isActive: '', page, limit })
-          : await AccountService.list({ search, accountType: '', page, limit });
+          ? await AccountService.getDownline(parentId, { search, accountType: '', isActive, page, limit })
+          : await AccountService.list({ search, accountType: '', isActive, page, limit });
         setTableData(res.data ?? []);
         setTotalItems(res.total ?? res.data?.length ?? 0);
         setTotalPages(res.totalPages ?? 1);
@@ -56,21 +58,52 @@ export default function AccountList2Page() {
   }, [parentId]);
 
   useEffect(() => {
-    fetchAccounts(currentPage, entriesPerPage, searchTerm);
+    fetchAccounts(currentPage, entriesPerPage, searchTerm, activeTab);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [parentId, currentPage, entriesPerPage]);
+  }, [parentId, currentPage, entriesPerPage, activeTab]);
+
+  const handleTabChange = (tab: 'active' | 'inactive') => {
+    if (tab === activeTab) return;
+    setActiveTab(tab);
+    setCurrentPage(1);
+  };
 
   const handleLoad = (e: React.FormEvent) => {
     e.preventDefault();
     setCurrentPage(1);
-    fetchAccounts(1, entriesPerPage, searchTerm);
+    fetchAccounts(1, entriesPerPage, searchTerm, activeTab);
   };
 
   const handleReset = () => {
     setSearchTerm('');
     setCurrentPage(1);
-    fetchAccounts(1, entriesPerPage, '');
+    fetchAccounts(1, entriesPerPage, '', activeTab);
   };
+
+  const BLANK_ROW = useMemo(
+    () =>
+      ({
+        id: '__blank-row__',
+        name: '',
+        username: '',
+        accountType: '',
+        creditReference: '',
+        balance: '',
+        clientPL: '',
+        exposure: '',
+        availableBalance: '',
+        ust: false,
+        bst: false,
+        exposureLimit: '',
+        defaultPercent: '',
+      }) as unknown as AccountListItem,
+    []
+  );
+  const isBlankRow = (row: AccountListItem) => row.id === BLANK_ROW.id;
+  const displayData = useMemo(
+    () => (tableData.length > 0 ? [BLANK_ROW, ...tableData] : tableData),
+    [tableData, BLANK_ROW]
+  );
 
   const columns: ColumnDef<AccountListItem>[] = useMemo(
     () => [
@@ -78,14 +111,15 @@ export default function AccountList2Page() {
         key: 'username',
         header: 'User Name',
         width: '160px',
-        render: (row) => (
-          <span
-            className="account-username-badge cursor-pointer hover:underline"
-            onClick={() => navigate(ROUTES.ACCOUNT_LIST_DOWNLINE(row.id))}
-          >
-            {row.username}
-          </span>
-        ),
+        render: (row) =>
+          isBlankRow(row) ? null : (
+            <span
+              className="account-username-badge cursor-pointer hover:underline"
+              onClick={() => navigate(ROUTES.ACCOUNT_LIST_DOWNLINE(row.id))}
+            >
+              {row.username}
+            </span>
+          ),
       },
       { key: 'creditReference', header: 'CR', width: '120px', align: 'right' },
       { key: 'balance', header: 'Balance', width: '120px', align: 'right' },
@@ -97,14 +131,14 @@ export default function AccountList2Page() {
         header: 'U st',
         width: '70px',
         align: 'center',
-        render: (row) => (row.ust ? '✓' : '✗'),
+        render: (row) => (isBlankRow(row) ? null : row.ust ? '✓' : '✗'),
       },
       {
         key: 'bst',
         header: 'B st',
         width: '70px',
         align: 'center',
-        render: (row) => (row.bst ? '✓' : '✗'),
+        render: (row) => (isBlankRow(row) ? null : row.bst ? '✓' : '✗'),
       },
       { key: 'exposureLimit', header: 'Exposure Limit', width: '140px', align: 'right' },
       { key: 'defaultPercent', header: 'Default(%)', width: '120px', align: 'center' },
@@ -113,7 +147,10 @@ export default function AccountList2Page() {
         header: 'Account Type',
         width: '140px',
         align: 'center',
-        render: (row) => ROLE_HIERARCHY.find((r) => r.accountType === row.accountType)?.label || row.accountType,
+        render: (row) =>
+          isBlankRow(row)
+            ? null
+            : ROLE_HIERARCHY.find((r) => r.accountType === row.accountType)?.label || row.accountType,
       },
       {
         key: 'action',
@@ -121,8 +158,11 @@ export default function AccountList2Page() {
         width: '280px',
         align: 'center',
         sortable: false,
-        render: (row) => (
-          <div className="account-action-btns">
+        render: (row) =>
+          isBlankRow(row) ? (
+            <div className="account-action-btns" />
+          ) : (
+            <div className="account-action-btns">
             <button
               type="button"
               className="account-action-btn"
@@ -171,8 +211,8 @@ export default function AccountList2Page() {
             >
               S
             </button>
-          </div>
-        ),
+            </div>
+          ),
       },
     ],
     []
@@ -206,18 +246,6 @@ export default function AccountList2Page() {
       </div>
 
       <div className="client-list-card">
-        {/* PDF & Excel Action Buttons */}
-        <div className="client-list-actions-bar">
-          <button type="button" className="btn-export-pdf">
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
-            PDF
-          </button>
-          <button type="button" className="btn-export-excel">
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
-            Excel
-          </button>
-        </div>
-
         {/* Controls Bar */}
         <TableControls
           entriesPerPage={entriesPerPage}
@@ -236,10 +264,40 @@ export default function AccountList2Page() {
           }
         />
 
+        {/* Active / Deactive Users Tabs */}
+        <div className="account-list-tabs">
+          <button
+            type="button"
+            className={`account-list-tab ${activeTab === 'active' ? 'account-list-tab-active' : ''}`}
+            onClick={() => handleTabChange('active')}
+          >
+            Active Users
+          </button>
+          <button
+            type="button"
+            className={`account-list-tab ${activeTab === 'inactive' ? 'account-list-tab-active' : ''}`}
+            onClick={() => handleTabChange('inactive')}
+          >
+            Deactive Users
+          </button>
+        </div>
+
+        {/* PDF & Excel Action Buttons */}
+        <div className="client-list-actions-bar">
+          <button type="button" className="btn-export-pdf">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
+            PDF
+          </button>
+          <button type="button" className="btn-export-excel">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
+            Excel
+          </button>
+        </div>
+
         {/* Data Table */}
         <DataTable
           columns={columns}
-          data={tableData}
+          data={displayData}
           isLoading={isLoading}
           emptyMessage="There are no records to show"
         />
@@ -261,7 +319,7 @@ export default function AccountList2Page() {
           onClose={() => setTxnModal(null)}
           account={txnModal.account}
           type={txnModal.type}
-          onSuccess={() => fetchAccounts(currentPage, entriesPerPage, searchTerm)}
+          onSuccess={() => fetchAccounts(currentPage, entriesPerPage, searchTerm, activeTab)}
         />
       )}
 
@@ -270,7 +328,7 @@ export default function AccountList2Page() {
           isOpen={!!exposureLimitAccount}
           onClose={() => setExposureLimitAccount(null)}
           account={exposureLimitAccount}
-          onSuccess={() => fetchAccounts(currentPage, entriesPerPage, searchTerm)}
+          onSuccess={() => fetchAccounts(currentPage, entriesPerPage, searchTerm, activeTab)}
         />
       )}
 
@@ -279,7 +337,7 @@ export default function AccountList2Page() {
           isOpen={!!creditAccount}
           onClose={() => setCreditAccount(null)}
           account={creditAccount}
-          onSuccess={() => fetchAccounts(currentPage, entriesPerPage, searchTerm)}
+          onSuccess={() => fetchAccounts(currentPage, entriesPerPage, searchTerm, activeTab)}
         />
       )}
 
@@ -288,7 +346,7 @@ export default function AccountList2Page() {
           isOpen={!!passwordAccount}
           onClose={() => setPasswordAccount(null)}
           account={passwordAccount}
-          onSuccess={() => fetchAccounts(currentPage, entriesPerPage, searchTerm)}
+          onSuccess={() => fetchAccounts(currentPage, entriesPerPage, searchTerm, activeTab)}
         />
       )}
 
@@ -297,7 +355,7 @@ export default function AccountList2Page() {
           isOpen={!!statusAccount}
           onClose={() => setStatusAccount(null)}
           account={statusAccount}
-          onSuccess={() => fetchAccounts(currentPage, entriesPerPage, searchTerm)}
+          onSuccess={() => fetchAccounts(currentPage, entriesPerPage, searchTerm, activeTab)}
         />
       )}
     </div>
