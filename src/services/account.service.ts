@@ -42,13 +42,12 @@ export interface AccountListItem {
 export interface AccountListParams {
   search?: string;
   accountType?: string;
+  isActive?: string;
   page?: number;
   limit?: number;
 }
 
-export interface AccountDownlineParams extends AccountListParams {
-  isActive?: string;
-}
+export interface AccountDownlineParams extends AccountListParams {}
 
 export interface AccountListResponse {
   success: boolean;
@@ -135,6 +134,7 @@ export const AccountService = {
     api.get<AccountListResponse>(API_ENDPOINTS.ACCOUNTS.LIST, {
       search: params.search ?? '',
       accountType: params.accountType ?? '',
+      isActive: params.isActive ?? '',
       page: params.page ?? 1,
       limit: params.limit ?? 25,
     }),

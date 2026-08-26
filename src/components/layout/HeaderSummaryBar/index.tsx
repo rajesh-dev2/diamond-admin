@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { ChevronUp, ChevronDown } from 'lucide-react';
 import { ReportsService, BalanceSummary } from '@/services/reports.service';
 import './style.css';
 
@@ -46,10 +45,10 @@ export function HeaderSummaryBar() {
       <button
         type="button"
         onClick={() => setIsOpen((v) => !v)}
-        className="header-summary-toggle"
+        className={`header-summary-toggle ${isOpen ? 'header-summary-toggle-open' : ''}`}
         title={isOpen ? 'Collapse' : 'Expand'}
       >
-        {isOpen ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+        <span id="user-balance" className="far fa-arrow-alt-circle-down"></span>
       </button>
 
       {isOpen && (

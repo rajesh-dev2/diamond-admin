@@ -29,6 +29,29 @@
       @apply flex items-center gap-2 mb-1;
     }
 
+    .account-list-tabs {
+      @apply flex items-end gap-0 mb-3;
+      border-bottom: 1px solid #dee2e6;
+    }
+
+    .account-list-tab {
+      @apply cursor-pointer border-none bg-transparent;
+      padding: 10px 16px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #556ee6;
+      margin-bottom: -1px;
+    }
+
+    .account-list-tab-active {
+      color: #1e1e1e;
+      background: #fff;
+      border: 1px solid #dee2e6;
+      border-bottom-color: #fff;
+      border-radius: 4px 4px 0 0;
+      font-weight: 600;
+    }
+
     .btn-export-pdf {
       @apply bg-[#cb0606] hover:bg-[#BD2130] text-white text-[12px] px-2.5 py-1 rounded-[3px] flex items-center gap-1.5 font-medium transition-colors cursor-pointer border border-[#cb0606] h-[34px];
       box-shadow: 0px 5px 6px -6px #000;
@@ -68,11 +91,26 @@
     }
 
     .account-action-btns {
-      @apply flex items-center justify-center gap-1;
+      @apply flex items-center justify-start gap-1;
     }
 
     .account-action-btn {
-      @apply bg-[#333333] hover:bg-[#4A4A4A] text-white text-[11px] font-semibold w-6 h-6 flex items-center justify-center rounded-[2px] transition-colors cursor-pointer border-none;
+      @apply flex items-center justify-center transition-colors cursor-pointer;
+      width: 29.99px;
+      height: 26px;
+      font-size: 1rem;
+      font-weight: 400;
+      background: #444;
+      border: 1px solid #444;
+      color: #eff2f7 !important;
+      border-radius: 3px !important;
+      text-transform: uppercase;
+      line-height: 1;
+    }
+
+    .account-action-btn:hover {
+      background: #333;
+      border-color: #333;
     }
 
     .account-action-btn-more {
@@ -81,6 +119,75 @@
 
     .account-username-badge {
       @apply inline-block bg-[#333333] text-white text-[13px] font-medium px-3 py-1 rounded-[3px];
+    }
+
+    .common-datatable-table thead th {
+      font-weight: 400 !important;
+      padding: 4px 6px !important;
+    }
+
+    .common-datatable-table thead th:nth-child(2) {
+      padding: 4px 19.6px 4px 6px !important;
+    }
+
+    .common-datatable-table tbody td {
+      padding: 4px 6px !important;
+      height: 25px;
+    }
+
+    .custom-control {
+      position: relative;
+      display: inline-block;
+      min-height: 1.21875rem;
+      padding-left: 1.5rem;
+    }
+
+    .custom-control-input {
+      position: absolute;
+      left: 0;
+      z-index: -1;
+      width: 1rem;
+      height: 1.109375rem;
+      opacity: 0;
+    }
+
+    .custom-control-label {
+      position: relative;
+      margin-bottom: 0;
+      vertical-align: top;
+      cursor: default;
+    }
+
+    .custom-control-label::before,
+    .custom-control-label::after {
+      position: absolute;
+      top: 0.109375rem;
+      left: -1.5rem;
+      display: block;
+      width: 20px;
+      height: 20px;
+      content: '';
+    }
+
+    .custom-control-label::before {
+      pointer-events: none;
+      background-color: #fff;
+      border: 1px solid #adb5bd;
+    }
+
+   
+
+    .custom-control-label::after {
+      background: no-repeat 50% / 50% 50%;
+    }
+
+    .custom-control-input:checked ~ .custom-control-label::before {
+      border-color: #444;
+      background-color: #000000;
+    }
+
+    .custom-checkbox .custom-control-input:checked ~ .custom-control-label::after {
+      background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Cpath fill='%23fff' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26l2.974 2.99L8 2.193z'/%3E%3C/svg%3E");
     }
   }
 }

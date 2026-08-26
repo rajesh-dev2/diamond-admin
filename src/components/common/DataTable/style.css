@@ -34,7 +34,7 @@
   }
 
   .common-datatable-td {
-    @apply px-3 py-2.5 text-[#333333] text-[13px];
+    @apply px-3 py-2.5 text-[#333333] text-[13px] whitespace-nowrap;
     border: 1px solid #dee2e6;
   }
 
