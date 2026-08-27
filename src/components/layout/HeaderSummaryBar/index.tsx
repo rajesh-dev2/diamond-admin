@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { ReportsService, BalanceSummary } from '@/services/reports.service';
 import './style.css';
 
@@ -15,12 +16,20 @@ const EMPTY_SUMMARY: BalanceSummary = {
 };
 
 export function HeaderSummaryBar() {
+  const location = useLocation();
+  const isUsers2Page = location.pathname.startsWith('/admin/users2');
+
   const [isOpen, setIsOpen] = useState(false);
   const [summary, setSummary] = useState<BalanceSummary>(EMPTY_SUMMARY);
 
   useEffect(() => {
+    if (!isUsers2Page) return;
     ReportsService.getBalanceSummary().then(setSummary);
-  }, []);
+  }, [isUsers2Page]);
+
+  if (!isUsers2Page) {
+    return null;
+  }
 
   const columns: { label: string; value: number }[][] = [
     [

@@ -10,7 +10,7 @@
     }
 
     .site-header-dropdown-btn {
-      @apply flex items-center gap-1 px-2.5 py-1.5 rounded-xs transition-colors whitespace-nowrap cursor-pointer text-white text-[14px] leading-[15px] font-bold;
+      @apply flex items-center gap-1 p-2.5 rounded-xs transition-colors whitespace-nowrap cursor-pointer text-white text-[14px] leading-[15px] font-bold;
     }
 
     .site-header-dropdown-menu {
