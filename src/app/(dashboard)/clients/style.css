@@ -120,21 +120,7 @@
     .account-username-badge {
       @apply inline-block bg-[#333333] text-white text-[13px] font-medium px-3 py-1 rounded-[3px];
     }
-
-    .common-datatable-table thead th {
-      font-weight: 400 !important;
-      padding: 4px 6px !important;
-    }
-
-    .common-datatable-table thead th:nth-child(2) {
-      padding: 4px 19.6px 4px 6px !important;
-    }
-
-    .common-datatable-table tbody td {
-      padding: 4px 6px !important;
-      height: 25px;
-    }
-
+    
     .custom-control {
       position: relative;
       display: inline-block;

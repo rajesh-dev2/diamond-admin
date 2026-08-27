@@ -165,6 +165,7 @@ input:hover,
 }
 
 .user-register-page {
+
   .common-multiselect-label,
   .common-form-select-label {
     font-weight: 400;
@@ -182,5 +183,103 @@ input:hover,
     height: 34px !important;
     font-size: 13px;
     border-color: #ced4da;
+  }
+}
+
+
+
+/* table-client-list */
+
+.table-client-list {
+  .common-datatable-table {
+    table-layout: fixed;
+    width: 100%;
+  }
+
+  .common-datatable-table th,
+  .common-datatable-table td {
+    vertical-align: middle;
+  }
+
+  /* 1. User Name */
+  .common-datatable-table th:first-child {
+    width: 15%;
+    text-align: left;
+  }
+
+  /* 2. CR */
+  .common-datatable-table th:nth-child(2),
+  .common-datatable-table td:nth-child(2) {
+    text-align: right;
+  }
+
+  /* 3. Balance */
+  .common-datatable-table th:nth-child(3),
+  .common-datatable-table td:nth-child(3) {
+    text-align: right;
+  }
+
+  /* 4. Client(P/L) */
+  .common-datatable-table th:nth-child(4),
+  .common-datatable-table td:nth-child(4) {
+    text-align: right;
+  }
+
+  /* 5. Exposure */
+  .common-datatable-table th:nth-child(5),
+  .common-datatable-table td:nth-child(5) {
+    text-align: right;
+  }
+
+  /* 6. Available Balance */
+  .common-datatable-table th:nth-child(6),
+  .common-datatable-table td:nth-child(6) {
+    text-align: right;
+  }
+
+  /* 7. U st */
+  .common-datatable-table th:nth-child(7),
+  .common-datatable-table td:nth-child(7) {
+    text-align: center;
+  }
+
+  /* 8. B st */
+  .common-datatable-table th:nth-child(8),
+  .common-datatable-table td:nth-child(8) {
+    text-align: center;
+  }
+
+  /* 9. Exposure Limit */
+  .common-datatable-table th:nth-child(9),
+  .common-datatable-table td:nth-child(9) {
+    text-align: left;
+  }
+
+  /* 10. Default(%) */
+  .common-datatable-table th:nth-child(10),
+  .common-datatable-table td:nth-child(10) {
+    text-align: left;
+  }
+
+  /* 11. Account Type */
+  .common-datatable-table th:nth-child(11),
+  .common-datatable-table td:nth-child(11) {
+    text-align: left;
+  }
+
+  /* 12. Action */
+  .common-datatable-table th:nth-child(12),
+  .common-datatable-table td:nth-child(12) {
+    text-align: left;
+  }
+
+  /* Account list & table striped global helpers */
+  .account-list .table tr,
+  .account-list .common-datatable-table tr {
+    background-color: #fff;
+  }
+
+  .table-striped tbody tr:nth-of-type(odd) {
+    background-color: white;
   }
 }

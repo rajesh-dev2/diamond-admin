@@ -13,12 +13,16 @@
 
   .common-datatable-th {
     @apply text-[#1e1e1e] font-bold tracking-tight text-[14px] border border-b-[#111] border-t-0 border-l-0 border-r-0;
-    padding: 4px 6px;
+    padding: 4px 19.6px 4px 0.75rem;
     height: 40px;
   }
 
   .common-datatable-th-inner {
     @apply inline-flex items-center gap-1;
+
+    span {
+      @apply text-[#1e1e1e] font-bold tracking-tight text-[14px];
+    }
   }
 
   .common-datatable-tr {
@@ -30,12 +34,18 @@
   }
 
   .common-datatable-td {
-    @apply px-3 py-2.5 text-[#333333] text-[13px] whitespace-nowrap;
+    @apply text-[#1e1e1e] text-[14px] whitespace-nowrap;
+    padding: 4px 10.5px;
     border: 1px solid #dee2e6;
+
+
+    strong {
+      @apply text-[#1e1e1e] text-[14px] whitespace-nowrap;
+    }
   }
 
   .common-datatable-loading-td {
-    @apply text-center py-4 text-[#888888];
+    @apply text-center py-4 text-[#1e1e1e];
   }
 
   .common-datatable-empty-td {

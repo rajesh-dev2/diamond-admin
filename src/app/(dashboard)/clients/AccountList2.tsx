@@ -80,142 +80,216 @@ export default function AccountList2Page() {
     fetchAccounts(1, entriesPerPage, '', activeTab);
   };
 
-  const BLANK_ROW = useMemo(
-    () =>
-      ({
-        id: '__blank-row__',
-        name: '',
-        username: '',
-        accountType: '',
-        creditReference: '',
-        balance: '',
-        clientPL: '',
-        exposure: '',
-        availableBalance: '',
-        ust: false,
-        bst: false,
-        exposureLimit: '',
-        defaultPercent: '',
-      }) as unknown as AccountListItem,
-    []
-  );
-  const isBlankRow = (row: AccountListItem) => row.id === BLANK_ROW.id;
-  const displayData = useMemo(
-    () => (tableData.length > 0 ? [BLANK_ROW, ...tableData] : tableData),
-    [tableData, BLANK_ROW]
-  );
+  const formatCurrency = (val: any) => {
+    if (val === null || val === undefined || val === '') return '0';
+    const n = typeof val === 'number' ? val : parseFloat(String(val).replace(/,/g, ''));
+    if (isNaN(n)) return String(val);
+    return n.toLocaleString('en-IN');
+  };
+
+  const displayData = useMemo(() => {
+    if (tableData.length === 0) return [];
+
+    const parseNum = (v: any) => {
+      if (typeof v === 'number') return v;
+      if (!v) return 0;
+      const n = parseFloat(String(v).replace(/,/g, ''));
+      return isNaN(n) ? 0 : n;
+    };
+
+    const totalCR = tableData.reduce((acc, r) => acc + parseNum(r.creditReference), 0);
+    const totalBalance = tableData.reduce((acc, r) => acc + parseNum(r.balance), 0);
+    const totalClientPL = tableData.reduce((acc, r) => acc + parseNum(r.clientPL), 0);
+    const totalAvailBal = tableData.reduce((acc, r) => acc + parseNum(r.availableBalance), 0);
+
+    const summaryRow: any = {
+      id: '__summary-row__',
+      isSummary: true,
+      username: '',
+      creditReference: formatCurrency(totalCR),
+      balance: formatCurrency(totalBalance),
+      clientPL: formatCurrency(totalClientPL),
+      exposure: '',
+      availableBalance: formatCurrency(totalAvailBal),
+      ust: false,
+      bst: false,
+      exposureLimit: '',
+      defaultPercent: '',
+      accountType: '',
+    };
+
+    return [summaryRow, ...tableData];
+  }, [tableData]);
 
   const columns: ColumnDef<AccountListItem>[] = useMemo(
     () => [
       {
         key: 'username',
         header: 'User Name',
-        width: '160px',
-        render: (row) =>
-          isBlankRow(row) ? null : (
+        render: (row: any) =>
+          row.isSummary ? null : (
             <span
-              className="account-username-badge cursor-pointer hover:underline"
+              className="account-username-badge cursor-pointer hover:opacity-90"
               onClick={() => navigate(ROUTES.ACCOUNT_LIST_DOWNLINE(row.id))}
             >
               {row.username}
             </span>
           ),
       },
-      { key: 'creditReference', header: 'CR', width: '120px', align: 'right' },
-      { key: 'balance', header: 'Balance', width: '120px', align: 'right' },
-      { key: 'clientPL', header: 'Client(P/L)', width: '120px', align: 'right' },
-      { key: 'exposure', header: 'Exposure', width: '120px', align: 'right' },
-      { key: 'availableBalance', header: 'Available Balance', width: '150px', align: 'right' },
+      {
+        key: 'creditReference',
+        header: 'CR',
+        align: 'right',
+        render: (row: any) =>
+          row.isSummary ? (
+            <strong className="font-bold text-black">{row.creditReference}</strong>
+          ) : (
+            formatCurrency(row.creditReference)
+          ),
+      },
+      {
+        key: 'balance',
+        header: 'Balance',
+        align: 'right',
+        render: (row: any) =>
+          row.isSummary ? (
+            <strong className="font-bold text-black">{row.balance}</strong>
+          ) : (
+            formatCurrency(row.balance)
+          ),
+      },
+      {
+        key: 'clientPL',
+        header: 'Client(P/L)',
+        align: 'right',
+        render: (row: any) =>
+          row.isSummary ? (
+            <strong className="font-bold text-black">{row.clientPL}</strong>
+          ) : (
+            formatCurrency(row.clientPL)
+          ),
+      },
+      {
+        key: 'exposure',
+        header: 'Exposure',
+        align: 'right',
+        render: (row: any) => (row.isSummary ? '' : formatCurrency(row.exposure)),
+      },
+      {
+        key: 'availableBalance',
+        header: 'Available Balance',
+        align: 'right',
+        render: (row: any) =>
+          row.isSummary ? (
+            <strong className="font-bold text-black">{row.availableBalance}</strong>
+          ) : (
+            formatCurrency(row.availableBalance)
+          ),
+      },
       {
         key: 'ust',
         header: 'U st',
-        width: '70px',
         align: 'center',
-        render: (row) => (isBlankRow(row) ? null : row.ust ? '✓' : '✗'),
+        render: (row: any) =>
+          row.isSummary ? null : (
+            <span className="account-status-checkbox">
+              <i className="fa fa-check"></i>
+            </span>
+          ),
       },
       {
         key: 'bst',
         header: 'B st',
-        width: '70px',
         align: 'center',
-        render: (row) => (isBlankRow(row) ? null : row.bst ? '✓' : '✗'),
+        render: (row: any) =>
+          row.isSummary ? null : (
+            <span className="account-status-checkbox">
+              <i className="fa fa-check"></i>
+            </span>
+          ),
       },
-      { key: 'exposureLimit', header: 'Exposure Limit', width: '140px', align: 'right' },
-      { key: 'defaultPercent', header: 'Default(%)', width: '120px', align: 'center' },
+      {
+        key: 'exposureLimit',
+        header: 'Exposure Limit',
+        align: 'right',
+        render: (row: any) => (row.isSummary ? '' : formatCurrency(row.exposureLimit)),
+      },
+      {
+        key: 'defaultPercent',
+        header: 'Default(%)',
+        align: 'right',
+        render: (row: any) => (row.isSummary ? '' : row.defaultPercent ?? '0'),
+      },
       {
         key: 'accountType',
         header: 'Account Type',
-        width: '140px',
-        align: 'center',
-        render: (row) =>
-          isBlankRow(row)
+        align: 'left',
+        render: (row: any) =>
+          row.isSummary
             ? null
-            : ROLE_HIERARCHY.find((r) => r.accountType === row.accountType)?.label || row.accountType,
+            : ROLE_HIERARCHY.find((r) => r.accountType === row.accountType)?.label ||
+              (row.accountType === 'master' ? 'Master' : row.accountType === 'user' ? 'User' : row.accountType),
       },
       {
         key: 'action',
         header: 'Action',
-        width: '280px',
-        align: 'center',
-        sortable: false,
-        render: (row) =>
-          isBlankRow(row) ? (
-            <div className="account-action-btns" />
-          ) : (
+        align: 'left',
+        render: (row: any) =>
+          row.isSummary ? null : (
             <div className="account-action-btns">
-            <button
-              type="button"
-              className="account-action-btn"
-              title="Deposit"
-              onClick={() => setTxnModal({ account: row, type: 'deposit' })}
-            >
-              D
-            </button>
-            <button
-              type="button"
-              className="account-action-btn"
-              title="Withdraw"
-              onClick={() => setTxnModal({ account: row, type: 'withdraw' })}
-            >
-              W
-            </button>
-            <button
-              type="button"
-              className="account-action-btn"
-              title="Exposure Limit"
-              onClick={() => setExposureLimitAccount(row)}
-            >
-              L
-            </button>
-            <button
-              type="button"
-              className="account-action-btn"
-              title="Credit"
-              onClick={() => setCreditAccount(row)}
-            >
-              C
-            </button>
-            <button
-              type="button"
-              className="account-action-btn"
-              title="Password"
-              onClick={() => setPasswordAccount(row)}
-            >
-              P
-            </button>
-            <button
-              type="button"
-              className="account-action-btn"
-              title="Change Status"
-              onClick={() => setStatusAccount(row)}
-            >
-              S
-            </button>
+              <button
+                type="button"
+                className="account-action-btn"
+                title="Deposit"
+                onClick={() => setTxnModal({ account: row, type: 'deposit' })}
+              >
+                D
+              </button>
+              <button
+                type="button"
+                className="account-action-btn"
+                title="Withdraw"
+                onClick={() => setTxnModal({ account: row, type: 'withdraw' })}
+              >
+                W
+              </button>
+              <button
+                type="button"
+                className="account-action-btn"
+                title="Exposure Limit"
+                onClick={() => setExposureLimitAccount(row)}
+              >
+                L
+              </button>
+              <button
+                type="button"
+                className="account-action-btn"
+                title="Credit"
+                onClick={() => setCreditAccount(row)}
+              >
+                C
+              </button>
+              <button
+                type="button"
+                className="account-action-btn"
+                title="Password"
+                onClick={() => setPasswordAccount(row)}
+              >
+                P
+              </button>
+              <button
+                type="button"
+                className="account-action-btn"
+                title="Change Status"
+                onClick={() => setStatusAccount(row)}
+              >
+                S
+              </button>
             </div>
           ),
       },
     ],
-    []
+    [navigate]
   );
 
   return (
@@ -285,11 +359,11 @@ export default function AccountList2Page() {
         {/* PDF & Excel Action Buttons */}
         <div className="client-list-actions-bar">
           <button type="button" className="btn-export-pdf">
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" /><polyline points="14 2 14 8 20 8" /></svg>
             PDF
           </button>
           <button type="button" className="btn-export-excel">
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" /><polyline points="14 2 14 8 20 8" /></svg>
             Excel
           </button>
         </div>
@@ -300,6 +374,7 @@ export default function AccountList2Page() {
           data={displayData}
           isLoading={isLoading}
           emptyMessage="There are no records to show"
+          className='table-client-list'
         />
 
         {/* Pagination */}

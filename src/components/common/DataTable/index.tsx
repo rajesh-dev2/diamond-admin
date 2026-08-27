@@ -3,7 +3,7 @@ import './style.css';
 
 export interface ColumnDef<T> {
   key: string;
-  header: string;
+  header: React.ReactNode;
   width?: string;
   align?: 'left' | 'center' | 'right';
   sortable?: boolean;
