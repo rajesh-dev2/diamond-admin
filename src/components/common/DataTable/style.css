@@ -17,10 +17,6 @@
     height: 40px;
   }
 
-  .common-datatable-th-sortable {
-    @apply cursor-pointer select-none transition-colors whitespace-nowrap capitalize;
-  }
-
   .common-datatable-th-inner {
     @apply inline-flex items-center gap-1;
   }

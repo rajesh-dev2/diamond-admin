@@ -45,8 +45,7 @@
 
   .assign-agent-table {
 
-    .common-datatable-th,
-    .common-datatable-th-sortable {
+    .common-datatable-th {
       vertical-align: bottom;
       border-top: 1px solid #eff2f7 !important;
       border-bottom: 1px solid #eff2f7 !important;
