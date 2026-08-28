@@ -38,19 +38,23 @@ export default function GeneralReportPage() {
 
       <div className="report-card">
         <div className="general-report-filter-bar">
-          <form onSubmit={handleLoadData} className="flex items-end gap-3">
-            <div className="w-[220px]">
-              <FormSelect
-                label="Select Type"
-                value={generalReportType}
-                onChange={setGeneralReportType}
-                options={GENERAL_REPORT_TYPE_OPTIONS}
-              />
-            </div>
+          <form onSubmit={handleLoadData} className="ajaxFormSubmit">
+            <div className="row row5">
+              <div className="col-md-4 col-xl-2">
+                <FormSelect
+                  label="Select Type"
+                  value={generalReportType}
+                  onChange={setGeneralReportType}
+                  options={GENERAL_REPORT_TYPE_OPTIONS}
+                />
+              </div>
 
-            <button type="submit" className="report-btn-load">
-              Load
-            </button>
+              <div className="col-md-4 col-xl-3 mt-4">
+                <button type="submit" className="report-btn-load">
+                  Load
+                </button>
+              </div>
+            </div>
           </form>
         </div>
 

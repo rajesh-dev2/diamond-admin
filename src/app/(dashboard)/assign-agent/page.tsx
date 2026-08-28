@@ -54,22 +54,22 @@ export default function AssignAgentPage() {
       <h4 className="user-creation-title">User Creation</h4>
 
       <div className="user-creation-card">
-        <div className="user-creation-filter-row">
-          <div className="user-creation-date-field">
+        <div className="user-creation-filter-row row">
+          <div className="user-creation-date-field col-md-2">
             <DatePicker
               label="From Date:"
               value={fromDate}
               onChange={setFromDate}
             />
           </div>
-          <div className="user-creation-date-field">
+          <div className="user-creation-date-field col-md-2">
             <DatePicker
               label="To Date:"
               value={toDate}
               onChange={setToDate}
             />
           </div>
-          <div>
+          <div className="col-md-2 mt-4">
             <button
               type="button"
               onClick={handleDownloadCSV}

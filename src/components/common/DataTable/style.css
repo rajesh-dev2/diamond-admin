@@ -95,7 +95,7 @@
 }
 
 .common-datatable-empty-td {
-  text-align: center;
+  text-align: center !important;
   padding: 0.8rem;
   color: #1e1e1e;
   font-size: 14px;

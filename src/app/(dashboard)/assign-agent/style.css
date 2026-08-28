@@ -26,11 +26,11 @@
     }
 
     .user-creation-filter-row {
-      @apply flex flex-wrap items-end gap-4;
+      margin-bottom: 0;
     }
 
     .user-creation-date-field {
-      @apply w-full sm:w-[220px];
+      margin-bottom: 0;
     }
 
     .btn-download-csv {

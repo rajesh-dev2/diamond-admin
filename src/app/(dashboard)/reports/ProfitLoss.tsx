@@ -58,26 +58,30 @@ export default function ProfitLossPage() {
 
       <div className="report-card">
         <div className="profit-loss-filter-bar">
-          <form onSubmit={handleLoadData} className="flex items-end gap-3">
-            <div className="w-[250px]">
-              <FormSelect
-                value={profitLossSelect}
-                onChange={setProfitLossSelect}
-                options={levelOptions}
-              />
-            </div>
+          <form onSubmit={handleLoadData} className="ajaxFormSubmit">
+            <div className="row row5 align-items-end mb-3">
+              <div className="col-xl-2 mb-3">
+                <FormSelect
+                  value={profitLossSelect}
+                  onChange={setProfitLossSelect}
+                  options={levelOptions}
+                />
+              </div>
 
-            <div className="w-[220px]">
-              <DatePicker label="From" value={fromDate} onChange={setFromDate} />
-            </div>
+              <div className="col-xl-2 mb-3">
+                <DatePicker label="From" value={fromDate} onChange={setFromDate} />
+              </div>
 
-            <div className="w-[220px]">
-              <DatePicker label="To" value={toDate} onChange={setToDate} />
-            </div>
+              <div className="col-xl-2 mb-3">
+                <DatePicker label="To" value={toDate} onChange={setToDate} />
+              </div>
 
-            <button type="submit" className="report-btn-load">
-              Load
-            </button>
+              <div className="col-xl mb-3">
+                <button type="submit" className="report-btn-load">
+                  Load
+                </button>
+              </div>
+            </div>
           </form>
         </div>
 

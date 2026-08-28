@@ -12,7 +12,7 @@
     }
 
     .report-page-title {
-      @apply text-[22px] font-normal text-[#1e1e1e] mb-5;
+      @apply text-[22px] font-normal text-[#1e1e1e] mb-2;
       line-height: 1.2;
     }
 
@@ -48,7 +48,11 @@
 
     /* General Report Specific Controls */
     .general-report-filter-bar {
-      @apply flex items-end gap-3 mb-2 pb-3;
+      @apply w-full mb-2 pb-3;
+    }
+
+    .ajaxFormSubmit {
+      @apply w-full;
     }
 
     /* Game Report Specific Controls */
@@ -58,17 +62,17 @@
 
     /* Casino Report Specific Controls */
     .casino-report-filter-bar {
-      @apply flex flex-wrap items-end gap-3 mb-4 pb-3;
+      @apply w-full mb-4 pb-3;
     }
 
     /* Profit Loss Specific Controls */
     .profit-loss-filter-bar {
-      @apply flex flex-wrap items-end gap-3 mb-4 pb-3;
+      @apply w-full mb-4 pb-3;
     }
 
     /* Casino Result Specific Controls */
     .casino-result-filter-bar {
-      @apply flex flex-wrap items-end gap-3 mb-4 pb-3;
+      @apply w-full mb-4 pb-3;
     }
 
     /* General Lock Specific Controls */
@@ -129,7 +133,7 @@
     }
 
     .report-form-fields {
-      @apply grid grid-cols-6 gap-[30px] mb-3;
+      @apply mb-0;
     }
 
     .report-filter-select {

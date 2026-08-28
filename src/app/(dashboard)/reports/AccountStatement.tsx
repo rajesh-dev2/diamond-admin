@@ -119,60 +119,74 @@ export default function AccountStatementPage() {
       <div className="report-card">
         <div className="pb-3">
           <form onSubmit={handleLoadData}>
-            <div className="report-form-fields">
-              <FormSelect
-                className="report-filter-select"
-                label="Account Type"
-                value={accountType}
-                onChange={setAccountType}
-                options={accountTypeOptions}
-              />
-
-              <FormSelect
-                className="report-filter-select"
-                label="Game Name"
-                value={gameName}
-                onChange={setGameName}
-                options={gameNameOptions}
-              />
-
-              {isSportsReport && (
+            <div className="report-form-fields row">
+              <div className="col-lg-2">
                 <FormSelect
                   className="report-filter-select"
-                  label="Game Type"
-                  value={gameType}
-                  onChange={setGameType}
-                  options={gameTypeOptions}
+                  label="Account Type"
+                  value={accountType}
+                  onChange={setAccountType}
+                  options={accountTypeOptions}
                 />
+              </div>
+
+              <div className="col-lg-2">
+                <FormSelect
+                  className="report-filter-select"
+                  label="Game Name"
+                  value={gameName}
+                  onChange={setGameName}
+                  options={gameNameOptions}
+                />
+              </div>
+
+              {isSportsReport && (
+                <div className="col-lg-2">
+                  <FormSelect
+                    className="report-filter-select"
+                    label="Game Type"
+                    value={gameType}
+                    onChange={setGameType}
+                    options={gameTypeOptions}
+                  />
+                </div>
               )}
 
-              <MultiSelect
-                label="Search By Client Name"
-                value={clientSearch}
-                onChange={setClientSearch}
-                options={clientOptions}
-                placeholder="Select option"
-              />
+              <div className="col-lg-2">
+                <MultiSelect
+                  label="Search By Client Name"
+                  value={clientSearch}
+                  onChange={setClientSearch}
+                  options={clientOptions}
+                  placeholder="Select option"
+                />
+              </div>
 
-              <DatePicker
-                className="report-filter-datepicker"
-                label="From"
-                value={fromDate}
-                onChange={setFromDate}
-              />
+              <div className="col-lg-2">
+                <DatePicker
+                  className="report-filter-datepicker"
+                  label="From"
+                  value={fromDate}
+                  onChange={setFromDate}
+                />
+              </div>
 
-              <DatePicker
-                className="report-filter-datepicker"
-                label="To"
-                value={toDate}
-                onChange={setToDate}
-              />
+              <div className="col-lg-2">
+                <DatePicker
+                  className="report-filter-datepicker"
+                  label="To"
+                  value={toDate}
+                  onChange={setToDate}
+                />
+              </div>
             </div>
 
-            <div className="report-form-actions mt-5">
-              <button type="submit" className="report-btn-load">
-                Load
-              </button>
+            <div className="report-form-actions row mt-5">
+              <div className="col-12">
+                <button type="submit" className="report-btn-load">
+                  Load
+                </button>
+              </div>
             </div>
           </form>
         </div>

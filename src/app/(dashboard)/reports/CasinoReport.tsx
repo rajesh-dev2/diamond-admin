@@ -51,31 +51,35 @@ export default function CasinoReportPage() {
 
       <div className="report-card">
         <div className="casino-report-filter-bar">
-          <form onSubmit={handleLoadData} className="flex flex-wrap items-center gap-3">
-            <div className="w-[210px]">
-              <FormSelect
-                value={casinoType}
-                onChange={setCasinoType}
-                options={CASINO_TYPE_OPTIONS}
-              />
+          <form onSubmit={handleLoadData} className="ajaxFormSubmit">
+            <div className="row row5 mb-3">
+              <div className="col-xl-2 mb-3">
+                <FormSelect
+                  value={casinoType}
+                  onChange={setCasinoType}
+                  options={CASINO_TYPE_OPTIONS}
+                />
+              </div>
+              <div className="form-group col-xl-2">
+                <MultiSelect
+                  value={casinoSearchOption}
+                  onChange={setCasinoSearchOption}
+                  placeholder="Select option"
+                />
+              </div>
+              <div className="col-xl-2 mb-3">
+                <FormSelect
+                  value={casinoSelect}
+                  onChange={setCasinoSelect}
+                  options={CASINO_SELECT_OPTIONS}
+                />
+              </div>
+              <div className="col-xl mb-3">
+                <button type="submit" className="report-btn-load">
+                  Submit
+                </button>
+              </div>
             </div>
-            <div className="w-[210px]">
-              <MultiSelect
-                value={casinoSearchOption}
-                onChange={setCasinoSearchOption}
-                placeholder="Select option"
-              />
-            </div>
-            <div className="w-[210px]">
-              <FormSelect
-                value={casinoSelect}
-                onChange={setCasinoSelect}
-                options={CASINO_SELECT_OPTIONS}
-              />
-            </div>
-            <button type="submit" className="report-btn-load">
-              Submit
-            </button>
           </form>
         </div>
 

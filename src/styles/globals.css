@@ -326,3 +326,18 @@ input:hover,
   text-align: left;
   padding: 4px 10.5px;
 }
+
+.row5 {
+  --bs-gutter-x: 10px;
+  margin-right: -5px;
+  margin-left: -5px;
+}
+
+.row5 > * {
+  padding-right: 5px;
+  padding-left: 5px;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}

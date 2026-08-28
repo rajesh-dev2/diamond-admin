@@ -39,23 +39,27 @@ export default function CasinoResultPage() {
 
       <div className="report-card">
         <div className="casino-result-filter-bar">
-          <form onSubmit={handleLoadData} className="flex flex-wrap items-center gap-3">
-            <div className="w-[162px]">
-              <DatePicker
-                value={casinoResultDate}
-                onChange={setCasinoResultDate}
-              />
+          <form onSubmit={handleLoadData} className="ajaxFormSubmit">
+            <div className="row row5 mb-3">
+              <div className="col-2 co-2 mb-2">
+                <DatePicker
+                  value={casinoResultDate}
+                  onChange={setCasinoResultDate}
+                />
+              </div>
+              <div className="col-2 mb-2">
+                <FormSelect
+                  value={casinoResultGame}
+                  onChange={setCasinoResultGame}
+                  options={CASINO_RESULT_SELECT_OPTIONS}
+                />
+              </div>
+              <div className="col-6 mb-2">
+                <button type="submit" className="report-btn-load">
+                  Submit
+                </button>
+              </div>
             </div>
-            <div className="w-[218px]">
-              <FormSelect
-                value={casinoResultGame}
-                onChange={setCasinoResultGame}
-                options={CASINO_RESULT_SELECT_OPTIONS}
-              />
-            </div>
-            <button type="submit" className="report-btn-load">
-              Submit
-            </button>
           </form>
         </div>
 
