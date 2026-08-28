@@ -42,51 +42,65 @@ export default function GameReportPage() {
 
       <div className="report-card">
         <div className="game-report-filter-bar">
-          <form onSubmit={handleLoadData} className="flex flex-col gap-4">
-            <div className="flex flex-wrap items-end gap-3">
-              <div className="w-[210px] pr-6">
-                <DatePicker
-                  label="From"
-                  value={fromDate}
-                  onChange={setFromDate}
-                />
-              </div>
-              <div className="w-[210px] pr-6">
-                <DatePicker
-                  label="To"
-                  value={toDate}
-                  onChange={setToDate}
-                />
-              </div>
-              <div className="w-[210px]">
-                <FormSelect
-                  label="Type"
-                  value={gameReportType}
-                  onChange={setGameReportType}
-                  options={GAME_REPORT_TYPE_OPTIONS}
-                />
-              </div>
-              <button type="button" className="report-btn-load normal-case font-normal text-[14px] px-3 ml-6">
-                Game List
-              </button>
+          <div className="row mt-3">
+            <div className="col-12">
+              <form method="post" data-vv-scope="toReport" className="ajaxFormSubmit" onSubmit={(e) => e.preventDefault()}>
+                <div className="row mb-3">
+                  <div className="col-md-2">
+                    <DatePicker
+                      label="From"
+                      value={fromDate}
+                      onChange={setFromDate}
+                    />
+                  </div>
+                  <div className="col-md-2">
+                    <DatePicker
+                      label="To"
+                      value={toDate}
+                      onChange={setToDate}
+                    />
+                  </div>
+                  <div className="col-md-4 col-xl-2">
+                    <FormSelect
+                      label="Type"
+                      value={gameReportType}
+                      onChange={setGameReportType}
+                      options={GAME_REPORT_TYPE_OPTIONS}
+                    />
+                  </div>
+                  <div className="col-md-4 col-xl-3 mt-4">
+                    <button type="button" className="report-btn-load normal-case font-normal text-[14px] px-3">
+                      Game List
+                    </button>
+                  </div>
+                </div>
+              </form>
             </div>
+          </div>
 
-            <div className="flex flex-wrap items-center gap-2">
-              <div className="w-[654px]">
-                <FormSelect
-                  value={gameReportSubSelect}
-                  onChange={setGameReportSubSelect}
-                  options={GAME_REPORT_SUB_OPTIONS}
-                />
-              </div>
-              <button type="submit" className="report-btn-load normal-case font-normal text-[14px] px-3 ml-6">
-                Show Game Report
-              </button>
-              <button type="button" className="report-btn-load normal-case font-normal text-[14px] px-3">
-                Master Game Report
-              </button>
+          <div className="row">
+            <div className="col-12">
+              <form method="post" data-vv-scope="gamereport" className="ajaxFormSubmit" onSubmit={handleLoadData}>
+                <div className="row">
+                  <div className="col-md-8 col-xl-6">
+                    <FormSelect
+                      value={gameReportSubSelect}
+                      onChange={setGameReportSubSelect}
+                      options={GAME_REPORT_SUB_OPTIONS}
+                    />
+                  </div>
+                  <div className="col-md-4 col-xl-3 flex items-center gap-2">
+                    <button type="submit" className="report-btn-load normal-case font-normal text-[14px] px-3">
+                      Show Game Report
+                    </button>
+                    <button type="button" className="report-btn-load normal-case font-normal text-[14px] px-3">
+                      Master Game Report
+                    </button>
+                  </div>
+                </div>
+              </form>
             </div>
-          </form>
+          </div>
         </div>
 
         <DataTable
@@ -94,7 +108,14 @@ export default function GameReportPage() {
           data={[]}
           isLoading={isLoading}
           emptyMessage="No data available in table"
-          className='general-report-table'
+          className="general-report-table"
+          footer={
+            <tr role="row">
+              <th role="columnheader" scope="col" aria-colindex={1}><span></span></th>
+              <th role="columnheader" scope="col" aria-colindex={2}><span></span></th>
+              <th role="columnheader" scope="col" aria-colindex={3} className="text-right"><span>0.00</span></th>
+            </tr>
+          }
         />
       </div>
     </div>

@@ -181,7 +181,7 @@ export default function AccountStatementPage() {
               </div>
             </div>
 
-            <div className="report-form-actions row mt-5">
+            <div className="report-form-actions row mt-4">
               <div className="col-12">
                 <button type="submit" className="report-btn-load">
                   Load

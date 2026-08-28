@@ -57,7 +57,7 @@
 
     /* Game Report Specific Controls */
     .game-report-filter-bar {
-      @apply flex flex-col gap-3 mb-4 pb-3;
+      @apply w-full mb-4 pb-3;
     }
 
     /* Casino Report Specific Controls */
