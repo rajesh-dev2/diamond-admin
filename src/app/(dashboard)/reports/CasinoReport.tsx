@@ -52,7 +52,7 @@ export default function CasinoReportPage() {
       <div className="report-card">
         <div className="casino-report-filter-bar">
           <form onSubmit={handleLoadData} className="ajaxFormSubmit">
-            <div className="row row5 mb-3">
+            <div className="row row5">
               <div className="col-xl-2 mb-3">
                 <FormSelect
                   value={casinoType}

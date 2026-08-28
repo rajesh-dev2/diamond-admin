@@ -8,7 +8,7 @@
 
 
     .report-header-bar {
-      @apply flex items-center justify-between;
+      @apply flex items-center justify-between mb-4;
     }
 
     .report-page-title {
@@ -48,7 +48,7 @@
 
     /* General Report Specific Controls */
     .general-report-filter-bar {
-      @apply w-full mb-2 pb-3;
+      @apply w-full pb-3;
     }
 
     .ajaxFormSubmit {
@@ -57,42 +57,42 @@
 
     /* Game Report Specific Controls */
     .game-report-filter-bar {
-      @apply w-full mb-4 pb-3;
+      @apply w-full pb-3;
     }
 
     /* Casino Report Specific Controls */
     .casino-report-filter-bar {
-      @apply w-full mb-4 pb-3;
+      @apply w-full pb-3;
     }
 
     /* Profit Loss Specific Controls */
     .profit-loss-filter-bar {
-      @apply w-full mb-4 pb-3;
+      @apply w-full pb-3;
     }
 
     /* Casino Result Specific Controls */
     .casino-result-filter-bar {
-      @apply w-full mb-4 pb-3;
+      @apply w-full pb-3;
     }
 
     /* General Lock Specific Controls */
     .user-lock-filter-bar {
-      @apply w-full mb-4 pb-3;
+      @apply w-full pb-3;
     }
 
     /* User Register Detail Specific Controls */
     .user-register-filter-bar {
-      @apply w-full mb-4 pb-3;
+      @apply w-full pb-3;
     }
 
     /* Total Profit Loss Specific Controls */
     .total-profit-loss-filter-bar {
-      @apply w-full mb-4 pb-3;
+      @apply w-full pb-3;
     }
 
     /* User Win Loss Specific Controls */
     .user-win-loss-filter-bar {
-      @apply w-full mb-4 pb-3;
+      @apply w-full pb-3;
     }
 
     .report-sub-section {
@@ -129,7 +129,7 @@
 
     /* Form & Filter Bar */
     .report-form {
-      @apply bg-white p-4 rounded-[4px] border border-[#E0E0E0] shadow-2xs mb-4;
+      @apply p-4 mb-4;
     }
 
     .report-form-fields {

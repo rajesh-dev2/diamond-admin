@@ -26,7 +26,7 @@ export default function GeneralLockPage() {
 
   return (
     <div className="report-wrapper general-lock-page">
-      <div className="report-header-bar">
+      <div className="report-header-bar mb-0">
         <h4 className="report-page-title">General Lock</h4>
       </div>
 

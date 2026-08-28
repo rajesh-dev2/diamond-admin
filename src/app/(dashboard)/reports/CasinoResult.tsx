@@ -40,8 +40,8 @@ export default function CasinoResultPage() {
       <div className="report-card">
         <div className="casino-result-filter-bar">
           <form onSubmit={handleLoadData} className="ajaxFormSubmit">
-            <div className="row row5 mb-3">
-              <div className="col-2 co-2 mb-2">
+            <div className="row row5">
+              <div className="col-2 mb-2">
                 <DatePicker
                   value={casinoResultDate}
                   onChange={setCasinoResultDate}

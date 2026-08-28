@@ -50,12 +50,12 @@ export default function TotalProfitLossPage() {
   };
 
   return (
-    <div className="report-wrapper total-profit-loss-page">
+    <div className="report-wrapper total-profit-loss-page p-[10px]">
       <div className="report-header-bar">
         <h4 className="report-page-title">Total Profit Loss</h4>
       </div>
 
-      <div className="report-card">
+      <div className="report-card p-[1rem]">
         <div className="total-profit-loss-filter-bar">
           <form onSubmit={handleLoadData} className="ajaxFormSubmit">
             <div className="row row5">

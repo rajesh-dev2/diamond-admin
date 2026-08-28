@@ -127,7 +127,7 @@ export default function CurrentBetsPage() {
 
   return (
     <div className="report-wrapper current-bets">
-      <div className="report-header-bar">
+      <div className="report-header-bar mb-0">
         <h4 className="report-page-title">Current Bets</h4>
       </div>
 
