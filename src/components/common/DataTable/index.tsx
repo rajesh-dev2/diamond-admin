@@ -99,7 +99,11 @@ export function DataTable<T extends Record<string, any>>({
             ))
           )}
         </tbody>
-        {footer && <tfoot className="common-datatable-tfoot">{footer}</tfoot>}
+        {footer && (
+          <tfoot role="rowgroup" className="common-datatable-tfoot">
+            {footer}
+          </tfoot>
+        )}
       </table>
     </div>
   );

@@ -203,7 +203,17 @@ export default function AccountStatementPage() {
           data={statementData}
           isLoading={isLoading}
           emptyMessage="No data available in table"
-          className='statement-table'
+          className="statement-table"
+          footer={
+            <tr role="row">
+              <th role="columnheader" scope="col" aria-colindex={1}><span></span></th>
+              <th role="columnheader" scope="col" aria-colindex={2} className="text-right"><span>0.00</span></th>
+              <th role="columnheader" scope="col" aria-colindex={3} className="text-right"><span>0.00</span></th>
+              <th role="columnheader" scope="col" aria-colindex={4} className="text-right"><span>0.00</span></th>
+              <th role="columnheader" scope="col" aria-colindex={5}><span></span></th>
+              <th role="columnheader" scope="col" aria-colindex={6}><span></span></th>
+            </tr>
+          }
         />
 
         <Pagination

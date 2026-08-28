@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import TextInput from '@/components/common/TextInput';
+import DatePicker from '@/components/common/DatePicker';
 import MultiSelect from '@/components/common/MultiSelect';
 import TableControls from '@/components/common/TableControls';
 import DataTable, { ColumnDef } from '@/components/common/DataTable';
@@ -37,50 +37,57 @@ export default function UserWinLossPage() {
 
       <div className="report-card">
         <div className="user-win-loss-filter-bar">
-          <form onSubmit={handleLoadData} className="flex flex-wrap items-end gap-2.5">
-            <div className="w-[220px]">
-              <MultiSelect
-                label="Search By Client Name"
-                value={clientSearch}
-                onChange={setClientSearch}
-                placeholder="Select option"
-              />
-            </div>
-            <div className="w-[240px]">
-              <TextInput
-                label="Select Date Range"
-                value={dateRange}
-                onChange={setDateRange}
-              />
-            </div>
-            <button type="submit" className="report-btn-load">
-              Load
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                setClientSearch('');
-                setDateRange('30/07/2026 - 09/08/2026');
-              }}
-              className="h-[34px] px-3.5 bg-[#eff2f7] hover:bg-[#e2e6ea] text-[#212529] text-[14px] font-normal rounded-[3px] transition-colors"
-            >
-              Reset
-            </button>
-            <button
-              type="button"
-              title="Export Excel"
-              className="btn-export-excel"
-            >
-              <i className="fas fa-file-excel text-[14px]"></i>
-            </button>
-            <button
-              type="button"
-              title="Export PDF"
-              className="btn-export-pdf"
-            >
-              <i className="fas fa-file-pdf text-[14px]"></i>
-            </button>
-          </form>
+          <div className="report-form mb-3">
+            <form onSubmit={handleLoadData} className="ajaxFormSubmit">
+              <div className="row row5 align-items-end">
+                <div className="col-2">
+                  <MultiSelect
+                    label="Search By Client Name"
+                    value={clientSearch}
+                    onChange={setClientSearch}
+                    placeholder="Select option"
+                  />
+                </div>
+                <div className="col-3">
+                  <DatePicker
+                    label="Select Date Range"
+                    value={dateRange}
+                    onChange={setDateRange}
+                    range
+                  />
+                </div>
+                <div className="col-3 flex items-center gap-1.5">
+                  <button type="submit" className="report-btn-load">
+                    Load
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setClientSearch('');
+                      setDateRange('30/07/2026 - 09/08/2026');
+                    }}
+                    className="h-[34px] px-3.5 bg-[#eff2f7] hover:bg-[#e2e6ea] text-[#212529] text-[14px] font-normal rounded-[3px] transition-colors"
+                  >
+                    Reset
+                  </button>
+                  <button
+                    type="button"
+                    title="Export Excel"
+                    className="btn-export-excel"
+                  >
+                    <i className="fas fa-file-excel text-[14px]"></i>
+                  </button>
+                  <button
+                    type="button"
+                    title="Export PDF"
+                    className="btn-export-pdf"
+                  >
+                    <i className="fas fa-file-pdf text-[14px]"></i>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
         </div>
 
         <TableControls
@@ -99,12 +106,13 @@ export default function UserWinLossPage() {
             emptyMessage="There are no records to show"
             className="user-win-loss-table"
             footer={
-              <tr>
-                <td colSpan={2}></td>
-                <td className="text-right"><strong>0.00</strong></td>
-                <td className="text-right"><strong>0.00</strong></td>
-                <td className="text-right"><strong>0.00</strong></td>
-                <td className="text-right"><strong>0.00</strong></td>
+              <tr role="row">
+                <th role="columnheader" scope="col" aria-colindex={1}><span></span></th>
+                <th role="columnheader" scope="col" aria-colindex={2}><span></span></th>
+                <th role="columnheader" scope="col" aria-colindex={3} className="text-right"><span>0.00</span></th>
+                <th role="columnheader" scope="col" aria-colindex={4} className="text-right"><span>0.00</span></th>
+                <th role="columnheader" scope="col" aria-colindex={5} className="text-right"><span>0.00</span></th>
+                <th role="columnheader" scope="col" aria-colindex={6} className="text-right"><span>0.00</span></th>
               </tr>
             }
           />

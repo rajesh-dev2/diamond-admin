@@ -92,7 +92,7 @@
 
     /* User Win Loss Specific Controls */
     .user-win-loss-filter-bar {
-      @apply flex flex-wrap items-end gap-3 mb-4 pb-3;
+      @apply w-full mb-4 pb-3;
     }
 
     .report-sub-section {

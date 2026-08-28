@@ -103,6 +103,7 @@
   border: 1px solid #dee2e6;
 }
 
+.common-datatable-tfoot th,
 .common-datatable-tfoot td {
   padding: 4px 10.5px;
   border: 1px solid #dee2e6;
@@ -111,19 +112,34 @@
   font-weight: 700;
   line-height: 15px;
   vertical-align: middle;
+  background-color: #ffffff;
+}
+
+.common-datatable-tfoot th span,
+.common-datatable-tfoot td span {
+  color: #1e1e1e;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 15px;
 }
 
 .common-datatable-th.text-right,
-.common-datatable-td.text-right {
+.common-datatable-td.text-right,
+.common-datatable-tfoot th.text-right,
+.common-datatable-tfoot td.text-right {
   text-align: right !important;
 }
 
 .common-datatable-th.text-center,
-.common-datatable-td.text-center {
+.common-datatable-td.text-center,
+.common-datatable-tfoot th.text-center,
+.common-datatable-tfoot td.text-center {
   text-align: center !important;
 }
 
 .common-datatable-th.text-left,
-.common-datatable-td.text-left {
+.common-datatable-td.text-left,
+.common-datatable-tfoot th.text-left,
+.common-datatable-tfoot td.text-left {
   text-align: left !important;
 }

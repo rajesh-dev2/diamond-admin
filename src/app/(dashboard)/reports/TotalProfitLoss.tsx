@@ -72,6 +72,7 @@ export default function TotalProfitLossPage() {
                   label="Select Date Range"
                   value={dateRange}
                   onChange={setDateRange}
+                  range
                 />
               </div>
               <div className="col-lg-2">
@@ -142,13 +143,12 @@ export default function TotalProfitLossPage() {
                 emptyMessage="There are no records to show"
                 className="table-totalprofitloss"
                 footer={
-                  <tr>
-                    <td colSpan={4} className="text-right">
-                      <strong>Total Profit/Loss</strong>
-                    </td>
-                    <td className="text-right">
-                      <strong>0.00</strong>
-                    </td>
+                  <tr role="row">
+                    <th role="columnheader" scope="col" aria-colindex={1}><span></span></th>
+                    <th role="columnheader" scope="col" aria-colindex={2}><span></span></th>
+                    <th role="columnheader" scope="col" aria-colindex={3} className="text-right"><span>0.00</span></th>
+                    <th role="columnheader" scope="col" aria-colindex={4} className="text-right"><span>0.00</span></th>
+                    <th role="columnheader" scope="col" aria-colindex={5} className="text-right"><span>0.00</span></th>
                   </tr>
                 }
               />
@@ -166,13 +166,11 @@ export default function TotalProfitLossPage() {
                 emptyMessage="There are no records to show"
                 className="table-totalprofitloss"
                 footer={
-                  <tr>
-                    <td colSpan={3} className="text-right">
-                      <strong>Total Profit/Loss</strong>
-                    </td>
-                    <td className="text-right">
-                      <strong>0.00</strong>
-                    </td>
+                  <tr role="row">
+                    <th role="columnheader" scope="col" aria-colindex={1}><span></span></th>
+                    <th role="columnheader" scope="col" aria-colindex={2} className="text-right"><span>0.00</span></th>
+                    <th role="columnheader" scope="col" aria-colindex={3} className="text-right"><span>0.00</span></th>
+                    <th role="columnheader" scope="col" aria-colindex={4} className="text-right"><span>0.00</span></th>
                   </tr>
                 }
               />
@@ -190,13 +188,11 @@ export default function TotalProfitLossPage() {
                 emptyMessage="There are no records to show"
                 className="table-totalprofitloss"
                 footer={
-                  <tr>
-                    <td colSpan={3} className="text-right">
-                      <strong>Total Profit/Loss</strong>
-                    </td>
-                    <td className="text-right">
-                      <strong>0.00</strong>
-                    </td>
+                  <tr role="row">
+                    <th role="columnheader" scope="col" aria-colindex={1}><span></span></th>
+                    <th role="columnheader" scope="col" aria-colindex={2} className="text-right"><span>0.00</span></th>
+                    <th role="columnheader" scope="col" aria-colindex={3} className="text-right"><span>0.00</span></th>
+                    <th role="columnheader" scope="col" aria-colindex={4} className="text-right"><span>0.00</span></th>
                   </tr>
                 }
               />
