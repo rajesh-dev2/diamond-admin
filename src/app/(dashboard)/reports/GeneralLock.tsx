@@ -68,7 +68,7 @@ export default function GeneralLockPage() {
           data={[]}
           isLoading={isLoading}
           emptyMessage="No data available in table"
-          className='general-report-table'
+          className="user-lock-table"
         />
       </div>
     </div>

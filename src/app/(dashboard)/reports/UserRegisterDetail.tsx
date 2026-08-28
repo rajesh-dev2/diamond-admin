@@ -129,7 +129,7 @@ export default function UserRegisterDetailPage() {
           data={tableData}
           isLoading={isLoading}
           emptyMessage="There are no records to show"
-          className='assign-agent-table'
+          className="user-register-table"
         />
 
         <Pagination

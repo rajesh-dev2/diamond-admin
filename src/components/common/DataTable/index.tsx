@@ -17,6 +17,7 @@ export interface DataTableProps<T> {
   isLoading?: boolean;
   className?: string;
   onRowClick?: (row: T) => void;
+  footer?: React.ReactNode;
 }
 
 export function DataTable<T extends Record<string, any>>({
@@ -26,6 +27,7 @@ export function DataTable<T extends Record<string, any>>({
   isLoading = false,
   className = '',
   onRowClick,
+  footer,
 }: DataTableProps<T>) {
   return (
     <div className={`common-datatable-container ${className}`}>
@@ -40,6 +42,7 @@ export function DataTable<T extends Record<string, any>>({
             {columns.map((col, idx) => (
               <th
                 key={idx}
+                style={col.width ? { width: col.width, minWidth: col.width } : undefined}
                 className={`common-datatable-th ${
                   col.align === 'right' ? 'text-right' : col.align === 'center' ? 'text-center' : 'text-left'
                 }`}
@@ -84,6 +87,7 @@ export function DataTable<T extends Record<string, any>>({
                 {columns.map((col, colIdx) => (
                   <td
                     key={colIdx}
+                    style={col.width ? { width: col.width, minWidth: col.width } : undefined}
                     className={`common-datatable-td ${
                       col.align === 'right' ? 'text-right' : col.align === 'center' ? 'text-center' : 'text-left'
                     }`}
@@ -95,6 +99,7 @@ export function DataTable<T extends Record<string, any>>({
             ))
           )}
         </tbody>
+        {footer && <tfoot className="common-datatable-tfoot">{footer}</tfoot>}
       </table>
     </div>
   );

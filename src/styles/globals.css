@@ -192,94 +192,70 @@ input:hover,
 
 .table-client-list {
   .common-datatable-table {
-    table-layout: fixed;
     width: 100%;
   }
 
   .common-datatable-table th,
   .common-datatable-table td {
     vertical-align: middle;
+    padding: 4px 6px;
   }
 
-  /* 1. User Name */
-  .common-datatable-table th:first-child {
-    width: 15%;
-    text-align: left;
+  /* User badge */
+  .wrape-text {
+    display: inline-block;
+    background-color: #343a40;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 3px;
+    line-height: 15px;
+    white-space: nowrap;
+    text-decoration: none;
   }
 
-  /* 2. CR */
-  .common-datatable-table th:nth-child(2),
-  .common-datatable-table td:nth-child(2) {
-    text-align: right;
+  /* Action buttons */
+  .btn-group {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+
+    .action-button {
+      background-color: #343a40;
+      color: #ffffff;
+      font-size: 11px;
+      font-weight: 700;
+      line-height: 1;
+      padding: 4px 6px;
+      min-width: 22px;
+      height: 22px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 2px;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.15s ease-in-out;
+
+      &:hover {
+        background-color: #212529;
+      }
+    }
   }
 
-  /* 3. Balance */
-  .common-datatable-table th:nth-child(3),
-  .common-datatable-table td:nth-child(3) {
-    text-align: right;
-  }
+  /* Status checkboxes */
+  .custom-checkbox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-  /* 4. Client(P/L) */
-  .common-datatable-table th:nth-child(4),
-  .common-datatable-table td:nth-child(4) {
-    text-align: right;
-  }
-
-  /* 5. Exposure */
-  .common-datatable-table th:nth-child(5),
-  .common-datatable-table td:nth-child(5) {
-    text-align: right;
-  }
-
-  /* 6. Available Balance */
-  .common-datatable-table th:nth-child(6),
-  .common-datatable-table td:nth-child(6) {
-    text-align: right;
-  }
-
-  /* 7. U st */
-  .common-datatable-table th:nth-child(7),
-  .common-datatable-table td:nth-child(7) {
-    text-align: center;
-  }
-
-  /* 8. B st */
-  .common-datatable-table th:nth-child(8),
-  .common-datatable-table td:nth-child(8) {
-    text-align: center;
-  }
-
-  /* 9. Exposure Limit */
-  .common-datatable-table th:nth-child(9),
-  .common-datatable-table td:nth-child(9) {
-    text-align: left;
-  }
-
-  /* 10. Default(%) */
-  .common-datatable-table th:nth-child(10),
-  .common-datatable-table td:nth-child(10) {
-    text-align: left;
-  }
-
-  /* 11. Account Type */
-  .common-datatable-table th:nth-child(11),
-  .common-datatable-table td:nth-child(11) {
-    text-align: left;
-  }
-
-  /* 12. Action */
-  .common-datatable-table th:nth-child(12),
-  .common-datatable-table td:nth-child(12) {
-    text-align: left;
-  }
-
-  /* Account list & table striped global helpers */
-  .account-list .table tr,
-  .account-list .common-datatable-table tr {
-    background-color: #fff;
-  }
-
-  .table-striped tbody tr:nth-of-type(odd) {
-    background-color: white;
+    input[type="checkbox"] {
+      width: 15px;
+      height: 15px;
+      accent-color: #111111;
+      cursor: default;
+    }
   }
 }

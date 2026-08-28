@@ -102,7 +102,7 @@ export default function ClientsPage() {
       {
         key: 'username',
         header: 'User Name',
-        width: '15%',
+        width: '208.5px',
         render: (row) =>
           isBlankRow(row) ? null : (
             <span
@@ -297,6 +297,7 @@ export default function ClientsPage() {
           data={displayData}
           isLoading={isLoading}
           emptyMessage="There are no records to show"
+          className="table-client-list"
         />
 
         {/* Pagination */}

@@ -166,41 +166,45 @@
 
 
     .statement-table .common-datatable-table,
-    .table-current-bets .common-datatable-table {
+    .table-current-bets .common-datatable-table,
+    .general-report-table .common-datatable-table,
+    .game-report-table .common-datatable-table,
+    .casino-report-table .common-datatable-table,
+    .profit-loss-table .common-datatable-table,
+    .casino-result-table .common-datatable-table,
+    .user-lock-table .common-datatable-table,
+    .user-register-table .common-datatable-table,
+    .user-win-loss-table .common-datatable-table,
+    .table-totalprofitloss .common-datatable-table {
       border: 1px solid #dee2e6 !important;
+    }
+
+    .statement-table .common-datatable-th,
+    .table-current-bets .common-datatable-th,
+    .general-report-table .common-datatable-th,
+    .game-report-table .common-datatable-th,
+    .casino-report-table .common-datatable-th,
+    .profit-loss-table .common-datatable-th,
+    .casino-result-table .common-datatable-th,
+    .user-lock-table .common-datatable-th,
+    .user-register-table .common-datatable-th,
+    .user-win-loss-table .common-datatable-th,
+    .table-totalprofitloss .common-datatable-th {
+      border-bottom: 2px solid #eff2f7;
     }
 
     .statement-table .common-datatable-table .common-datatable-empty-td,
-    .table-current-bets .common-datatable-table .common-datatable-empty-td {
+    .table-current-bets .common-datatable-table .common-datatable-empty-td,
+    .general-report-table .common-datatable-table .common-datatable-empty-td,
+    .game-report-table .common-datatable-table .common-datatable-empty-td,
+    .casino-report-table .common-datatable-table .common-datatable-empty-td,
+    .profit-loss-table .common-datatable-table .common-datatable-empty-td,
+    .casino-result-table .common-datatable-table .common-datatable-empty-td,
+    .user-lock-table .common-datatable-table .common-datatable-empty-td,
+    .user-register-table .common-datatable-table .common-datatable-empty-td,
+    .user-win-loss-table .common-datatable-table .common-datatable-empty-td,
+    .table-totalprofitloss .common-datatable-table .common-datatable-empty-td {
       border: 1px solid #dee2e6 !important;
-    }
-
-    .table-current-bets {
-
-      .common-datatable-empty-td {
-        background-color: rgba(0, 0, 0, 0.05);
-        margin: 20px 0;
-      }
-
-      .common-datatable-th {
-        border-bottom: 2px solid #eff2f7;
-      }
-    }
-
-    .general-report-table .common-datatable-table {
-      border: 1px solid #dee2e6;
-
-      .common-datatable-th {
-        border-bottom: 2px solid #eff2f7;
-      }
-    }
-
-    .general-report-table .common-datatable-table .common-datatable-td {
-      border: 1px solid #dee2e6;
-
-      .common-datatable-th {
-        border-bottom: 2px solid #eff2f7;
-      }
     }
 
     /* MX Datepicker Plugin Styles */

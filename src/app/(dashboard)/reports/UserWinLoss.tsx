@@ -97,14 +97,17 @@ export default function UserWinLossPage() {
             data={[]}
             isLoading={isLoading}
             emptyMessage="There are no records to show"
-            className='assign-agent-table'
+            className="user-win-loss-table"
+            footer={
+              <tr>
+                <td colSpan={2}></td>
+                <td className="text-right"><strong>0.00</strong></td>
+                <td className="text-right"><strong>0.00</strong></td>
+                <td className="text-right"><strong>0.00</strong></td>
+                <td className="text-right"><strong>0.00</strong></td>
+              </tr>
+            }
           />
-          <div className="flex justify-end items-center gap-12 py-2 px-6 text-[13px] font-bold text-[#333333] border-t border-[#E0E0E0]">
-            <span>0.00</span>
-            <span>0.00</span>
-            <span>0.00</span>
-            <span>0.00</span>
-          </div>
         </div>
       </div>
     </div>

@@ -126,10 +126,12 @@ export default function AccountList2Page() {
       {
         key: 'username',
         header: 'User Name',
+        width: '153px',
+        align: 'left',
         render: (row: any) =>
           row.isSummary ? null : (
             <span
-              className="account-username-badge cursor-pointer hover:opacity-90"
+              className="wrape-text cursor-pointer hover:opacity-90"
               onClick={() => navigate(ROUTES.ACCOUNT_LIST_DOWNLINE(row.id))}
             >
               {row.username}
@@ -139,10 +141,11 @@ export default function AccountList2Page() {
       {
         key: 'creditReference',
         header: 'CR',
+        width: '61px',
         align: 'right',
         render: (row: any) =>
           row.isSummary ? (
-            <strong className="font-bold text-black">{row.creditReference}</strong>
+            <strong className="font-bold text-[#1e1e1e]">{row.creditReference}</strong>
           ) : (
             formatCurrency(row.creditReference)
           ),
@@ -150,10 +153,11 @@ export default function AccountList2Page() {
       {
         key: 'balance',
         header: 'Balance',
+        width: '70px',
         align: 'right',
         render: (row: any) =>
           row.isSummary ? (
-            <strong className="font-bold text-black">{row.balance}</strong>
+            <strong className="font-bold text-[#1e1e1e]">{row.balance}</strong>
           ) : (
             formatCurrency(row.balance)
           ),
@@ -161,10 +165,11 @@ export default function AccountList2Page() {
       {
         key: 'clientPL',
         header: 'Client(P/L)',
+        width: '86px',
         align: 'right',
         render: (row: any) =>
           row.isSummary ? (
-            <strong className="font-bold text-black">{row.clientPL}</strong>
+            <strong className="font-bold text-[#1e1e1e]">{row.clientPL}</strong>
           ) : (
             formatCurrency(row.clientPL)
           ),
@@ -172,16 +177,18 @@ export default function AccountList2Page() {
       {
         key: 'exposure',
         header: 'Exposure',
+        width: '63px',
         align: 'right',
-        render: (row: any) => (row.isSummary ? '' : formatCurrency(row.exposure)),
+        render: (row: any) => (row.isSummary ? '' : formatCurrency(row.exposure ?? 0)),
       },
       {
         key: 'availableBalance',
         header: 'Available Balance',
+        width: '62px',
         align: 'right',
         render: (row: any) =>
           row.isSummary ? (
-            <strong className="font-bold text-black">{row.availableBalance}</strong>
+            <strong className="font-bold text-[#1e1e1e]">{row.availableBalance}</strong>
           ) : (
             formatCurrency(row.availableBalance)
           ),
@@ -189,40 +196,59 @@ export default function AccountList2Page() {
       {
         key: 'ust',
         header: 'U st',
+        width: '35px',
         align: 'center',
         render: (row: any) =>
           row.isSummary ? null : (
-            <span className="account-status-checkbox">
-              <i className="fa fa-check"></i>
-            </span>
+            <div className="custom-control custom-checkbox inline-flex items-center justify-center">
+              <input
+                type="checkbox"
+                disabled
+                checked
+                className="custom-control-input"
+                readOnly
+              />
+              <label className="custom-control-label" />
+            </div>
           ),
       },
       {
         key: 'bst',
         header: 'B st',
+        width: '35px',
         align: 'center',
         render: (row: any) =>
           row.isSummary ? null : (
-            <span className="account-status-checkbox">
-              <i className="fa fa-check"></i>
-            </span>
+            <div className="custom-control custom-checkbox inline-flex items-center justify-center">
+              <input
+                type="checkbox"
+                disabled
+                checked
+                className="custom-control-input"
+                readOnly
+              />
+              <label className="custom-control-label" />
+            </div>
           ),
       },
       {
         key: 'exposureLimit',
         header: 'Exposure Limit',
-        align: 'right',
-        render: (row: any) => (row.isSummary ? '' : formatCurrency(row.exposureLimit)),
+        width: '63px',
+        align: 'left',
+        render: (row: any) => (row.isSummary ? '' : formatCurrency(row.exposureLimit ?? 0)),
       },
       {
         key: 'defaultPercent',
         header: 'Default(%)',
-        align: 'right',
-        render: (row: any) => (row.isSummary ? '' : row.defaultPercent ?? '0'),
+        width: '70px',
+        align: 'left',
+        render: (row: any) => (row.isSummary ? '' : <p className="text-left mb-0">{row.defaultPercent ?? '0'}</p>),
       },
       {
         key: 'accountType',
         header: 'Account Type',
+        width: '71px',
         align: 'left',
         render: (row: any) =>
           row.isSummary
@@ -233,13 +259,14 @@ export default function AccountList2Page() {
       {
         key: 'action',
         header: 'Action',
+        width: '225px',
         align: 'left',
         render: (row: any) =>
           row.isSummary ? null : (
-            <div className="account-action-btns">
+            <div className="btn-group">
               <button
                 type="button"
-                className="account-action-btn"
+                className="btn action-button btn-secondary"
                 title="Deposit"
                 onClick={() => setTxnModal({ account: row, type: 'deposit' })}
               >
@@ -247,7 +274,7 @@ export default function AccountList2Page() {
               </button>
               <button
                 type="button"
-                className="account-action-btn"
+                className="btn action-button btn-secondary"
                 title="Withdraw"
                 onClick={() => setTxnModal({ account: row, type: 'withdraw' })}
               >
@@ -255,7 +282,7 @@ export default function AccountList2Page() {
               </button>
               <button
                 type="button"
-                className="account-action-btn"
+                className="btn action-button btn-secondary"
                 title="Exposure Limit"
                 onClick={() => setExposureLimitAccount(row)}
               >
@@ -263,7 +290,7 @@ export default function AccountList2Page() {
               </button>
               <button
                 type="button"
-                className="account-action-btn"
+                className="btn action-button btn-secondary"
                 title="Credit"
                 onClick={() => setCreditAccount(row)}
               >
@@ -271,7 +298,7 @@ export default function AccountList2Page() {
               </button>
               <button
                 type="button"
-                className="account-action-btn"
+                className="btn action-button btn-secondary"
                 title="Password"
                 onClick={() => setPasswordAccount(row)}
               >
@@ -279,7 +306,7 @@ export default function AccountList2Page() {
               </button>
               <button
                 type="button"
-                className="account-action-btn"
+                className="btn action-button btn-secondary"
                 title="Change Status"
                 onClick={() => setStatusAccount(row)}
               >
