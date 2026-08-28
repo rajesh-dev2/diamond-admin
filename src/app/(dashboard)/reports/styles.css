@@ -116,7 +116,7 @@
     }
 
     .btn-export-pdf {
-      @apply h-[33px] px-2.5 bg-[#E96A6A] ml-[-5px] hover:bg-[#d85858] text-white rounded-[3px] flex items-center justify-center text-xs font-semibold cursor-pointer transition-colors shadow-2xs;
+      @apply h-[33px] px-2.5 bg-[#E96A6A] hover:bg-[#d85858] text-white rounded-[3px] flex items-center justify-center text-xs font-semibold cursor-pointer transition-colors shadow-2xs;
       padding: 0.375rem 0.75rem;
     }
 
