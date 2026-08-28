@@ -196,15 +196,15 @@ export default function AccountList2Page() {
       {
         key: 'ust',
         header: 'U st',
-        width: '35px',
-        align: 'center',
+        width: '55px',
+        align: 'left',
         render: (row: any) =>
           row.isSummary ? null : (
             <div className="custom-control custom-checkbox inline-flex items-center justify-center">
               <input
                 type="checkbox"
                 disabled
-                checked
+                checked={Boolean(row.ust ?? row.isActive ?? true)}
                 className="custom-control-input"
                 readOnly
               />
@@ -215,15 +215,15 @@ export default function AccountList2Page() {
       {
         key: 'bst',
         header: 'B st',
-        width: '35px',
-        align: 'center',
+        width: '55px',
+        align: 'left',
         render: (row: any) =>
           row.isSummary ? null : (
             <div className="custom-control custom-checkbox inline-flex items-center justify-center">
               <input
                 type="checkbox"
                 disabled
-                checked
+                checked={Boolean(row.bst ?? true)}
                 className="custom-control-input"
                 readOnly
               />

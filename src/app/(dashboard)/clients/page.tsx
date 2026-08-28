@@ -118,10 +118,10 @@ export default function ClientsPage() {
         key: 'ust',
         header: 'U st',
         width: '61.71px',
-        align: 'center',
+        align: 'left',
         render: (row) =>
           isBlankRow(row) ? null : (
-            <div className="mb-1 custom-control custom-checkbox">
+            <div className="custom-control custom-checkbox inline-flex items-center justify-center">
               <input
                 type="checkbox"
                 disabled
@@ -138,10 +138,10 @@ export default function ClientsPage() {
         key: 'bst',
         header: 'B st',
         width: '61.71px',
-        align: 'center',
+        align: 'left',
         render: (row) =>
           isBlankRow(row) ? null : (
-            <div className="mb-1 custom-control custom-checkbox">
+            <div className="custom-control custom-checkbox inline-flex items-center justify-center">
               <input
                 type="checkbox"
                 disabled
