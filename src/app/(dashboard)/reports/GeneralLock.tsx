@@ -32,34 +32,38 @@ export default function GeneralLockPage() {
 
       <div className="report-card">
         <div className="user-lock-filter-bar">
-          <form onSubmit={handleLoadData} className="flex flex-wrap items-center gap-3">
-            <div className="w-[331px]">
-              <MultiSelect
-                value={clientSearch}
-                onChange={setClientSearch}
-                placeholder="Search By Client Name"
-              />
+          <form onSubmit={handleLoadData} className="ajaxFormSubmit">
+            <div className="row row5">
+              <div className="col-md-3">
+                <MultiSelect
+                  value={clientSearch}
+                  onChange={setClientSearch}
+                  placeholder="Search By Client Name"
+                />
+              </div>
+              <div className="col-md-2">
+                <TextInput
+                  value={txCode}
+                  onChange={setTxCode}
+                  placeholder="Transaction Code"
+                />
+              </div>
+              <div className="col-md-2 flex items-center gap-2">
+                <button type="submit" className="report-btn-load">
+                  Load
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setClientSearch('');
+                    setTxCode('');
+                  }}
+                  className="h-[34px] px-3 bg-[#eff2f7] hover:bg-[#e2e6ea] text-[#212529] text-[14px] font-normal rounded-[3px] transition-colors"
+                >
+                  Reset
+                </button>
+              </div>
             </div>
-            <div className="w-[220px]">
-              <TextInput
-                value={txCode}
-                onChange={setTxCode}
-                placeholder="Transaction Code"
-              />
-            </div>
-            <button type="submit" className="report-btn-load">
-              Load
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                setClientSearch('');
-                setTxCode('');
-              }}
-              className="h-[34px] px-3 ml-[-6px] bg-[#eff2f7] text-[#212529] text-[14px] font-normal rounded-[3px] transition-colors"
-            >
-              Reset
-            </button>
           </form>
         </div>
 

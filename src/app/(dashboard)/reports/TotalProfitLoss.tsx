@@ -57,9 +57,9 @@ export default function TotalProfitLossPage() {
 
       <div className="report-card">
         <div className="total-profit-loss-filter-bar">
-          <form onSubmit={handleLoadData} className="flex flex-col gap-3">
-            <div className="flex flex-wrap items-center gap-3">
-              <div className="w-[240px]">
+          <form onSubmit={handleLoadData} className="ajaxFormSubmit">
+            <div className="row row5">
+              <div className="col-lg-3">
                 <MultiSelect
                   label="Search By Client Name"
                   value={clientSearch}
@@ -67,14 +67,14 @@ export default function TotalProfitLossPage() {
                   placeholder="Select option"
                 />
               </div>
-              <div className="w-[240px]">
+              <div className="col-lg-3">
                 <DatePicker
                   label="Select Date Range"
                   value={dateRange}
                   onChange={setDateRange}
                 />
               </div>
-              <div className="w-[220px]">
+              <div className="col-lg-2">
                 <FormSelect
                   label="Type"
                   value={totalProfitLossType}
@@ -84,35 +84,37 @@ export default function TotalProfitLossPage() {
               </div>
             </div>
 
-            <div className="flex flex-wrap items-center gap-2 mt-1">
-              <button type="submit" className="report-btn-load">
-                Load
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  setClientSearch('');
-                  setTotalProfitLossType('0');
-                  setDateRange('17/08/2026 ~ 27/08/2026');
-                }}
-                className="h-[34px] px-3.5 bg-[#eff2f7] hover:bg-[#e2e6ea] text-[#212529] text-[14px] font-normal rounded-[3px] transition-colors"
-              >
-                Reset
-              </button>
-              <button
-                type="button"
-                title="Export Excel"
-                className="btn-export-excel"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" /><polyline points="14 2 14 8 20 8" /></svg>
-              </button>
-              <button
-                type="button"
-                title="Export PDF"
-                className="btn-export-pdf"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" /><polyline points="14 2 14 8 20 8" /></svg>
-              </button>
+            <div className="row row5 mt-2">
+              <div className="col-12 flex flex-wrap items-center gap-2">
+                <button type="submit" className="report-btn-load">
+                  Load
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setClientSearch('');
+                    setTotalProfitLossType('0');
+                    setDateRange('17/08/2026 ~ 27/08/2026');
+                  }}
+                  className="h-[34px] px-3.5 bg-[#eff2f7] hover:bg-[#e2e6ea] text-[#212529] text-[14px] font-normal rounded-[3px] transition-colors"
+                >
+                  Reset
+                </button>
+                <button
+                  type="button"
+                  title="Export Excel"
+                  className="btn-export-excel"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" /><polyline points="14 2 14 8 20 8" /></svg>
+                </button>
+                <button
+                  type="button"
+                  title="Export PDF"
+                  className="btn-export-pdf"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" /><polyline points="14 2 14 8 20 8" /></svg>
+                </button>
+              </div>
             </div>
           </form>
         </div>

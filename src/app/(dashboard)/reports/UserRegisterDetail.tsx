@@ -64,56 +64,60 @@ export default function UserRegisterDetailPage() {
 
       <div className="report-card p-[17px] pt-0">
         <div className="user-register-filter-bar">
-          <form onSubmit={handleLoadData} className="flex flex-wrap items-end gap-2.5">
-            <div className="w-[220px]">
-              <MultiSelect
-                label="Search By Client Name"
-                value={clientSearch}
-                onChange={setClientSearch}
-                options={[]}
-                placeholder="Select option"
-              />
+          <form onSubmit={handleLoadData} className="ajaxFormSubmit">
+            <div className="row row5 align-items-end">
+              <div className="col-2">
+                <MultiSelect
+                  label="Search By Client Name"
+                  value={clientSearch}
+                  onChange={setClientSearch}
+                  options={[]}
+                  placeholder="Select option"
+                />
+              </div>
+              <div className="col-2">
+                <FormSelect
+                  label="Type"
+                  value={userRegisterType}
+                  onChange={setUserRegisterType}
+                  options={USER_REGISTER_TYPE_OPTIONS}
+                />
+              </div>
+              <div className="col-3 flex items-center gap-1.5">
+                <button type="submit" className="report-btn-load">
+                  Load
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setClientSearch('');
+                    setUserRegisterType('all');
+                    setTableSearch('');
+                    setCurrentPage(1);
+                    fetchData(1, entriesPerPage, '');
+                  }}
+                  className="h-[34px] px-3.5 bg-[#eff2f7] hover:bg-[#e2e6ea] text-[#212529] text-[14px] font-normal rounded-[3px] transition-colors"
+                >
+                  Reset
+                </button>
+                <button
+                  type="button"
+                  title="Export Excel"
+                  className="btn-export-excel btn"
+                  disabled
+                >
+                  <i className="fas fa-file-excel text-[14px]"></i>
+                </button>
+                <button
+                  type="button"
+                  title="Export PDF"
+                  disabled
+                  className="btn-export-pdf"
+                >
+                  <i className="fas fa-file-pdf text-[14px]"></i>
+                </button>
+              </div>
             </div>
-            <div className="w-[220px]">
-              <FormSelect
-                label="Type"
-                value={userRegisterType}
-                onChange={setUserRegisterType}
-                options={USER_REGISTER_TYPE_OPTIONS}
-              />
-            </div>
-            <button type="submit" className="report-btn-load">
-              Load
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                setClientSearch('');
-                setUserRegisterType('all');
-                setTableSearch('');
-                setCurrentPage(1);
-                fetchData(1, entriesPerPage, '');
-              }}
-              className="h-[34px] px-3.5 bg-[#eff2f7] hover:bg-[#e2e6ea] text-[#212529] text-[14px] font-normal rounded-[3px] transition-colors"
-            >
-              Reset
-            </button>
-            <button
-              type="button"
-              title="Export Excel"
-              className="btn-export-excel btn"
-              disabled
-            >
-              <i className="fas fa-file-excel text-[14px]"></i>
-            </button>
-            <button
-              type="button"
-              title="Export PDF"
-              disabled
-              className="btn-export-pdf"
-            >
-              <i className="fas fa-file-pdf text-[14px]"></i>
-            </button>
           </form>
         </div>
 
