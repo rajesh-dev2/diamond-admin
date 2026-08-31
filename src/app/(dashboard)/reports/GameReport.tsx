@@ -14,9 +14,9 @@ const GAME_REPORT_SUB_OPTIONS: SelectOption[] = [
 ];
 
 const COLUMNS: ColumnDef<any>[] = [
-  { key: 'srNo', header: 'Sr.No', width: '100px' },
-  { key: 'name', header: 'Name', width: '350px' },
-  { key: 'amount', header: 'Amount', width: '150px', align: 'right' },
+  { key: 'srNo', header: 'Sr.No', width: '565px' },
+  { key: 'name', header: 'Name', width: '591px' },
+  { key: 'amount', header: 'Amount', width: '712px', align: 'left' },
 ];
 
 export default function GameReportPage() {

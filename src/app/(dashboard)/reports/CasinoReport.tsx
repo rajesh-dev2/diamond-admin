@@ -16,13 +16,13 @@ const CASINO_SELECT_OPTIONS: SelectOption[] = [
 ];
 
 const COLUMNS: ColumnDef<any>[] = [
-  { key: 'gameName', header: 'Game Name', width: '220px' },
-  { key: 'type', header: 'Type', width: '140px' },
-  { key: 'amount', header: 'Amount', width: '140px', align: 'right' },
-  { key: 'total', header: 'Total', width: '140px', align: 'right' },
-  { key: 'date', header: 'Date', width: '140px' },
-  { key: 'roundId', header: 'Round Id', width: '160px' },
-  { key: 'transactionId', header: 'Transaction Id', width: '180px' },
+  { key: 'gameName', header: 'Game Name', width: '339px' },
+  { key: 'type', header: 'Type', width: '195px' },
+  { key: 'amount', header: 'Amount', width: '254px', align: 'right' },
+  { key: 'total', header: 'Total', width: '200px', align: 'right' },
+  { key: 'date', header: 'Date', width: '193px' },
+  { key: 'roundId', header: 'Round Id', width: '273px' },
+  { key: 'transactionId', header: 'Transaction Id', width: '377px' },
 ];
 
 export default function CasinoReportPage() {
