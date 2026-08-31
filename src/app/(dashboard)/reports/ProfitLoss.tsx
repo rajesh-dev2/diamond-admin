@@ -7,13 +7,13 @@ import Pagination from '@/components/common/Pagination';
 import { ReportsService } from '@/services/reports.service';
 
 const COLUMNS: ColumnDef<any>[] = [
-  { key: 'no', header: 'No', width: '80px' },
-  { key: 'userName', header: 'User Name', width: '180px' },
-  { key: 'level', header: 'Level', width: '120px' },
-  { key: 'casinoPts', header: 'Casino Pts', width: '150px', align: 'right' },
-  { key: 'sportPts', header: 'Sport Pts', width: '150px', align: 'right' },
-  { key: 'thirdPartyPts', header: 'Third Party Pts', width: '160px', align: 'right' },
-  { key: 'profitLoss', header: 'Profit/Loss', width: '150px', align: 'right' },
+  { key: 'no', header: 'No', width: '133px' },
+  { key: 'userName', header: 'User Name', width: '296px' },
+  { key: 'level', header: 'Level', width: '180px' },
+  { key: 'casinoPts', header: 'Casino Pts', width: '191px', align: 'right' },
+  { key: 'sportPts', header: 'Sport Pts', width: '262px', align: 'right' },
+  { key: 'thirdPartyPts', header: 'Third Party Pts', width: '373px', align: 'right' },
+  { key: 'profitLoss', header: 'Profit/Loss', width: '298px', align: 'right' },
 ];
 
 export default function ProfitLossPage() {
