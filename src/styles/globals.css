@@ -326,6 +326,7 @@ input:hover,
   vertical-align: middle;
   text-align: left;
   padding: 4px 10.5px;
+  padding-right: calc(0.75rem + 0.65em);
 }
 
 .row5 {

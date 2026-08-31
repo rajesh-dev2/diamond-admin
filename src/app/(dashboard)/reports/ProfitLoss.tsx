@@ -109,6 +109,7 @@ export default function ProfitLossPage() {
               <th role="columnheader" scope="col" aria-colindex={7} className="text-right"><span>0.00</span></th>
             </tr>
           }
+          className='statement-table'
         />
 
         <Pagination
