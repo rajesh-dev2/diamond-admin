@@ -54,11 +54,11 @@
       padding: 4px 6px !important;
       padding-right: calc(0.75rem + 0.65em) !important;
     }
-
+    
     .common-datatable-table {
       border: 1px solid #eff2f7;
     }
-
+    
     .common-datatable-th {
       height: auto !important;
       border-bottom: 2px solid #eff2f7 !important;

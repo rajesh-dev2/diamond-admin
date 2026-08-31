@@ -6,8 +6,8 @@ import './style.css';
 
 const COLUMNS: ColumnDef<any>[] = [
   { key: 'sNo', header: 'S.No.', width: '80px', align: 'center' },
-  { key: 'userName', header: 'User Name', width: '180px' },
-  { key: 'assignAgentSettings', header: 'Assign Agent Settings', width: '220px' },
+  { key: 'userName', header: 'User Name', width: '110px' },
+  { key: 'assignAgentSettings', header: 'Assign Agent Settings', width: '180px' },
   { key: 'mobileNumber', header: 'Mobile Number', width: '160px' },
   { key: 'depoMobileNumber', header: 'Depo Mobile Number', width: '180px' },
   { key: 'firstBonusStatus', header: 'First Bonus Status', width: '160px' },
