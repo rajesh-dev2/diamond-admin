@@ -196,7 +196,7 @@ export default function AccountList2Page() {
       {
         key: 'ust',
         header: 'U st',
-        width: '55px',
+        width: '40px',
         align: 'left',
         render: (row: any) =>
           row.isSummary ? null : (
@@ -215,7 +215,7 @@ export default function AccountList2Page() {
       {
         key: 'bst',
         header: 'B st',
-        width: '55px',
+        width: '40px',
         align: 'left',
         render: (row: any) =>
           row.isSummary ? null : (
