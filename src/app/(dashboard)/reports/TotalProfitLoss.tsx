@@ -141,7 +141,7 @@ export default function TotalProfitLossPage() {
                 data={[]}
                 isLoading={isLoading}
                 emptyMessage="There are no records to show"
-                className="table-totalprofitloss"
+                className="assign-agent-table"
                 footer={
                   <tr role="row">
                     <th role="columnheader" scope="col" aria-colindex={1}><span></span></th>
@@ -164,7 +164,6 @@ export default function TotalProfitLossPage() {
                 data={[]}
                 isLoading={isLoading}
                 emptyMessage="There are no records to show"
-                className="table-totalprofitloss"
                 footer={
                   <tr role="row">
                     <th role="columnheader" scope="col" aria-colindex={1}><span></span></th>
@@ -173,6 +172,7 @@ export default function TotalProfitLossPage() {
                     <th role="columnheader" scope="col" aria-colindex={4} className="text-right"><span>0.00</span></th>
                   </tr>
                 }
+                className="assign-agent-table"
               />
             </div>
           )}
@@ -186,7 +186,7 @@ export default function TotalProfitLossPage() {
                 data={[]}
                 isLoading={isLoading}
                 emptyMessage="There are no records to show"
-                className="table-totalprofitloss"
+                className="assign-agent-table"
                 footer={
                   <tr role="row">
                     <th role="columnheader" scope="col" aria-colindex={1}><span></span></th>

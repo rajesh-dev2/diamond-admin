@@ -43,27 +43,60 @@ export function ReportTable<T extends Record<string, any>>({
       return { num: isNaN(numVal) ? null : numVal, isPercent: false };
     });
 
-    const numericWeights = parsed.filter((p) => !p.isPercent && p.num !== null).map((p) => p.num as number);
-    const totalExplicitPx = numericWeights.reduce((sum, val) => sum + val, 0);
-    const avgWeight = numericWeights.length > 0 ? totalExplicitPx / numericWeights.length : 100;
-    const effectiveWeights = parsed.map((p) => (p.isPercent ? null : p.num !== null && p.num > 0 ? p.num : avgWeight));
-    const totalPercentExplicit = parsed.reduce((sum, p) => (p.isPercent && p.num ? sum + p.num : sum), 0);
-    const remainingPercent = Math.max(0, 100 - totalPercentExplicit);
-    const totalWeightForRemaining = effectiveWeights.reduce((sum, w) => (w !== null ? sum + w : sum), 0);
+    const hasAuto = parsed.some((p) => p.num === null);
+    const explicitNumeric = parsed.filter((p) => !p.isPercent && p.num !== null).map((p) => p.num as number);
+    const explicitPercentTotal = parsed.reduce((sum, p) => (p.isPercent && p.num !== null ? sum + p.num : sum), 0);
+    const explicitNumericTotal = explicitNumeric.reduce((sum, v) => sum + v, 0);
+
+    const computedWidths: string[] = [];
+
+    if (!hasAuto) {
+      if (explicitNumeric.length === 0) {
+        parsed.forEach((p) => {
+          computedWidths.push(`${p.num}%`);
+        });
+      } else {
+        const remainingPercent = Math.max(0, 100 - explicitPercentTotal);
+        parsed.forEach((p) => {
+          if (p.isPercent && p.num !== null) {
+            computedWidths.push(`${p.num}%`);
+          } else if (explicitNumericTotal > 0 && p.num !== null) {
+            const pct = (p.num / explicitNumericTotal) * remainingPercent;
+            computedWidths.push(`${Number(pct.toFixed(3))}%`);
+          } else {
+            computedWidths.push(`${Number((100 / columns.length).toFixed(3))}%`);
+          }
+        });
+      }
+    } else {
+      const autoCount = parsed.filter((p) => p.num === null).length;
+      if (explicitNumeric.length === 0 && explicitPercentTotal === 0) {
+        const equalPct = Number((100 / columns.length).toFixed(3));
+        parsed.forEach(() => {
+          computedWidths.push(`${equalPct}%`);
+        });
+      } else {
+        const canvasWidth = Math.max(1280, explicitNumericTotal + autoCount * 120);
+        const remainingPercentForNonPercent = Math.max(0, 100 - explicitPercentTotal);
+        const numericPercentTotal = (explicitNumericTotal / canvasWidth) * remainingPercentForNonPercent;
+        const leftoverForAuto = Math.max(0, remainingPercentForNonPercent - numericPercentTotal);
+        const perAutoPercent = autoCount > 0 ? leftoverForAuto / autoCount : 0;
+
+        parsed.forEach((p) => {
+          if (p.isPercent && p.num !== null) {
+            computedWidths.push(`${p.num}%`);
+          } else if (p.num !== null) {
+            const pct = (p.num / canvasWidth) * remainingPercentForNonPercent;
+            computedWidths.push(`${Number(pct.toFixed(3))}%`);
+          } else {
+            computedWidths.push(`${Number(perAutoPercent.toFixed(3))}%`);
+          }
+        });
+      }
+    }
 
     return columns.map((col, idx) => {
       const p = parsed[idx];
-      let computedWidthPercent: string;
-      if (p.isPercent && p.num !== null) {
-        computedWidthPercent = `${p.num}%`;
-      } else if (totalWeightForRemaining > 0 && effectiveWeights[idx] !== null) {
-        const weight = effectiveWeights[idx] as number;
-        const pct = (weight / totalWeightForRemaining) * remainingPercent;
-        computedWidthPercent = `${Number(pct.toFixed(3))}%`;
-      } else {
-        computedWidthPercent = `${Number((100 / columns.length).toFixed(3))}%`;
-      }
-
       let computedMinWidth: string | undefined = undefined;
       if (col.minWidth !== undefined) {
         computedMinWidth = typeof col.minWidth === 'number' ? `${col.minWidth}px` : col.minWidth;
@@ -72,7 +105,7 @@ export function ReportTable<T extends Record<string, any>>({
       }
 
       return {
-        width: computedWidthPercent,
+        width: computedWidths[idx],
         minWidth: computedMinWidth,
       };
     });

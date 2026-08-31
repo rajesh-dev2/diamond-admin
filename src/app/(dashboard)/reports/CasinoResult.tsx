@@ -10,8 +10,8 @@ const CASINO_RESULT_SELECT_OPTIONS: SelectOption[] = [
 ];
 
 const COLUMNS: ColumnDef<any>[] = [
-  { key: 'marketId', header: 'Market Id', width: '50%' },
-  { key: 'winner', header: 'Winner', width: '50%' },
+  { key: 'marketId', header: 'Market Id', width: '380px' },
+  { key: 'winner', header: 'Winner', width: 'auto' },
 ];
 
 export default function CasinoResultPage() {

@@ -22,6 +22,8 @@ export interface DataTableProps<T> {
   autoDistribute?: boolean;
 }
 
+const BASE_DESKTOP_WIDTH = 1280;
+
 /**
  * Computes proportional column styles (%) based on defined weights/pixels,
  * ensuring tables seamlessly adapt to 100% of any viewport/screen width.
@@ -34,66 +36,99 @@ function computeColumnWidths<T>(columns: ColumnDef<T>[], autoDistribute: boolean
     }));
   }
 
-  // Parse widths into numeric weights or detect percentages
+  // 1. Parse widths into numeric weights or detect percentages
   const parsed = columns.map((col) => {
     if (col.width === undefined || col.width === null || col.width === 'auto' || col.width === '') {
-      return { raw: col.width, num: null, isPercent: false };
+      return { isPercent: false, value: null };
     }
     const str = String(col.width).trim();
     if (str.endsWith('%')) {
       const pVal = parseFloat(str);
-      return { raw: col.width, num: isNaN(pVal) ? null : pVal, isPercent: true };
+      return { isPercent: true, value: isNaN(pVal) ? null : pVal };
     }
     const pxMatch = str.match(/^([\d.]+)(px)?$/i);
     if (pxMatch) {
       const val = parseFloat(pxMatch[1]);
-      return { raw: col.width, num: isNaN(val) ? null : val, isPercent: false };
+      return { isPercent: false, value: isNaN(val) ? null : val };
     }
     const numVal = parseFloat(str);
-    return { raw: col.width, num: isNaN(numVal) ? null : numVal, isPercent: false };
+    return { isPercent: false, value: isNaN(numVal) ? null : numVal };
   });
 
-  const numericWeights = parsed.filter((p) => !p.isPercent && p.num !== null).map((p) => p.num as number);
-  const totalExplicitPx = numericWeights.reduce((sum, val) => sum + val, 0);
-  const avgWeight = numericWeights.length > 0 ? totalExplicitPx / numericWeights.length : 100;
+  const hasAuto = parsed.some((p) => p.value === null);
+  const explicitNumeric = parsed.filter((p) => !p.isPercent && p.value !== null).map((p) => p.value as number);
+  const explicitPercentTotal = parsed.reduce((sum, p) => (p.isPercent && p.value !== null ? sum + p.value : sum), 0);
+  const explicitNumericTotal = explicitNumeric.reduce((sum, v) => sum + v, 0);
 
-  // Resolve weight for each column
-  const effectiveWeights = parsed.map((p) => {
-    if (p.isPercent) return null; // handled via fixed percentage
-    return p.num !== null && p.num > 0 ? p.num : avgWeight;
-  });
+  const computedWidths: string[] = [];
 
-  const totalPercentExplicit = parsed.reduce((sum, p) => (p.isPercent && p.num ? sum + p.num : sum), 0);
-  const remainingPercent = Math.max(0, 100 - totalPercentExplicit);
+  if (!hasAuto) {
+    // SCENARIO 1: ALL columns have explicit widths (px or %)
+    if (explicitNumeric.length === 0) {
+      // All are percentages
+      parsed.forEach((p) => {
+        computedWidths.push(`${p.value}%`);
+      });
+    } else {
+      // Distribute proportionally based on relative pixel weights
+      const remainingPercent = Math.max(0, 100 - explicitPercentTotal);
+      parsed.forEach((p) => {
+        if (p.isPercent && p.value !== null) {
+          computedWidths.push(`${p.value}%`);
+        } else if (explicitNumericTotal > 0 && p.value !== null) {
+          const pct = (p.value / explicitNumericTotal) * remainingPercent;
+          computedWidths.push(`${Number(pct.toFixed(3))}%`);
+        } else {
+          computedWidths.push(`${Number((100 / columns.length).toFixed(3))}%`);
+        }
+      });
+    }
+  } else {
+    // SCENARIO 2: At least one column is 'auto' or undefined
+    const autoCount = parsed.filter((p) => p.value === null).length;
 
-  const totalWeightForRemaining = effectiveWeights.reduce((sum, w) => (w !== null ? sum + w : sum), 0);
+    if (explicitNumeric.length === 0 && explicitPercentTotal === 0) {
+      // All columns are auto -> equal split
+      const equalPct = Number((100 / columns.length).toFixed(3));
+      parsed.forEach(() => {
+        computedWidths.push(`${equalPct}%`);
+      });
+    } else {
+      // Mix of explicit widths (px / %) and auto columns
+      // Reference against the base desktop canvas width (1280px)
+      const canvasWidth = Math.max(BASE_DESKTOP_WIDTH, explicitNumericTotal + autoCount * 120);
+      const remainingPercentForNonPercent = Math.max(0, 100 - explicitPercentTotal);
 
+      const numericPercentTotal = (explicitNumericTotal / canvasWidth) * remainingPercentForNonPercent;
+      const leftoverForAuto = Math.max(0, remainingPercentForNonPercent - numericPercentTotal);
+      const perAutoPercent = autoCount > 0 ? leftoverForAuto / autoCount : 0;
+
+      parsed.forEach((p) => {
+        if (p.isPercent && p.value !== null) {
+          computedWidths.push(`${p.value}%`);
+        } else if (p.value !== null) {
+          const pct = (p.value / canvasWidth) * remainingPercentForNonPercent;
+          computedWidths.push(`${Number(pct.toFixed(3))}%`);
+        } else {
+          computedWidths.push(`${Number(perAutoPercent.toFixed(3))}%`);
+        }
+      });
+    }
+  }
+
+  // 3. Compute safe minWidth for responsiveness
   return columns.map((col, idx) => {
     const p = parsed[idx];
-    let computedWidthPercent: string;
-
-    if (p.isPercent && p.num !== null) {
-      computedWidthPercent = `${p.num}%`;
-    } else if (totalWeightForRemaining > 0 && effectiveWeights[idx] !== null) {
-      const weight = effectiveWeights[idx] as number;
-      const pct = (weight / totalWeightForRemaining) * remainingPercent;
-      computedWidthPercent = `${Number(pct.toFixed(3))}%`;
-    } else {
-      computedWidthPercent = `${Number((100 / columns.length).toFixed(3))}%`;
-    }
-
-    // Determine minWidth: if explicit minWidth is provided use it, otherwise provide a safe minWidth
-    // based on original pixel width or a floor to prevent column destruction
     let computedMinWidth: string | undefined = undefined;
+
     if (col.minWidth !== undefined) {
       computedMinWidth = typeof col.minWidth === 'number' ? `${col.minWidth}px` : col.minWidth;
-    } else if (p.num !== null && !p.isPercent) {
-      // Allow slight contraction but retain readable floor (min 50px, or 60% of original px)
-      computedMinWidth = `${Math.max(50, Math.min(Math.round(p.num * 0.65), 180))}px`;
+    } else if (p.value !== null && !p.isPercent) {
+      computedMinWidth = `${Math.max(50, Math.min(Math.round(p.value * 0.65), 180))}px`;
     }
 
     return {
-      width: computedWidthPercent,
+      width: computedWidths[idx],
       minWidth: computedMinWidth,
     };
   });
