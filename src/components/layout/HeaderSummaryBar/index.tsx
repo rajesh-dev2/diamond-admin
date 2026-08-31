@@ -57,7 +57,7 @@ export function HeaderSummaryBar() {
         className={`header-summary-toggle ${isOpen ? 'header-summary-toggle-open' : ''}`}
         title={isOpen ? 'Collapse' : 'Expand'}
       >
-        <span id="user-balance" className="far fa-arrow-alt-circle-down"></span>
+        <span id="user-balance" className="far fa-arrow-alt-circle-down text-[20px]"></span>
       </button>
 
       {isOpen && (
