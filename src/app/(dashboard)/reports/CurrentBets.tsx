@@ -25,16 +25,14 @@ const BET_TYPE_RADIO_OPTIONS: RadioOption[] = [
 ];
 
 const SPORTS_COLUMNS: ColumnDef<any>[] = [
-  { key: 'srNo', header: 'Sr.No', width: '80px' },
-  { key: 'userRate', header: 'Rate', width: '100px', align: 'right' },
-  { key: 'amount', header: 'Amount', width: '120px', align: 'right' },
-  { key: 'otype', header: 'Mode', width: '100px', align: 'center' },
-  { key: 'nation', header: 'Team', width: '200px' },
-  { key: 'client', header: 'Client', width: '140px' },
-  { key: 'agentLevel', header: 'Agent', width: '140px' },
-  { key: 'eventName', header: 'Match', width: '260px' },
-  { key: 'marketName', header: 'Market', width: '160px' },
-  { key: 'placeDate', header: 'Place Date', width: '160px' },
+  { key: 'Event Type', header: 'Event Type', width: '264px', align: 'left' },
+  { key: 'Event Name', header: 'Event Name', width: '200px', align: 'left' },
+  { key: 'User Name', header: 'User Name', width: '268.8px', align: 'left' },
+  { key: 'M Name', header: 'M Name', width: '226px', align: 'left' },
+  { key: 'nation', header: 'Nation', width: '197px', align: 'left' },
+  { key: 'uRate', header: 'U Rate', width: '195px', align: 'right' },
+  { key: 'amount', header: 'Amount', width: '217px', align: 'right' },
+  { key: 'placeDate', header: 'Place Date', width: '265px', align: 'left' },
 ];
 
 const CASINO_COLUMNS: ColumnDef<any>[] = [
