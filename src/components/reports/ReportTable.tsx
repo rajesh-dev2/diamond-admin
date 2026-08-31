@@ -141,7 +141,8 @@ export function ReportTable<T extends Record<string, any>>({
                   <span>{col.header}</span>
                 </div>
               </th>
-            ))}
+              );
+            })}
           </tr>
         </thead>
         <tbody>
