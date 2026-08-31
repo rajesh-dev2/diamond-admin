@@ -1,7 +1,7 @@
 @reference "../../../styles/index.css";
 
 .modal-overlay {
-  @apply fixed inset-0 z-50 flex p-3;
+  @apply fixed inset-0 z-50 flex p-8;
 }
 
 .modal-backdrop {

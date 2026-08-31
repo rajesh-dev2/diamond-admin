@@ -58,7 +58,7 @@ export function CreditModal({ isOpen, onClose, account, onSuccess }: CreditModal
       isOpen={isOpen}
       onClose={handleClose}
       title="Credit"
-      position="center"
+      position="top"
       maxWidth="md"
       className="credit-modal"
       footer={

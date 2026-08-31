@@ -63,7 +63,7 @@ export function PasswordModal({ isOpen, onClose, account, onSuccess }: PasswordM
       isOpen={isOpen}
       onClose={handleClose}
       title="Password"
-      position="center"
+      position="top"
       maxWidth="md"
       className="password-modal"
       footer={

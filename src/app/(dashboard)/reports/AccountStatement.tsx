@@ -10,12 +10,12 @@ import { ReportsService } from '@/services/reports.service';
 import { AccountService } from '@/services/account.service';
 
 const COLUMNS: ColumnDef<any>[] = [
-  { key: 'date', header: 'Date', width: '120px' },
-  { key: 'credit', header: 'Credit', width: '120px', align: 'right' },
-  { key: 'debit', header: 'Debit', width: '120px', align: 'right' },
-  { key: 'closing', header: 'Closing', width: '120px', align: 'right' },
+  { key: 'date', header: 'Date', width: '95px' },
+  { key: 'credit', header: 'Credit', width: '90px', align: 'right' },
+  { key: 'debit', header: 'Debit', width: '90px', align: 'right' },
+  { key: 'closing', header: 'Closing', width: '90px', align: 'right' },
   { key: 'description', header: 'Description', width: '350px' },
-  { key: 'fromto', header: 'Fromto', width: '120px' },
+  { key: 'fromto', header: 'Fromto', width: '130px' },
 ];
 
 export default function AccountStatementPage() {

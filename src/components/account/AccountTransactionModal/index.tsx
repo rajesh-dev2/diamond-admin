@@ -103,7 +103,7 @@ export function AccountTransactionModal({ isOpen, onClose, account, type, onSucc
       isOpen={isOpen}
       onClose={handleClose}
       title={TITLES[type]}
-      position="center"
+      position="top"
       maxWidth="md"
       className="account-txn-modal"
       footer={

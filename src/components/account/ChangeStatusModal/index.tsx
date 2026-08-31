@@ -53,7 +53,7 @@ export function ChangeStatusModal({ isOpen, onClose, account, onSuccess }: Chang
       isOpen={isOpen}
       onClose={handleClose}
       title="Change Status"
-      position="center"
+      position="top"
       maxWidth="md"
       className="change-status-modal"
       footer={

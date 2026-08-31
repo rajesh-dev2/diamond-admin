@@ -58,7 +58,7 @@ export function ExposureLimitModal({ isOpen, onClose, account, onSuccess }: Expo
       isOpen={isOpen}
       onClose={handleClose}
       title="Exposure Limit"
-      position="center"
+      position="top"
       maxWidth="md"
       className="exposure-limit-modal"
       footer={
