@@ -147,7 +147,8 @@ input:hover,
 }
 
 
-.page-content:has(.assign-agent-wrapper) {
+.page-content:has(.assign-agent-wrapper),
+.page-content:has(.user-register-page) {
   padding: 0;
   background-color: white;
   height: auto;

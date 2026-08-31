@@ -12,18 +12,18 @@ const USER_REGISTER_TYPE_OPTIONS: SelectOption[] = [
 ];
 
 const COLUMNS: ColumnDef<any>[] = [
-  { key: 'userName', header: 'User Name', width: '140px' },
-  { key: 'agentName', header: 'Agent Name', width: '140px' },
-  { key: 'mobile', header: 'Mobile', width: '120px' },
-  { key: 'createdDate', header: 'Created Date', width: '140px' },
-  { key: 'lastLogin', header: 'Last Login', width: '140px' },
-  { key: 'firstDepositDate', header: 'First Deposit Date', width: '150px' },
-  { key: 'lastDepositDate', header: 'Last Deposit Date', width: '150px' },
-  { key: 'deposit', header: 'Deposit', width: '120px', align: 'right' },
-  { key: 'sportsBalance', header: 'Sports Balance', width: '130px', align: 'right' },
-  { key: 'casinoBalance', header: 'Casino Balance', width: '130px', align: 'right' },
-  { key: 'thirdPartyCreditBalance', header: 'Third Party Credit Balance', width: '180px', align: 'right' },
-  { key: 'sportBookBalance', header: 'Sport Book Balance', width: '160px', align: 'right' },
+  { key: 'userName', header: 'User Name', width: '128px' },
+  { key: 'agentName', header: 'Agent Name', width: '130px' },
+  { key: 'mobile', header: 'Mobile', width: '95px' },
+  { key: 'createdDate', header: 'Created Date', width: '143px' },
+  { key: 'lastLogin', header: 'Last Login', width: '124px' },
+  { key: 'firstDepositDate', header: 'First Deposit Date', width: '181px' },
+  { key: 'lastDepositDate', header: 'Last Deposit Date', width: '180px' },
+  { key: 'deposit', header: 'Deposit', width: '100px', align: 'right' },
+  { key: 'sportsBalance', header: 'Sports Balance', width: '160px', align: 'right' },
+  { key: 'casinoBalance', header: 'Casino Balance', width: '162px', align: 'right' },
+  { key: 'thirdPartyCreditBalance', header: 'Third Party Credit Balance', width: '244px', align: 'right' },
+  { key: 'sportBookBalance', header: 'Sport Book Balance', width: '194px', align: 'right' },
 ];
 
 export default function UserRegisterDetailPage() {
@@ -63,7 +63,7 @@ export default function UserRegisterDetailPage() {
       </div>
 
       <div className="report-card p-[17px] pt-0">
-        <div className="user-register-filter-bar">
+        <div className="user-register-filter-bar mb-4">
           <form onSubmit={handleLoadData} className="ajaxFormSubmit">
             <div className="row row5 align-items-end">
               <div className="col-2">
@@ -126,6 +126,7 @@ export default function UserRegisterDetailPage() {
           onEntriesChange={setEntriesPerPage}
           searchTerm={tableSearch}
           onSearchChange={setTableSearch}
+          className='mb-0'
         />
 
         <DataTable
