@@ -10,7 +10,7 @@ export default function DashboardLayout({
   children?: React.ReactNode;
 }) {
   return (
-    <div className="h-screen flex flex-col bg-white overflow-hidden">
+    <div className="h-screen min-w-[1280px] w-full flex flex-col bg-white overflow-hidden">
       {/* Gold Header */}
       <Header />
       <HeaderSummaryBar />

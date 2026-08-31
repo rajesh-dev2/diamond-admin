@@ -4,7 +4,7 @@
 
   /* Layout Containers */
   .detail-page-container {
-    @apply w-full bg-[#FFFFFF] flex flex-col lg:flex-row gap-3 font-sans select-none;
+    @apply w-full bg-[#FFFFFF] flex flex-row gap-3 font-sans select-none;
   }
 
   .center-main-container {
@@ -38,11 +38,11 @@
   }
 
   .market-6 {
-    @apply w-full lg:w-[calc(50%-0.25rem)];
+    @apply w-[calc(50%-0.25rem)];
   }
 
   .market-10 {
-    @apply w-full lg:w-[calc(50%-0.25rem)];
+    @apply w-[calc(50%-0.25rem)];
   }
 
   .mt-0 {

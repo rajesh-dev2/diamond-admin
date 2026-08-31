@@ -51,12 +51,12 @@
 html,
 body {
   min-height: 100%;
+  min-width: 1280px;
   background-color: var(--light-bg);
   color: #1e1e1e;
   font-family: "Roboto Condensed", sans-serif;
   font-size: 14px;
   line-height: 15px;
-  overflow-x: hidden;
 }
 
 /* Define Tailwind v4 Custom Utility */
